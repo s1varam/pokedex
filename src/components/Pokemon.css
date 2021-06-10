@@ -1,0 +1,42 @@
+.thumbnail__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 0 ;
+    margin: 0.3rem;
+    border: 10px solid hsl(228, 12%, 20%);
+    border-radius: 1.2rem;
+    min-width: 200px;
+    height: 250px;
+    text-align: center;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.089);
+  }
+  
+  .info__icon{
+    display: flex;
+    width: 100%;
+    flex-direction: row-reverse;
+    align-items: flex-end;
+    justify-content: end;
+    margin-right: 20px;    
+    margin-top: 0px;
+  }
+
+  h3 {
+    margin-bottom: 0.2rem;
+  }
+  .thumbnail__container .poke__number {
+    border-radius: 1rem;
+    padding: 0.2rem 0.4rem;
+    font-weight: 700;
+    font-size: 18px;
+    background-color: rgba(255,255,255,0.3);
+  }
+  .thumbnail__container img {
+    width: 120px;
+    height: 120px;
+  }
+  .thumbnail__container small {
+    text-transform: capitalize;
+  }

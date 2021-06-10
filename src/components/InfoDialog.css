@@ -1,0 +1,26 @@
+.info__container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.info__container__data{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.info__container__img > img{
+    min-width: 200px;
+    height: 250px;
+    padding: 1.5rem 0 ;
+    margin: 0.3rem;
+    border: 10px solid hsl(228, 12%, 20%);
+    border-radius: 1.2rem;
+}
+
+.info__container__data__header{
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+}
