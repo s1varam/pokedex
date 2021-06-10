@@ -18,6 +18,7 @@ function App() {
   const [weight, setWeight] = useState("");
   const [category, setCategory] = useState();
   const [stats, setStats] = useState([]);
+  const [imageURL, setimageURL] = useState("");
   const [showInfo, setshowInfo] = useState(false);
 
   const getAllPokemons = async () => {
@@ -47,12 +48,13 @@ function App() {
   }
 
 
-  const fetchPokemonData = async(pokemon, category) => {
+  const fetchPokemonData = async(pokemon, category, imageURL) => {
 
 
     debugger
     // setAbilities([]);
     abilities.length = 0;
+    stats.length = 0;
     // setCategory();
 
     // useEffect(() => {
@@ -66,15 +68,24 @@ function App() {
       abilities.push(data.abilities[i].ability.name);
     }
 
+    for(var i=0; i<data.stats.length;i++){
+      var Obj = {};
+      Obj['stat__name'] = data.stats[i].stat.name;
+      Obj['stat__val'] = data.stats[i].base_stat;
+      stats.push(Obj);
+    }
+
 
 
     setWeight(data.weight);
     setHeight(data.height);
     setCategory(category);
     setAbilities(abilities);
+    setimageURL(imageURL);
 
-    await console.log(data);
-    await console.log(abilities);
+    console.log(data);
+    console.log(abilities);
+    console.log(stats);
 
     setshowInfo(true);
   }
@@ -88,7 +99,7 @@ function App() {
 
   return (
     <div className="app__container">
-      {showInfo && <InfoDialog open={showInfo} abilities={abilities} height={height} weight={weight} category={category} cancel={()=>closeDialog()}></InfoDialog>}
+      {showInfo && <InfoDialog open={showInfo} abilities={abilities} height={height} weight={weight} category={category} stats={stats} img={imageURL} cancel={()=>closeDialog()}></InfoDialog>}
       <img src={PokeLogo} alt="pokelogo" className="poke__logo" />
       <div className="pokemon__container">
         <div className="all__pokemons">
@@ -99,7 +110,7 @@ function App() {
             name={pokemon.name}
             type={pokemon.types}
             key={index}
-            onElemClick={()=>fetchPokemonData(pokemon.name, pokemon.types)}
+            onElemClick={()=>fetchPokemonData(pokemon.name, pokemon.types, pokemon.sprites.other.dream_world.front_default)}
             />
             )}
         </div>

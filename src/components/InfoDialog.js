@@ -66,6 +66,7 @@ export default function InfoDialog(props) {
     let closeImg = { cursor: 'pointer', float: 'right', marginTop: '5px', width: '20px' };
 
     return (
+        <>
         <StylesProvider injectFirst>
             <div>
 
@@ -76,33 +77,38 @@ export default function InfoDialog(props) {
                     {/* <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' onClick={props.cancel} style={closeImg} /> */}
                     <div className="info__container">
                         <div className="info__container__img">
-                            <img src={infoImg} />
+                            <img src={props.img} />
                         </div>
                         <div className="info__container__data">
                             <div className="info__container__data__header">
-                                <p>Type : </p>
+                                <div className="info__container__data__type">
+                                <p className="info__container__headings">Type</p>
                                 {props.category.map((category) =>
-                                    <p>{category.type.name}</p>
+                                    <Button className={`${category.type.name}`}>{category.type.name}</Button>
                                 )}
+                                </div>
                                 <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' onClick={props.cancel} style={closeImg} />
                             </div>
-                            <div className="info__container__data__dimensions">
-                                <p>{`Height : ${props.height/10} m`}</p>
-                                <p>{`Weight : ${props.weight/10} kg`}</p>
+                            <div className="info__container__data__dimensions ">
+                                <p><span className="info__container__headings">Height</span> {`${props.height/10} m`} <span className="info__container__headings">Weight</span>{` ${props.weight/10} kg`}</p>
                             </div>
                             <div className="info__container__data__abilities">
-                                <p>Abilities</p>
+                                <p className="info__container__headings">Abilities</p>
                                 {props.abilities.map((ability) =>
-                                    <p>{ability}</p>
+                                    <Button>{ability}&nbsp;&nbsp;</Button>
                                 )}
                             </div>
                             <div className="info__container__data__data">
-                                Stats
+                                <p className="info__container__headings">Stats</p>
+                                {props.stats.map((stat) =>
+                                    <p>{stat['stat__name']} {stat['stat__val']}</p>                                    
+                                )}
                             </div>
                         </div>
                     </div>
                 </Dialog>
             </div>
         </StylesProvider>
+        </>
     );
 }
