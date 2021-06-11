@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Pokemon from "./components/Pokemon";
 import PokeLogo from "../src/assets/images/poke_logo.png";
+import GottaCatch from '../src/assets/images/gottacatch.png'
+import PokeBall from "../src/assets/images/Pokeball.png"
 import InfoDialog from "./components/InfoDialog";
 import axios from 'axios';
 
@@ -13,6 +15,7 @@ function App() {
   }, [])
 
   const [allPokemons, setAllPokemons] = useState([]);
+  const [searchPokemons, setSearchPokemons] = useState([]);
   const [loadMore, setLoadMore] = useState("https://pokeapi.co/api/v2/pokemon?limit=20");
   const [abilities, setAbilities] = useState([]);
   const [height, setHeight] = useState("");
@@ -22,6 +25,8 @@ function App() {
   const [imageURL, setimageURL] = useState("");
   const [pokeName, setPokeName] = useState("");
   const [showInfo, setshowInfo] = useState(false);
+  const [search, setSearch] = useState(false);
+  const [searchString, setSearchString] = useState("");
 
   const getAllPokemons = async () => {
 
@@ -107,15 +112,61 @@ function App() {
     console.log("closeeeeeee")
   }
 
+  const updateInputValue = (evt) => {
+    debugger
+    console.log("search")
+    console.log(evt.target.value)
+    setSearchString(evt.target.value);
+  }
+
+  const filterPokemons = () => {
+    
+    debugger
+    setSearch(true);
+
+    var searchList= [];
+    for(var i=0;i<allPokemons.length;i++){
+        if(allPokemons[i].name.includes(searchString)){
+          searchList.push(allPokemons[i]);
+        }
+    } 
+
+    setSearchPokemons(searchList);
+    console.log("search");
+    console.log(searchList);
+
+  }
+
+  const clearSearch = () => {
+    setSearch(false);
+  }
+
 
   return (
     <div className="app__container">
       {showInfo && <InfoDialog open={showInfo} abilities={abilities} height={height} weight={weight} category={category} stats={stats} img={imageURL} name={pokeName} cancel={() => closeDialog()}></InfoDialog>}
-      <img src={PokeLogo} alt="pokelogo" className="poke__logo" />
+      <div className="app__header">
+        <div className="poke__logos">
+          <img src={PokeLogo} alt="pokelogo" className="poke__logo" />
+          <img src={GottaCatch} className="gotta__logo" alt="gottacatch" />
+        </div>
+        <div>
+          <div>
+            <input type="text" onInput={e => setSearchString(e.target.value)}></input>
+          </div>
+          <div>
+            <button type="button" onClick={() => filterPokemons()}>Search</button>
+            <button type="button" onClick={() => clearSearch()} onChange={evt => updateInputValue(evt)}>Clear</button>
+          </div>
+        </div>
+        <div className="pokeball__box">
+          <img src={PokeBall} className="pokeball" alt="pokeball" />
+        </div>
+      </div>
       <div className="pokemon__container">
         <div className="all__pokemons">
 
-          {Object.keys(allPokemons).map((item, index) =>
+          {!search ? Object.keys(allPokemons).map((item, index) =>
             <Pokemon
               key={index}
               id={allPokemons[item].id}
@@ -124,7 +175,18 @@ function App() {
               type={allPokemons[item].types}
               onElemClick={() => fetchPokemonData(allPokemons[item].name, allPokemons[item].types, allPokemons[item].sprites.other.dream_world.front_default)}
             />
-          )}
+          ) : Object.keys(searchPokemons).map((item, index) =>
+          <Pokemon
+            key={index}
+            id={searchPokemons[item].id}
+            image={searchPokemons[item].sprites.other.dream_world.front_default}
+            name={searchPokemons[item].name}
+            type={searchPokemons[item].types}
+            onElemClick={() => fetchPokemonData(searchPokemons[item].name, searchPokemons[item].types, searchPokemons[item].sprites.other.dream_world.front_default)}
+          />
+        )
+        
+        }
         </div>
         <button className="load__more" onClick={() => getAllPokemons()}>Load More</button>
       </div>

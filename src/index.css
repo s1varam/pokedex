@@ -46,7 +46,7 @@ code {
 
 .poke__logo{
   margin-top: 10px;
-  margin-bottom: 20px;
+  width: 65%;
 }
 
 .app__container {
@@ -98,4 +98,32 @@ code {
 }
 .poke__name > h3{
   text-transform: capitalize;
+}
+
+.app__header{
+  display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    width: -webkit-fill-available;
+}
+
+.gotta__logo{
+  width: 160px;
+  margin-left: 16px;
+}
+
+.pokeball{
+  width: 30%;
+}
+
+.pokeball__box{
+  display: flex;
+  justify-content: center;
+}
+
+.poke__logos{
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
 }
