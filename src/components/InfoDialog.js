@@ -201,7 +201,7 @@ export default function InfoDialog(props) {
                     {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Open dialog
       </Button> */}
-                    <Dialog aria-labelledby="customized-dialog-title" open={props.open} fullWidth maxWidth="md" className="dialog__bg">
+                    <Dialog aria-labelledby="customized-dialog-title" open={props.open} onBackdropClick={props.cancel} fullWidth maxWidth="md" className="dialog__bg">
                         {/* <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' onClick={props.cancel} style={closeImg} /> */}
                         <DialogContent style={{ background: `linear-gradient(${color1}, ${color2})` }} className="dialog__content">
                             <div className="info__container">
@@ -221,13 +221,13 @@ export default function InfoDialog(props) {
                                         )}
                                     </div>
                                     <div>
-                                        <p><span className="info__container__headings">Height</span> {`${props.height / 10} m`} </p>
-                                        <p><span className="info__container__headings">Weight</span>{` ${props.weight / 10} kg`}</p>
+                                        <p className="dimensions"><span className="info__container__headings">Height</span> {`${props.height / 10} m`} </p>
+                                        <p className="dimensions"><span className="info__container__headings">Weight</span>{` ${props.weight / 10} kg`}</p>
                                     </div>
                                 </div>
 
                                 <div className="info__container__data">
-                                    <div><img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' className="close__btn" onClick={props.cancel} style={closeImg} /></div>
+                                    {/* <div><img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' className="close__btn" onClick={props.cancel} style={closeImg} /></div> */}
                                     <div className="right__box">
                                         <div className="info__container__data__header">
                                             <div className="info__container__data__abilities">
@@ -247,7 +247,7 @@ export default function InfoDialog(props) {
                                             {props.stats.map((stat) =>
                                                 <div className="info__container__stat__columns">
                                                     <div className="info__container__stat__columns__name">{stat['stat__name']}</div>
-                                                    <div>{stat['stat__val']}</div>
+                                                    <div className="info__container__stat__columns__val">{stat['stat__val']}</div>
                                                 </div>
                                             )}
                                             </div>
