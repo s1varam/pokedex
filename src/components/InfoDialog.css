@@ -13,6 +13,7 @@
 
 .info__container__img{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-left: 40px;
@@ -25,6 +26,11 @@
     margin: 0.3rem;
     border: 10px solid hsl(228, 12%, 20%);
     border-radius: 1.2rem;
+}
+
+.info__container__img > div{
+    font-family: 'Permanent Marker', cursive;
+    font-size: 35px;
 }
 
 .info__container__data__header{

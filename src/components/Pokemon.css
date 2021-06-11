@@ -1,37 +1,64 @@
+:root {
+  --grass: #5FBD58;
+  --bug: #92BC2C;
+  --dark: #595761;
+  --dragon: #0C69C8;
+  --electric: #F2D94E;
+  --fairy: #EE90E6;
+  --fighting: #D3425F;
+  --fire: #FBA54C;
+  --flying: #A1BBEC;
+  --ghost: #5F6DBC;
+  --ground: #DA7C4D;
+  --ice: #75D0C1;
+  --normal: #A0A29F;
+  --poison: #B763CF;
+  --psychic: #FA8581;
+  --rock: #C9BB8A;
+  --steel: #5695A3;
+  --water: #539DDF;
+
+}
+
 .thumbnail__container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     padding: 1.5rem 0 ;
-    margin: 0.3rem;
-    border: 10px solid hsl(228, 12%, 20%);
-    border-radius: 1.2rem;
-    min-width: 200px;
-    height: 250px;
+    margin: 2rem;
+    border: 15px solid #fff;
+    border-radius: 1rem;
+    min-width: 220px;
+    height: 280px;
     text-align: center;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.089);
+    box-shadow: 0 5px 25px 1px rgb(0 0 0 / 50%);
   }
   
   .info__icon{
-    display: flex;
-    width: 100%;
-    flex-direction: row-reverse;
-    align-items: flex-end;
-    justify-content: end;
-    margin-right: 20px;    
-    margin-top: 0px;
+    margin-right: 15px;
+    margin-top: -4px;
+    font-size: 25px;
+    color: white;
+    opacity: 0.4;
+  }
+
+  .info__icon:hover{
+    opacity: 1;
   }
 
   h3 {
+    font-family: 'Press Start 2P', cursive;
     margin-bottom: 0.2rem;
   }
+
   .thumbnail__container .poke__number {
     border-radius: 1rem;
     padding: 0.2rem 0.4rem;
-    font-weight: 700;
-    font-size: 18px;
-    background-color: rgba(255,255,255,0.3);
+    font-weight: 400;
+    font-size: 35px;
+    color: #364646;
+    font-family: 'Teko', sans-serif;
   }
   .thumbnail__container img {
     width: 120px;
@@ -40,3 +67,129 @@
   .thumbnail__container small {
     text-transform: capitalize;
   }
+
+  .card__header{
+    width: -webkit-fill-available;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .poke__type{
+    display: flex;
+    grid-gap: 0 10px;
+    gap: 0 20px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  .poke__type__bg > img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .poke__type__bg{
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
+
+  .grass{
+    background: var(--grass);
+    box-shadow: 0 0 20px var(--grass);
+  }
+
+  .bug{
+    background: var(--bug);
+    box-shadow: 0 0 20px var(--bug);
+  }
+
+  .dark{
+    background: var(--dark);
+    box-shadow: 0 0 20px var(--dark);
+  }
+
+  .dragon{
+    background: var(--dragon);
+    box-shadow: 0 0 20px var(--dragon);
+  }
+
+  .electric{
+    background: var(--electric);
+    box-shadow: 0 0 20px var(--electric);
+  }
+
+  .fairy{
+    background: var(--fairy);
+    box-shadow: 0 0 20px var(--fairy);
+  }
+
+  .fighting{
+    background: var(--fighting);
+    box-shadow: 0 0 20px var(--fighting);
+  }
+
+  .flying{
+    background: var(--flying);
+    box-shadow: 0 0 20px var(--flying);
+  }
+
+  .ghost{
+    background: var(--ghost);
+    box-shadow: 0 0 20px var(--ghost);
+  }
+
+  .ground{
+    background: var(--ground);
+    box-shadow: 0 0 20px var(--ground);
+  }
+
+  .ice{
+    background: var(--ice);
+    box-shadow: 0 0 20px var(--ice);
+  }
+
+  .normal{
+    background: var(--normal);
+    box-shadow: 0 0 20px var(--normal);
+  }
+
+  .poison{
+    background: var(--poison);
+    box-shadow: 0 0 20px var(--poison);
+  }
+
+  .psychic{
+    background: var(--psychic);
+    box-shadow: 0 0 20px var(--psychic);
+  }
+
+  .rock{
+    background: var(--rock);
+    box-shadow: 0 0 20px var(--rock);
+  }
+
+  .steel{
+    background: var(--steel);
+    box-shadow: 0 0 20px var(--steel);
+  }
+
+  .water{
+    background: var(--water);
+    box-shadow: 0 0 20px var(--water);
+  }
+
+  .fire{
+    background: var(--fire);
+    box-shadow: 0 0 20px var(--fire);
+  }
+
+.image__container{
+  height: 150px;
+  width: 150px;
+}

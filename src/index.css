@@ -1,5 +1,7 @@
 body {
   margin: 0;
+  background-image: url("../src/assets/images/bg.png");
+  background-repeat: repeat;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -11,7 +13,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.rock {
+/* .rock {
   background-color: rgb(148, 81, 81);
 }
 .ghost {
@@ -40,7 +42,7 @@ code {
 }
 .water {
   background-color:#E0F1FD;
-}
+} */
 
 .poke__logo{
   margin-top: 10px;
@@ -53,7 +55,6 @@ code {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: gainsboro;
   /* padding: 3rem 0.5rem; */
 }
 .pokemon__container {
@@ -94,4 +95,7 @@ code {
   padding: 0.5rem 1.5rem;
   min-width: 50%;
   margin-top: 1rem;
+}
+.poke__name > h3{
+  text-transform: capitalize;
 }

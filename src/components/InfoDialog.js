@@ -78,6 +78,7 @@ export default function InfoDialog(props) {
                     {/* <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' onClick={props.cancel} style={closeImg} /> */}
                     <div className="info__container">
                         <div className="info__container__img">
+                            <div>{props.name}</div>
                             <img src={props.img} />
                         </div>
                         <div className="info__container__data">
