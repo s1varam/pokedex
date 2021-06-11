@@ -1,100 +1,137 @@
-.info__container{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
+.info__container {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
 }
 
-.info__container__data{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-left: 40px;
+.info__container__data {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin-left: 40px;
 }
 
-.info__container__img{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-left: 40px;
+.info__container__img {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	margin-left: 10px;
 }
 
-.info__container__img > img{
-    width: 150px;
-    height: 188px;
-    padding: 1.5rem 1rem ;
-    margin: 0.3rem;
-    /* border: 10px solid hsl(228, 12%, 20%); */
-    border-radius: 1.2rem;
+.info__container__img img {
+	width: 180px;
+	height: 220px;
+	padding: 1.5rem 1rem;
+	margin: 0.3rem;
+	/* border: 10px solid hsl(228, 12%, 20%); */
+	border-radius: 1.2rem;
 }
 
-.info__container__img > div{
-    font-family: 'Press Start 2P', cursive;
-    font-size: 30px;
-    text-transform: capitalize;
+.info__container__img>div {
+	/* font-family: 'Press Start 2P', cursive; */
+	font-size: 25px;
+	text-transform: capitalize;
 }
 
-.info__container__data__header{
-    align-items: center;
-    justify-content: space-between;
-    display: flex;
-    font-family: 'Lato', sans-serif;
+.info__container__data__header {
+	align-items: center;
+	justify-content: space-between;
+	display: flex;
 }
 
-.info__container__data__type{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    font-family: 'Lato', sans-serif;
+.info__container__data__type {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
 }
 
-.info__container__headings{
-    font-family: 'Lato', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
+.info__container__data__type img {
+	height: 20px;
+	width: 20px;
 }
 
-.info__container__data__abilities{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+.info__container__headings {
+	font-family: 'VT323', monospace;
+	font-size: 27px;
+	font-weight: 600;
 }
 
-.info__container__data__data{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 0 15px;
-    align-items: center;
-    margin: 15px 0;
-    justify-content: space-between;
-    
+.info__container__data__abilities {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	gap: 15px;
 }
 
-.info__container__stat__columns{
-    width: 135px;
-    margin-right: 0px;
+.info__container__data__data {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 10px 15px;
+	align-items: center;
+	margin: 15px 0;
+	justify-content: space-between;
+}
+
+.info__container__stat__columns {
+	width: 135px;
+	margin-right: 0px;
 }
 
 .MuiDialog-paperFullWidth {
-    width: 55%;
-    border-radius: 1rem;
+	width: 55%;
+	border-radius: 1rem;
 	border: 15px solid #fff;
 	box-shadow: 0 10px 30px 4px rgb(0 0 0 / 50%);
 }
 
-.info__container__data__dimensions{
-    display: flex;
-    gap: 0 30px;
+.MuiBackdrop-root {
+	background-color: rgba(0, 0, 0, 0);
 }
 
-.info__container__stat__columns__name{
-    text-transform: uppercase;
+.info__container__data__dimensions {
+	display: flex;
+	gap: 0 30px;
 }
 
-.dialog__bg{
+.info__container__stat__columns__name {
+	text-transform: uppercase;
+	color: crimson;
+}
+
+.dialog__bg {
 	background-image: url("../assets/images/bg.png");
 	background-repeat: repeat;
+}
+
+.dialog__content {
+	font-family: 'VT323', monospace;
+	font-size: 21px;
+}
+
+.pokemon__name {
+	font-family: 'Press Start 2P', cursive;
+}
+
+.close__btn {
+	width: 30px !important;
 	
+}
+
+.stats{
+	margin-top: 20px;
+}
+
+.ability{
+	text-transform: capitalize;
+}
+
+.right__box{
+	display: flex;
+    flex-direction: column;
+    height: -webkit-fill-available;
+    justify-content: space-evenly;
 }

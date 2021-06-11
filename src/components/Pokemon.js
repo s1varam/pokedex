@@ -153,7 +153,7 @@ const Pokemon = ({ id, image, name, type, onElemClick }) => {
                         // </small>
                         // src= "../assets/images/icons/" + type+".png"
                         <div className={`poke__type__bg ${type.type.name}`}>
-                            <img src={`${type.type.name}.png`}></img>
+                            <img src={`${type.type.name}.png`} title={type.type.name}></img>
                         </div>
                     )}
                 </div>

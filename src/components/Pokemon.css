@@ -126,7 +126,7 @@
 
   .electric{
     background: var(--electric);
-    box-shadow: 0 0 20px var(--electric);
+    box-shadow: 0 0 20px #796d26;
   }
 
   .fairy{

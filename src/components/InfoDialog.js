@@ -203,48 +203,55 @@ export default function InfoDialog(props) {
       </Button> */}
                     <Dialog aria-labelledby="customized-dialog-title" open={props.open} fullWidth maxWidth="md" className="dialog__bg">
                         {/* <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' onClick={props.cancel} style={closeImg} /> */}
-                        <DialogContent style={{ background: `linear-gradient(${color1}, ${color2})` }}>
+                        <DialogContent style={{ background: `linear-gradient(${color1}, ${color2})` }} className="dialog__content">
                             <div className="info__container">
                                 <div className="info__container__img">
-                                    <div>{props.name}</div>
-                                    <img src={props.img} />
+                                    <div className="pokemon__name">
+                                        {props.name}
+                                    </div>
+                                    <div>
+                                        <img src={props.img} />
+                                    </div>
                                     <div className="info__container__data__type">
                                         {/* <p className="info__container__headings">Type</p> */}
                                         {props.category.map((category) =>
-                                        
-                                        <div className={`poke__type__bg ${category.type.name}`}>
-                                        <img src={`${category.type.name}.png`} title={category.type.name}></img>
-                                    </div>
+                                            <div className={`poke__type__bg ${category.type.name}`}>
+                                                <img src={`${category.type.name}.png`} title={category.type.name}></img>
+                                            </div>
                                         )}
-
                                     </div>
-                                    <p><span className="info__container__headings">Height</span> {`${props.height / 10} m`} </p>
-                                    <p><span className="info__container__headings">Weight</span>{` ${props.weight / 10} kg`}</p>
+                                    <div>
+                                        <p><span className="info__container__headings">Height</span> {`${props.height / 10} m`} </p>
+                                        <p><span className="info__container__headings">Weight</span>{` ${props.weight / 10} kg`}</p>
+                                    </div>
                                 </div>
 
                                 <div className="info__container__data">
-                                    <div className="info__container__data__header">
-
-                                        <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' onClick={props.cancel} style={closeImg} />
-                                    </div>
-                                    <div className="info__container__data__dimensions ">
-
-                                    </div>
-                                    <div className="info__container__data__abilities">
-                                        <p className="info__container__headings">Abilities</p>
-                                        {props.abilities.map((ability) =>
-                                            <Button>{ability}&nbsp;&nbsp;</Button>
-                                        )}
-                                    </div>
-                                    <div className="info__container__headings">Stats</div>
-                                    <div className="info__container__data__data">
-
-                                        {props.stats.map((stat) =>
-                                            <div className="info__container__stat__columns">
-                                                <div className="info__container__stat__columns__name">{stat['stat__name']}</div>
-                                                <div><h4>{stat['stat__val']}</h4></div>
+                                    <div><img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' className="close__btn" onClick={props.cancel} style={closeImg} /></div>
+                                    <div className="right__box">
+                                        <div className="info__container__data__header">
+                                            <div className="info__container__data__abilities">
+                                                <div className="info__container__headings">Abilities</div>
+                                                <div>
+                                                    {props.abilities.map((ability) =>
+                                                        <div className="ability">{ability}&nbsp;</div>
+                                                    )}
+                                                </div>
                                             </div>
-                                        )}
+                                        </div>
+
+                                        
+                                        <div>
+                                            <div className="info__container__headings stats">Stats</div>
+                                            <div className="info__container__data__data">
+                                            {props.stats.map((stat) =>
+                                                <div className="info__container__stat__columns">
+                                                    <div className="info__container__stat__columns__name">{stat['stat__name']}</div>
+                                                    <div>{stat['stat__val']}</div>
+                                                </div>
+                                            )}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
