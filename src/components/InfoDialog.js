@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { StylesProvider } from "@material-ui/core/styles";
 import infoImg from "../assets/images/cardimg.svg"
 import './InfoDialog.css';
+import Progress from 'react-circle-progress-bar'
 
 const styles = (theme) => ({
     root: {
@@ -90,7 +91,8 @@ export default function InfoDialog(props) {
                                 <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' onClick={props.cancel} style={closeImg} />
                             </div>
                             <div className="info__container__data__dimensions ">
-                                <p><span className="info__container__headings">Height</span> {`${props.height/10} m`} <span className="info__container__headings">Weight</span>{` ${props.weight/10} kg`}</p>
+                                <p><span className="info__container__headings">Height</span> {`${props.height/10} m`} </p>
+                                <p><span className="info__container__headings">Weight</span>{` ${props.weight/10} kg`}</p>
                             </div>
                             <div className="info__container__data__abilities">
                                 <p className="info__container__headings">Abilities</p>
@@ -98,10 +100,14 @@ export default function InfoDialog(props) {
                                     <Button>{ability}&nbsp;&nbsp;</Button>
                                 )}
                             </div>
+                            <div className="info__container__headings">Stats</div>
                             <div className="info__container__data__data">
-                                <p className="info__container__headings">Stats</p>
+                                
                                 {props.stats.map((stat) =>
-                                    <p>{stat['stat__name']} {stat['stat__val']}</p>                                    
+                                    <div className="info__container__stat__columns">
+                                        <div className="info__container__stat__columns__name">{stat['stat__name']}</div>
+                                        <div><h4>{stat['stat__val']}</h4></div>  
+                                    </div>                                                     
                                 )}
                             </div>
                         </div>

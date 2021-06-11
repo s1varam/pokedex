@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Pokemon from "./components/Pokemon";
 import PokeLogo from "../src/assets/images/poke_logo.png";
 import InfoDialog from "./components/InfoDialog";
+import axios from 'axios';
 
 import React from 'react'
 
@@ -24,11 +25,16 @@ function App() {
   const getAllPokemons = async () => {
 
     debugger
-    const response = await fetch(loadMore);
-    const data = await response.json();
-    setLoadMore(data.next);
-    getPokemonData(data.results);
-    console.log(data)
+
+    var data;
+    const response = axios.get(loadMore)
+      .then((response => {
+        data = response.data;
+        setLoadMore(response.data.next);
+
+        getPokemonData(response.data.results);
+        console.log(response.data.results);
+      }));
   }
 
   const getPokemonData = async (result) => {
@@ -40,15 +46,20 @@ function App() {
       const data = await response.json();
 
       setAllPokemons(pokemonList => [...pokemonList, data]);
-      allPokemons.push(data)
+      allPokemons.sort(function (a, b) {
+        return a.id - b.id;
+      });
+
+      // allPokemons.push(data)     
 
     });
 
-    console.log(allPokemons);  
+    console.log("allPokemons");
+    console.log(allPokemons);
   }
 
 
-  const fetchPokemonData = async(pokemon, category, imageURL) => {
+  const fetchPokemonData = async (pokemon, category, imageURL) => {
 
 
     debugger
@@ -63,19 +74,17 @@ function App() {
 
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
     const data = await response.json();
-    
-    for(var i=0; i< data.abilities.length; i++){
+
+    for (var i = 0; i < data.abilities.length; i++) {
       abilities.push(data.abilities[i].ability.name);
     }
 
-    for(var i=0; i<data.stats.length;i++){
+    for (var i = 0; i < data.stats.length; i++) {
       var Obj = {};
       Obj['stat__name'] = data.stats[i].stat.name;
       Obj['stat__val'] = data.stats[i].base_stat;
       stats.push(Obj);
     }
-
-
 
     setWeight(data.weight);
     setHeight(data.height);
@@ -99,22 +108,23 @@ function App() {
 
   return (
     <div className="app__container">
-      {showInfo && <InfoDialog open={showInfo} abilities={abilities} height={height} weight={weight} category={category} stats={stats} img={imageURL} cancel={()=>closeDialog()}></InfoDialog>}
+      {showInfo && <InfoDialog open={showInfo} abilities={abilities} height={height} weight={weight} category={category} stats={stats} img={imageURL} cancel={() => closeDialog()}></InfoDialog>}
       <img src={PokeLogo} alt="pokelogo" className="poke__logo" />
       <div className="pokemon__container">
         <div className="all__pokemons">
-          {allPokemons.map((pokemon,index)=>
+
+          {Object.keys(allPokemons).map((item, index) =>
             <Pokemon
-            id={pokemon.id}
-            image={pokemon.sprites.other.dream_world.front_default}
-            name={pokemon.name}
-            type={pokemon.types}
-            key={index}
-            onElemClick={()=>fetchPokemonData(pokemon.name, pokemon.types, pokemon.sprites.other.dream_world.front_default)}
+              key={index}
+              id={allPokemons[item].id}
+              image={allPokemons[item].sprites.other.dream_world.front_default}
+              name={allPokemons[item].name}
+              type={allPokemons[item].types}
+              onElemClick={() => fetchPokemonData(allPokemons[item].name, allPokemons[item].types, allPokemons[item].sprites.other.dream_world.front_default)}
             />
-            )}
+          )}
         </div>
-        <button className="load__more" onClick={()=>getAllPokemons()}>Load More</button>
+        <button className="load__more" onClick={() => getAllPokemons()}>Load More</button>
       </div>
     </div>
   );

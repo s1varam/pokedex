@@ -8,8 +8,11 @@
     "@testing-library/jest-dom": "^5.13.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.21.1",
     "react": "^17.0.2",
+    "react-circle-progress-bar": "^0.1.4",
     "react-dom": "^17.0.2",
+    "react-native-progress-circle": "^2.1.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
   },
@@ -36,5 +39,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-syntax-jsx": "^7.14.5"
   }
 }

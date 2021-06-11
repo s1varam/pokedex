@@ -44,7 +44,7 @@
 
 .info__container__headings{
     font-family: 'Lato', sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
 }
 
@@ -52,4 +52,33 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+}
+
+.info__container__data__data{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0 15px;
+    align-items: center;
+    margin: 15px 0;
+    justify-content: space-between;
+    
+}
+
+.info__container__stat__columns{
+    width: 135px;
+    margin-right: 0px;
+}
+
+.MuiDialog-paperFullWidth {
+    width: 55%;
+}
+
+.info__container__data__dimensions{
+    display: flex;
+    gap: 0 30px;
+}
+
+.info__container__stat__columns__name{
+    text-transform: uppercase;
 }
