@@ -24,13 +24,14 @@
     height: 188px;
     padding: 1.5rem 1rem ;
     margin: 0.3rem;
-    border: 10px solid hsl(228, 12%, 20%);
+    /* border: 10px solid hsl(228, 12%, 20%); */
     border-radius: 1.2rem;
 }
 
 .info__container__img > div{
-    font-family: 'Permanent Marker', cursive;
-    font-size: 35px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 30px;
+    text-transform: capitalize;
 }
 
 .info__container__data__header{
@@ -78,6 +79,9 @@
 
 .MuiDialog-paperFullWidth {
     width: 55%;
+    border-radius: 1rem;
+	border: 15px solid #fff;
+	box-shadow: 0 10px 30px 4px rgb(0 0 0 / 50%);
 }
 
 .info__container__data__dimensions{
@@ -87,4 +91,10 @@
 
 .info__container__stat__columns__name{
     text-transform: uppercase;
+}
+
+.dialog__bg{
+	background-image: url("../assets/images/bg.png");
+	background-repeat: repeat;
+	
 }

@@ -33,6 +33,11 @@
     height: 280px;
     text-align: center;
     box-shadow: 0 5px 25px 1px rgb(0 0 0 / 50%);
+    transition: all 0.2s ease-in-out;
+  }
+
+  .thumbnail__container:hover{
+    transform: scale(1.1);
   }
   
   .info__icon{
