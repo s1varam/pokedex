@@ -114,12 +114,13 @@ code {
 }
 
 .pokeball{
-  width: 30%;
+  width: 20%;
 }
 
 .pokeball__box{
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  margin-right: 20px;
 }
 
 .poke__logos{
