@@ -229,6 +229,9 @@ export default function InfoDialog(props) {
                                 <div className="info__container__data">
                                     {/* <div><img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' className="close__btn" onClick={props.cancel} style={closeImg} /></div> */}
                                     <div className="right__box">
+                                        <div>
+                                            {props.description}
+                                        </div>
                                         <div className="info__container__data__header">
                                             <div className="info__container__data__abilities">
                                                 <div className="info__container__headings">Abilities</div>

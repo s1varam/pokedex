@@ -1,322 +1,197 @@
-import { useEffect, useState } from "react";
+import React from 'react';
+// import CryptoJS from '../libs/aes';
+
 import Pokemon from "./components/Pokemon";
 import PokeLogo from "../src/assets/images/poke_logo.png";
 import GottaCatch from '../src/assets/images/gottacatch.png'
 import PokeBall from "../src/assets/images/Pokeball.png"
 import InfoDialog from "./components/InfoDialog";
 import axios from 'axios';
+import { Sync } from '@material-ui/icons';
 
-import React from 'react'
-
-function App() {
-
-  useEffect(() => {
-    getAllPokemons()
-  }, [])
-
-  const [allPokemons, setAllPokemons] = useState([]);
-  const [searchPokemons, setSearchPokemons] = useState([]);
-  const [loadMore, setLoadMore] = useState("https://pokeapi.co/api/v2/pokemon?limit=20");
-  const [abilities, setAbilities] = useState([]);
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
-  const [category, setCategory] = useState();
-  const [stats, setStats] = useState([]);
-  const [imageURL, setimageURL] = useState("");
-  const [pokeName, setPokeName] = useState("");
-  const [showInfo, setshowInfo] = useState(false);
-  const [search, setSearch] = useState(false);
-  const [searchString, setSearchString] = useState("");
-
-  const getAllPokemons = async () => {
-
-    debugger
-
-    var data;
-    const response = axios.get(loadMore)
-      .then((response => {
-        data = response.data;
-        setLoadMore(response.data.next);
-
-        getPokemonData(response.data.results);
-        console.log(response.data.results);
-      }));
-  }
-
-  const getPokemonData = async (result) => {
-
-    debugger
-
-    result.forEach(async (pokemon) => {
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`);
-      const data = await response.json();
-
-      setAllPokemons(pokemonList => [...pokemonList, data]);
-      allPokemons.sort(function (a, b) {
-        return a.id - b.id;
-      });
-
-      // allPokemons.push(data)     
-
-    });
-
-    console.log("allPokemons");
-    console.log(allPokemons);
-  }
+// import BackDropLoader from './loader/backdrop';
+// import {Alert,AlertTitle} from '@material-ui/lab';
 
 
-  const fetchPokemonData = async (pokemon, category, imageURL) => {
+class App extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            allPokemons: [],
+            searchPokemons: [],
+            loadMore: "https://pokeapi.co/api/v2/pokemon?limit=100",
+            abilities: "",
+            height: "",
+            weight: "",
+            catergory: "",
+            stats: [],
+            imageURL: "",
+            pokeName: "",
+            showInfo: false,
+            search: false,
+            searchString: "",
+            description: "",
 
-    debugger
-    // setAbilities([]);
-    abilities.length = 0;
-    stats.length = 0;
-    // setCategory();
-
-    // useEffect(() => {
-    //   setCategory()
-    // }, []);
-
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
-    const data = await response.json();
-
-    for (var i = 0; i < data.abilities.length; i++) {
-      abilities.push(data.abilities[i].ability.name);
-    }
-
-    for (var i = 0; i < data.stats.length; i++) {
-      var Obj = {};
-      Obj['stat__name'] = data.stats[i].stat.name;
-      Obj['stat__val'] = data.stats[i].base_stat;
-      stats.push(Obj);
-    }
-
-    setWeight(data.weight);
-    setHeight(data.height);
-    setCategory(category);
-    setAbilities(abilities);
-    setimageURL(imageURL);
-    setPokeName(pokemon);
-
-    console.log(data);
-    console.log(abilities);
-    console.log(stats);
-
-    setshowInfo(true);
-  }
-
-  const closeDialog = () => {
-    setshowInfo(false);
-    debugger
-    console.log("closeeeeeee")
-  }
-
-  const updateInputValue = (evt) => {
-    debugger
-    console.log("search")
-    console.log(evt.target.value)
-    setSearchString(evt.target.value);
-  }
-
-  const filterPokemons = () => {
-    
-    debugger
-    setSearch(true);
-
-    var searchList= [];
-    for(var i=0;i<allPokemons.length;i++){
-        if(allPokemons[i].name.includes(searchString)){
-          searchList.push(allPokemons[i]);
         }
-    } 
+    }
 
-    setSearchPokemons(searchList);
-    console.log("search");
-    console.log(searchList);
-
-  }
-
-  const clearSearch = () => {
-    setSearch(false);
-  }
+    componentWillMount() {
+        this.getAllPokemons();
+    }
 
 
-  return (
-    <div className="app__container">
-      {showInfo && <InfoDialog open={showInfo} abilities={abilities} height={height} weight={weight} category={category} stats={stats} img={imageURL} name={pokeName} cancel={() => closeDialog()}></InfoDialog>}
-      <div className="app__header">
-        <div className="poke__logos">
-          <img src={PokeLogo} alt="pokelogo" className="poke__logo" />
-          <img src={GottaCatch} className="gotta__logo" alt="gottacatch" />
-        </div>
-        <div>
-          <div>
-            <input type="text" onInput={e => setSearchString(e.target.value)}></input>
-          </div>
-          <div>
-            <button type="button" onClick={() => filterPokemons()}>Search</button>
-            <button type="button" onClick={() => clearSearch()} onChange={evt => updateInputValue(evt)}>Clear</button>
-          </div>
-        </div>
-        <div className="pokeball__box">
-          <img src={PokeBall} className="pokeball" alt="pokeball" />
-        </div>
-      </div>
-      <div className="pokemon__container">
-        <div className="all__pokemons">
 
-          {!search ? Object.keys(allPokemons).map((item, index) =>
-            <Pokemon
-              key={index}
-              id={allPokemons[item].id}
-              image={allPokemons[item].sprites.other.dream_world.front_default}
-              name={allPokemons[item].name}
-              type={allPokemons[item].types}
-              onElemClick={() => fetchPokemonData(allPokemons[item].name, allPokemons[item].types, allPokemons[item].sprites.other.dream_world.front_default)}
-            />
-          ) : Object.keys(searchPokemons).map((item, index) =>
-          <Pokemon
-            key={index}
-            id={searchPokemons[item].id}
-            image={searchPokemons[item].sprites.other.dream_world.front_default}
-            name={searchPokemons[item].name}
-            type={searchPokemons[item].types}
-            onElemClick={() => fetchPokemonData(searchPokemons[item].name, searchPokemons[item].types, searchPokemons[item].sprites.other.dream_world.front_default)}
-          />
+    getAllPokemons = async () => {
+        debugger
+
+        const response = await axios.get(this.state.loadMore).catch((err) => console.log("Error:", err));
+
+        this.setState({
+            loadMore: response.data.next,
+        })
+
+        this.getPokemonData(response.data.results);
+
+    }
+
+    getPokemonData = async (result) => {
+
+        var response;
+        for (var i = 0; i < result.length; i++) {
+            response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${result[i].name}`).catch((err) => console.log("Error:", err));
+            this.state.allPokemons.push(response.data)
+        }
+
+        this.setState({
+            allPokemons: this.state.allPokemons,
+        })
+
+        console.log(this.state.allPokemons);
+
+    }
+
+    fetchPokemonData = async (pokemon, category, imageURL) => {
+
+        this.setState({
+            abilities: [],
+            stats: []
+        })
+
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`).catch((err) => console.log("Error:", err));
+        console.log(response);
+
+        for (var i = 0; i < response.data.abilities.length; i++) {
+            this.state.abilities.push(response.data.abilities[i].ability.name);
+        }
+
+        for (var j = 0; j < response.data.stats.length; j++) {
+            var Obj = {};
+            Obj['stat__name'] = response.data.stats[j].stat.name;
+            Obj['stat__val'] = response.data.stats[j].base_stat;
+            this.state.stats.push(Obj);
+        }
+
+        this.setState({
+            weight: response.data.weight,
+            height: response.data.height,
+            category: category,
+            abilities: this.state.abilities,
+            imageURL: imageURL,
+            pokeName: pokemon,
+            showInfo: true,
+        })
+
+        console.log("stats");
+        console.log(this.state.stats);
+
+        this.fetchPokemonDescription(pokemon);
+
+    }
+
+    fetchPokemonDescription = async (pokemon_name) => {
+        debugger
+        var desc;
+
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon_name}`).catch((err) => console.log("Error:", err));
+
+        for (var i = 0; i < response.data.flavor_text_entries.length - 1; i++) {
+            if (response.data.flavor_text_entries[i].language.name === "en") {
+                this.state.description = response.data.flavor_text_entries[i].flavor_text;
+                break;
+            }
+        }
+
+        this.setState({
+            description: this.state.description,
+        })
+
+        console.log("description");
+        console.log(desc);
+    }
+
+    closeDialog = () => {
+        this.setState({
+            showInfo: false,
+        })
+    }
+
+    render() {
+        return (
+            <>
+                <div className="app__container">
+                    {this.state.showInfo &&
+                        <InfoDialog
+                            open={this.state.showInfo}
+                            abilities={this.state.abilities}
+                            height={this.state.height}
+                            weight={this.state.weight}
+                            category={this.state.category}
+                            stats={this.state.stats}
+                            img={this.state.imageURL}
+                            name={this.state.pokeName}
+                            description={this.state.description}
+                            cancel={() => this.closeDialog()}>
+                        </InfoDialog>}
+                    <div className="app__header">
+                        <div className="poke__logos">
+                            <img src={PokeLogo} alt="pokelogo" className="poke__logo" />
+                            <img src={GottaCatch} className="gotta__logo" alt="gottacatch" />
+                        </div>
+                        {/* <div>
+                            <div>
+                                <input type="text" onInput={e => setSearchString(e.target.value)}></input>
+                            </div>
+                            <div>
+                                <button type="button" onClick={() => filterPokemons()}>Search</button>
+                                <button type="button" onClick={() => clearSearch()} onChange={evt => updateInputValue(evt)}>Clear</button>
+                            </div>
+                        </div> */}
+                        <div className="pokeball__box">
+                            <img src={PokeBall} className="pokeball" alt="pokeball" />
+                        </div>
+                    </div>
+                    <div className="pokemon__container">
+                        <div className="all__pokemons">
+
+                            {Object.keys(this.state.allPokemons).map((item, index) =>
+                                <Pokemon
+                                    key={index}
+                                    id={this.state.allPokemons[item].id}
+                                    image={this.state.allPokemons[item].sprites.other.dream_world.front_default}
+                                    name={this.state.allPokemons[item].name}
+                                    type={this.state.allPokemons[item].types}
+                                    onElemClick={() => this.fetchPokemonData(this.state.allPokemons[item].name, this.state.allPokemons[item].types, this.state.allPokemons[item].sprites.other.dream_world.front_default)}
+                                />
+                            )}
+                        </div>
+                        <button className="load__more" onClick={() => this.getAllPokemons()}>Load More</button>
+                    </div>
+                </div>
+            </>
+
         )
-        
-        }
-        </div>
-        <button className="load__more" onClick={() => getAllPokemons()}>Load More</button>
-      </div>
-    </div>
-  );
+    }
 }
 
 export default App;
-
-
-// class App extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       allPokemons: [],
-//       loadMore: 'https://pokeapi.co/api/v2/pokemon?limit=20',
-//       abilities: [],
-//       showInfo: false,
-//     }
-//   }
-
-
-//   componentWillMount() {
-//     this.getAllPokemons();
-//   }
-
-//   getAllPokemons = async () => {
-
-//     debugger
-//     const response = await fetch(this.state.loadMore);
-//     const data = await response.json();
-
-//     this.setState({
-//       loadMore: data.next,
-//     })
-
-//     // getPokemonData(data.results);
-//     console.log(data)
-//   }
-
-//   getPokemonData = async (result) => {
-
-//     debugger
-
-//     result.forEach(async (pokemon) => {
-//       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`);
-//       const data = await response.json();
-
-//       this.setState({
-//         allPokemons: data,
-//       })
-//       // setAllPokemons(pokemonList => [...pokemonList, data]);
-//       // allPokemons.push(data)
-
-//     });
-
-//     console.log(this.state.allPokemons);
-//   }
-
-
-//   fetchPokemonData = async (pokemon) => {
-
-
-//     debugger
-//     // setAbilities([]);
-
-//     this.setState({
-//       abilities: []
-//     })
-//     // abilities.length = 0;
-
-//     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
-//     const data = await response.json();
-
-
-
-//     var i;
-//     for (var i = 0; i < data.abilities.length; i++) {
-//       this.state.abilities.push(data.abilities[i].ability.name);
-//     }
-
-//     this.setState({
-//       showInfo: true,
-//     })
-
-//     // await console.log(data);
-//     // await console.log(abilities);
-
-//     // setshowInfo(true);
-//   }
-
-//   closeDialog = () => {
-
-//     this.setState({
-//       showInfo: false,
-//     })
-//     // setshowInfo(false);
-//     // debugger
-//     // console.log("closeeeeeee")
-//   }
-
-
-//   render() {
-//     return (
-//       <>
-//         <div className="app__container">
-//           {this.state.showInfo && <InfoDialog open={this.state.showInfo} abilities={this.state.abilities} cancel={() => this.closeDialog()}></InfoDialog>}
-//           <img src={PokeLogo} alt="pokelogo" className="poke__logo" />
-//           <div className="pokemon__container">
-//             <div className="all__pokemons">
-//               {this.state.allPokemons.map((pokemon, index) =>
-//                 <Pokemon
-//                   id={pokemon.id}
-//                   image={pokemon.sprites.other.dream_world.front_default}
-//                   name={pokemon.name}
-//                   type={pokemon.types}
-//                   key={index}
-//                   onElemClick={() => this.fetchPokemonData(pokemon.name)}
-//                 />
-//               )}
-//             </div>
-//             <button className="load__more" onClick={() => this.getAllPokemons()}>Load More</button>
-//           </div>
-//         </div>
-
-//       </>
-
-//     )
-//   }
-
-// }
-
-// export default App;
