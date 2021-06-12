@@ -6,6 +6,7 @@ import PokeLogo from "../src/assets/images/poke_logo.png";
 import GottaCatch from '../src/assets/images/gottacatch.png'
 import PokeBall from "../src/assets/images/Pokeball.png"
 import InfoDialog from "./components/InfoDialog";
+import Loading from '../src/assets/images/loading.gif'
 import axios from 'axios';
 import { Sync } from '@material-ui/icons';
 
@@ -20,7 +21,7 @@ class App extends React.Component {
         this.state = {
             allPokemons: [],
             searchPokemons: [],
-            loadMore: "https://pokeapi.co/api/v2/pokemon?limit=100",
+            loadMore: "https://pokeapi.co/api/v2/pokemon?limit=200",
             abilities: "",
             height: "",
             weight: "",
@@ -32,6 +33,7 @@ class App extends React.Component {
             search: false,
             searchString: "",
             description: "",
+            showLoading: true,
 
         }
     }
@@ -65,6 +67,7 @@ class App extends React.Component {
 
         this.setState({
             allPokemons: this.state.allPokemons,
+            showLoading: false,
         })
 
         console.log(this.state.allPokemons);
@@ -113,18 +116,24 @@ class App extends React.Component {
         debugger
         var desc;
 
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon_name}`).catch((err) => console.log("Error:", err));
+        try {
+            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon_name}`).catch((err) => console.log("Error:", err));
 
-        for (var i = 0; i < response.data.flavor_text_entries.length - 1; i++) {
-            if (response.data.flavor_text_entries[i].language.name === "en") {
-                this.state.description = response.data.flavor_text_entries[i].flavor_text;
-                break;
+            for (var i = 0; i < response.data.flavor_text_entries.length - 1; i++) {
+                if (response.data.flavor_text_entries[i].language.name === "en") {
+                    this.state.description = response.data.flavor_text_entries[i].flavor_text;
+                    break;
+                }
             }
-        }
 
-        this.setState({
-            description: this.state.description,
-        })
+            this.setState({
+                description: this.state.description,
+            })
+        } catch (e) {
+            this.setState({
+                description: "Description not found",
+            })
+        }
 
         console.log("description");
         console.log(desc);
@@ -139,7 +148,8 @@ class App extends React.Component {
     render() {
         return (
             <>
-                <div className="app__container">
+                {this.state.showLoading && <div className="app__container"><img src={Loading}></img></div>}
+                {!this.state.showLoading && <div className="app__container">
                     {this.state.showInfo &&
                         <InfoDialog
                             open={this.state.showInfo}
@@ -178,16 +188,16 @@ class App extends React.Component {
                                 <Pokemon
                                     key={index}
                                     id={this.state.allPokemons[item].id}
-                                    image={this.state.allPokemons[item].sprites.other.dream_world.front_default}
+                                    image={this.state.allPokemons[item].sprites.other.dream_world.front_default ? this.state.allPokemons[item].sprites.other.dream_world.front_default : this.state.allPokemons[item].sprites.other['official-artwork'].front_default}
                                     name={this.state.allPokemons[item].name}
                                     type={this.state.allPokemons[item].types}
-                                    onElemClick={() => this.fetchPokemonData(this.state.allPokemons[item].name, this.state.allPokemons[item].types, this.state.allPokemons[item].sprites.other.dream_world.front_default)}
+                                    onElemClick={() => this.fetchPokemonData(this.state.allPokemons[item].name, this.state.allPokemons[item].types, this.state.allPokemons[item].sprites.other.dream_world.front_default ? this.state.allPokemons[item].sprites.other.dream_world.front_default : this.state.allPokemons[item].sprites.other['official-artwork'].front_default)}
                                 />
                             )}
                         </div>
                         <button className="load__more" onClick={() => this.getAllPokemons()}>Load More</button>
                     </div>
-                </div>
+                </div>}
             </>
 
         )
