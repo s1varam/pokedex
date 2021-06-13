@@ -127,7 +127,7 @@ const Pokemon = ({ id, image, name, type, onElemClick }) => {
             // code block
         }
     } else if (type.length == 1) {
-        console.log("else if babyyyy");
+        // console.log("else if babyyyy");
         color2 = color1;
     }
 

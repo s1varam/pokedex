@@ -8,11 +8,6 @@ import PokeBall from "../src/assets/images/Pokeball.png"
 import InfoDialog from "./components/InfoDialog";
 import Loading from '../src/assets/images/loading.gif'
 import axios from 'axios';
-import { Sync } from '@material-ui/icons';
-
-// import BackDropLoader from './loader/backdrop';
-// import {Alert,AlertTitle} from '@material-ui/lab';
-
 
 class App extends React.Component {
 
@@ -21,7 +16,8 @@ class App extends React.Component {
         this.state = {
             allPokemons: [],
             searchPokemons: [],
-            loadMore: "https://pokeapi.co/api/v2/pokemon?limit=200",
+            swapPokemons : [],
+            filterPokemons: [],
             abilities: "",
             height: "",
             weight: "",
@@ -34,6 +30,54 @@ class App extends React.Component {
             searchString: "",
             description: "",
             showLoading: true,
+            isFilter : false,
+            limit: 151,
+            offset: 0,
+            regions: [
+                {
+                    name: "Kanto",
+                    limit: 151,
+                    offset: 0,
+                },
+                {
+                    name: "Johto",
+                    limit: 100,
+                    offset: 151,
+                },
+                {
+                    name: "Hoenn",
+                    limit: 135,
+                    offset: 251,
+                },
+                {
+                    name: "Sinnoh",
+                    limit: 108,
+                    offset: 386,
+                },
+                {
+                    name: "Unova",
+                    limit: 155,
+                    offset: 494,
+                },
+                {
+                    name: "Kalos",
+                    limit: 72,
+                    offset: 649,
+                },
+                {
+                    name: "Gen 7",
+                    limit: 88,
+                    offset: 721,
+                },
+                {
+                    name: "Gen 8",
+                    limit: 89,
+                    offset: 809,
+                }
+            ],
+            types: [
+               "all types","grass","bug","dark","dragon","electric","fairy","fighting","fire","flying","ghost","ground","ice","normal","poison","psychic","rock","steel","water"
+            ]
 
         }
     }
@@ -47,11 +91,7 @@ class App extends React.Component {
     getAllPokemons = async () => {
         debugger
 
-        const response = await axios.get(this.state.loadMore).catch((err) => console.log("Error:", err));
-
-        this.setState({
-            loadMore: response.data.next,
-        })
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${this.state.limit}&offset=${this.state.offset}`).catch((err) => console.log("Error:", err));
 
         this.getPokemonData(response.data.results);
 
@@ -145,6 +185,82 @@ class App extends React.Component {
         })
     }
 
+    handleChangeRegions = (event) => {
+
+        debugger
+
+        this.state.isFilter = false;
+
+        for (var i = 0; i < this.state.regions.length; i++) {
+            if (this.state.regions[i].name === event.target.value) {
+                this.state.limit = this.state.regions[i].limit;
+                this.state.offset = this.state.regions[i].offset;
+                this.state.allPokemons = [];
+                this.state.showLoading = true;
+
+                this.setState({
+                    value1: event.target.value,
+                    value: "all types"
+                })
+
+                break;
+            }
+        }
+
+        // this.state.limit = region.limit;
+        // this.state.offset = region.offset;
+        // this.state.allPokemons = [];
+        // this.state.showLoading = true;
+
+        // this.setState({
+        //     allPokemons : [],
+        //     limit : region.limit,
+        //     offset: region.offset,
+        // })
+
+        this.forceUpdate();
+
+        console.log("limit");
+        console.log(event.target.value);
+        // console.log("offset");
+        // console.log(this.state.offset)
+
+        this.getAllPokemons();
+    }
+
+    handleChangeTypes = (event) => {
+
+        debugger
+
+        if(event.target.value === "all types"){
+            this.setState({
+                isFilter : false,
+                value: event.target.value,
+            })
+            return;
+        }
+
+        // this.state.swapPokemons = this.state.allPokemons;
+        this.state.isFilter = true;
+        this.state.filterPokemons = [];
+        
+        for(var i=0; i<this.state.allPokemons.length; i++){
+            for(var j=0;j<this.state.allPokemons[i].types.length; j++){
+                if(event.target.value === this.state.allPokemons[i].types[j].type.name){
+                    this.state.filterPokemons.push(this.state.allPokemons[i])
+                }
+            }
+        }
+
+        this.setState({
+            value: event.target.value,
+        })
+
+        // this.state.allPokemons = this.state.filterPokemons;
+        this.forceUpdate();
+
+    }
+
     render() {
         return (
             <>
@@ -163,6 +279,10 @@ class App extends React.Component {
                             description={this.state.description}
                             cancel={() => this.closeDialog()}>
                         </InfoDialog>}
+                    {/* <Header
+                        className="container__header"
+                        regions={this.state.regions}
+                    /> */}
                     <div className="app__header">
                         <div className="poke__logos">
                             <img src={PokeLogo} alt="pokelogo" className="poke__logo" />
@@ -177,6 +297,20 @@ class App extends React.Component {
                                 <button type="button" onClick={() => clearSearch()} onChange={evt => updateInputValue(evt)}>Clear</button>
                             </div>
                         </div> */}
+                        {/* <SimpleSelect regions={this.state.regions} cancel={this.setSelection}></SimpleSelect> */}
+                        <select value={this.state.value1} onChange={this.handleChangeRegions}>
+                            <option>Select</option>
+                            {this.state.regions.map((region) => (
+                                <option value={region.name}>{region.name}&nbsp;({region.offset + 1}-{region.limit + region.offset})</option>
+                            ))}
+
+                        </select>
+                        <select value={this.state.value} onChange={this.handleChangeTypes}>
+                            {this.state.types.map((type) => (
+                                <option value={type}>{type}</option>
+                            ))}
+
+                        </select>
                         <div className="pokeball__box">
                             <img src={PokeBall} className="pokeball" alt="pokeball" />
                         </div>
@@ -184,7 +318,7 @@ class App extends React.Component {
                     <div className="pokemon__container">
                         <div className="all__pokemons">
 
-                            {Object.keys(this.state.allPokemons).map((item, index) =>
+                         {!this.state.isFilter ?  Object.keys(this.state.allPokemons).map((item, index) =>
                                 <Pokemon
                                     key={index}
                                     id={this.state.allPokemons[item].id}
@@ -193,9 +327,20 @@ class App extends React.Component {
                                     type={this.state.allPokemons[item].types}
                                     onElemClick={() => this.fetchPokemonData(this.state.allPokemons[item].name, this.state.allPokemons[item].types, this.state.allPokemons[item].sprites.other.dream_world.front_default ? this.state.allPokemons[item].sprites.other.dream_world.front_default : this.state.allPokemons[item].sprites.other['official-artwork'].front_default)}
                                 />
-                            )}
+                            ) : 
+                            Object.keys(this.state.filterPokemons).map((item, index) =>
+                                <Pokemon
+                                    key={index}
+                                    id={this.state.filterPokemons[item].id}
+                                    image={this.state.filterPokemons[item].sprites.other.dream_world.front_default ? this.state.filterPokemons[item].sprites.other.dream_world.front_default : this.state.filterPokemons[item].sprites.other['official-artwork'].front_default}
+                                    name={this.state.filterPokemons[item].name}
+                                    type={this.state.filterPokemons[item].types}
+                                    onElemClick={() => this.fetchPokemonData(this.state.filterPokemons[item].name, this.state.filterPokemons[item].types, this.state.filterPokemons[item].sprites.other.dream_world.front_default ? this.state.filterPokemons[item].sprites.other.dream_world.front_default : this.state.filterPokemons[item].sprites.other['official-artwork'].front_default)}
+                                />
+                            )
+                            }
                         </div>
-                        <button className="load__more" onClick={() => this.getAllPokemons()}>Load More</button>
+                        {/* <button className="load__more" onClick={() => this.getAllPokemons()}>Load More</button> */}
                     </div>
                 </div>}
             </>
