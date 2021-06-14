@@ -196,6 +196,9 @@ html[data-theme=dark] {
 	.info__container__stat__columns__name, .info__container__stat__columns__val, .stats, .dimensions, .ability {
 		text-align: center;
 	}
+	.info__container__data__abilities{
+		margin-top: 20px;
+	}
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 3.5) {

@@ -1,11 +1,7 @@
 import React from 'react';
-// import CryptoJS from '../libs/aes';
-
 import Pokemon from "./components/Pokemon";
 import Pokedex from "../src/assets/images/pokedex.png";
-import PokeBall from "../src/assets/images/Pokeball.png"
 import InfoDialog from "./components/InfoDialog";
-import Loading from '../src/assets/images/loading.gif'
 import axios from 'axios';
 import GitHubIcon from '@material-ui/icons/GitHub';
 
@@ -25,13 +21,14 @@ class App extends React.Component {
             stats: [],
             imageURL: "",
             pokeName: "",
-            pokeNumber : "",
+            pokeNumber: "",
             showInfo: false,
             isSearch: false,
             searchString: "",
             description: "",
             showLoading: true,
             isFilter: false,
+            noDataFound: false,
             limit: 151,
             offset: 0,
             regions: [
@@ -106,9 +103,11 @@ class App extends React.Component {
             this.state.allPokemons.push(response.data)
         }
 
+        this.state.showLoading = false;
+
         this.setState({
             allPokemons: this.state.allPokemons,
-            showLoading: false,
+
         })
 
         console.log(this.state.allPokemons);
@@ -142,7 +141,7 @@ class App extends React.Component {
             weight: response.data.weight,
             height: response.data.height,
             category: category,
-            pokeNumber : number,
+            pokeNumber: number,
             abilities: this.state.abilities,
             imageURL: imageURL,
             pokeName: pokemon,
@@ -282,6 +281,8 @@ class App extends React.Component {
             }
         }
 
+        this.state.searchPokemons.length === 0 ? this.setState({ noDataFound: true }) : this.setState({ noDataFound: false })
+
         console.log("search array");
         console.log(this.state.searchPokemons);
 
@@ -296,27 +297,27 @@ class App extends React.Component {
         debugger
         var currentTheme = document.documentElement.getAttribute('data-theme');
         console.log(currentTheme);
-    
+
         var targetTheme = "light";
         var modeSwitchText = "Light"
-    
+
         if (currentTheme === "light") {
             targetTheme = "dark";
-           
+
             console.log(targetTheme);
         }
-    
+
         // var modeSwitch = document.getElementById("mode__label");
         // modeSwitch.innerText = modeSwitchText;
-    
+
         document.documentElement.setAttribute('data-theme', targetTheme)
-    
+
     }
 
     render() {
         return (
             <>
-                {this.state.showLoading && <div className="app__container"><img src={Loading}></img></div>}
+                {this.state.showLoading && <div className="app__container"><img src="https://i.gifer.com/VgI.gif" className="loading__gif"></img></div>}
                 {!this.state.showLoading && <div className="app__container">
                     {this.state.showInfo &&
                         <InfoDialog
@@ -338,14 +339,14 @@ class App extends React.Component {
                     /> */}
                     <div className="app__header">
                         <div className="switch">
-                            
+
                             <div className="toggle">
                                 <label for="themeSwitch"></label>
                                 <input type="checkbox" name="swich-theme" id="themeSwitch" onClick={this.changeTheme} />
                                 <div className="toggle-bg"></div>
                                 <div className="toggle-thumb">
-                                    <i className="far fa-sun"></i>
-                                    <i className="far fa-moon"></i>
+                                    <i className="fas fa-sun"></i>
+                                    <i className="fas fa-moon"></i>
                                 </div>
                             </div>
                         </div>
@@ -423,6 +424,10 @@ class App extends React.Component {
                         </div>
                         {/* <button className="load__more" onClick={() => this.getAllPokemons()}>Load More</button> */}
                     </div>
+
+                    {this.state.noDataFound && <div className="no__data">
+                        No such Pokémon in this region :/
+                    </div>}
 
                     <div className="app__footer">
                         <div>

@@ -1,17 +1,17 @@
 html {
   --toggle: hsl(230deg 17% 85%);
-  --bggradient : url("../src/assets/images/bg.png");
-  --bgcolor : none;
-  --colorPrimary : #000;
-  --filterHeading : #000;
+  --bggradient: url("../src/assets/images/bg.png");
+  --bgcolor: none;
+  --colorPrimary: #000;
+  --filterHeading: #000;
 }
 
 html[data-theme=dark] {
   --toggle: linear-gradient(90deg, hsl(216deg 52% 48%), hsl(51deg 100% 60%));
-  --bggradient : none;
-  --bgcolor : #16171f;
-  --colorPrimary : #fff;
-  --filterHeading : #707384;
+  --bggradient: none;
+  --bgcolor: #16171f;
+  --colorPrimary: #fff;
+  --filterHeading: #707384;
 }
 
 @font-face {
@@ -25,18 +25,16 @@ body {
   background-image: var(--bggradient);
   background-color: var(--bgcolor);
   background-repeat: repeat;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background 1s;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
 /* .rock {
   background-color: rgb(148, 81, 81);
 }
@@ -68,7 +66,7 @@ code {
   background-color:#E0F1FD;
 } */
 
-.poke__logo{
+.poke__logo {
   margin-top: 10px;
   width: 15vw;
 }
@@ -81,12 +79,14 @@ code {
   min-height: 100vh;
   /* padding: 3rem 0.5rem; */
 }
+
 .pokemon__container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+
 .all__pokemons {
   display: flex;
   flex-wrap: wrap;
@@ -94,14 +94,12 @@ code {
   justify-content: center;
 }
 
-
-
-
 .detail-wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
+
 .detail-wrapper button {
   color: rgb(22, 22, 22);
   padding: .5rem;
@@ -111,8 +109,9 @@ code {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.185);
 }
+
 .load__more {
-  background: #f5f5f5 linear-gradient(#f5f5f5,#f1f1f1) repeat-x;
+  background: #f5f5f5 linear-gradient(#f5f5f5, #f1f1f1) repeat-x;
   border-radius: 2px;
   border: 1px solid #c6c6c6;
   color: #444;
@@ -120,66 +119,70 @@ code {
   min-width: 50%;
   margin-top: 1rem;
 }
-.poke__name > h3{
+
+.poke__name>h3 {
   text-transform: capitalize;
 }
 
-.app__header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: row;
-    width: -webkit-fill-available;
-    margin-top: 5vh;
+.app__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  width: -webkit-fill-available;
+  width: -moz-available;
+  margin-top: 5vh;
 }
 
-.gotta__logo{
-  width: 160px;
-  margin-left: 16px;
+.loading__gif {
+  width: 15%;
 }
 
-.pokeball{
-  width: 20%;
-}
-
-.pokeball__box{
+.pokeball__box {
   display: flex;
   justify-content: flex-end;
   margin-right: 20px;
 }
 
-.poke__logos{
+.poke__logos {
   display: flex;
   flex-direction: column;
   margin-left: 10px;
 }
 
-.app__footer{
+.app__footer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 15px;
+  text-align: center;
   font-family: 'Press Start 2P', cursive;
   font-size: 10px;
 }
 
-.app__footer > :nth-child(1){
+.no__data{
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  text-align: center;
+}
+
+.app__footer> :nth-child(1) {
   margin-top: 20px;
 }
 
-.app__footer > :nth-child(2){
+.app__footer> :nth-child(2) {
   margin-bottom: 20px;
 }
 
-.filter__container{
+.filter__container {
   display: flex;
   flex-direction: row;
   margin: 7vh 0 5vh 0;
   gap: 0 2vw;
 }
 
-.filter__items{
+.filter__items {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -187,29 +190,30 @@ code {
   font-size: 12px;
 }
 
-.filter__items > input{
+.filter__items>input {
   width: 10vw;
   margin-top: 5px;
 }
 
-select{
+select {
   width: 10vw;
   margin-top: 5px;
 }
-
-
 
 .switch {
   display: flex;
   align-items: center;
 }
+
 .switch .label {
   flex: 1;
   line-height: 30px;
 }
+
 .switch .toggle {
   position: relative;
 }
+
 .switch .toggle label {
   position: absolute;
   display: inline-block;
@@ -219,9 +223,11 @@ select{
   border-radius: inherit;
   cursor: pointer;
 }
+
 .switch .toggle input {
   display: none;
 }
+
 .switch .toggle-bg {
   margin-left: auto;
   width: 65px;
@@ -229,11 +235,13 @@ select{
   border-radius: 30px;
   background: var(--toggle);
 }
+
 .switch .toggle-thumb {
   position: absolute;
   top: 2px;
   left: 3px;
 }
+
 .switch .toggle-thumb i {
   color: var(--textPri);
   font-size: 1.1rem;
@@ -242,32 +250,36 @@ select{
   background: var(--mainBg);
   box-shadow: inset 0 0 7px var(--cardBg);
 }
+
 .switch .toggle-thumb .fa-sun {
   opacity: 0;
   z-index: 1;
   transform: translateX(1px);
   transition: all 0.35s;
 }
+
 .switch .toggle-thumb .fa-moon {
   opacity: 1;
   transform: translateX(-30px);
   transition: all 0.35s;
 }
-.switch .toggle input[type=checkbox]:checked ~ .toggle-thumb .fa-sun {
+
+.switch .toggle input[type=checkbox]:checked~.toggle-thumb .fa-sun {
   opacity: 1;
   z-index: -1;
   transform: translateX(34px);
 }
-.switch .toggle input[type=checkbox]:checked ~ .toggle-thumb .fa-moon {
+
+.switch .toggle input[type=checkbox]:checked~.toggle-thumb .fa-moon {
   opacity: 0;
   transform: translateX(4px);
 }
 
-.github__icon, .app__footer{
+.github__icon, .app__footer {
   color: var(--colorPrimary);
 }
 
-.filter__items > div, label{
+.filter__items>div, label {
   color: var(--filterHeading);
 }
 
@@ -276,4 +288,33 @@ select{
   margin: 0 6vw;
 }
 
-a { color: inherit; text-decoration: none; } 
+.github__icon:hover {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 767px) {
+  .loading__gif {
+    width: 35%;
+  }
+  .poke__logo {
+    width: 35vw;
+  }
+  .filter__container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    align-items: center;
+    margin: 7vh 0 5vh 0;
+    gap: 2vh 2vw;
+    justify-content: center;
+  }
+  select, .filter__items>input{
+    width: 40vw;
+  }
+  
+}
