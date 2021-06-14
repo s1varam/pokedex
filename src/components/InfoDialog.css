@@ -1,20 +1,21 @@
 html {
 	--pokename: #000;
-	--cardborder : #fff;
-	--pokenumber : hsl(228, 28%, 20%);
-	--info : #fff;
-	--bggradient : url("../assets/images/bg.png");
-	--bgcolor : none;
-  }
-  
-  html[data-theme=dark] {
-	--pokename: hsl(228, 28%, 20%);;
+	--cardborder: #fff;
+	--pokenumber: hsl(228, 28%, 20%);
+	--info: #fff;
+	--bggradient: url("../assets/images/bg.png");
+	--bgcolor: none;
+}
+
+html[data-theme=dark] {
+	--pokename: hsl(228, 28%, 20%);
+	;
 	--cardborder: hsl(228, 28%, 20%);
-	--pokenumber : hsl(228, 28%, 20%);
-	--info : hsl(228, 28%, 20%);
-	--bggradient : none;
-	--bgcolor : #16171f;
-  }
+	--pokenumber: hsl(228, 28%, 20%);
+	--info: hsl(228, 28%, 20%);
+	--bggradient: none;
+	--bgcolor: #16171f;
+}
 
 .info__container {
 	width: 100%;
@@ -38,18 +39,26 @@ html {
 }
 
 .info__container__img img {
-	width: 180px;
-	height: 220px;
-	padding: 1.5rem 1rem;
+	width: 120px;
+	height: 147px;
+	padding: 1rem 1rem;
 	margin: 0.3rem;
 	/* border: 10px solid hsl(228, 12%, 20%); */
 	border-radius: 1.2rem;
 }
 
-.info__container__img>div {
+.pokemon__name {
 	/* font-family: 'Press Start 2P', cursive; */
 	font-size: 25px;
 	text-transform: capitalize;
+	margin-top: 2vh;
+}
+
+.pokemon__id {
+	color: var(--pokenumber);
+	font-family: 'Teko', sans-serif;
+	font-weight: 400;
+	font-size: 40px;
 }
 
 .info__container__data__header {
@@ -107,7 +116,7 @@ html {
 }
 
 .MuiDialog-container {
-    background-color: var(--bgcolor);
+	background-color: var(--bgcolor);
 	background-image: var(--bggradient);
 }
 
@@ -169,7 +178,7 @@ html {
 		display: flex;
 		flex-direction: column;
 	}
-	.info__container__img{
+	.info__container__img {
 		margin-left: 0px;
 	}
 	.info__container__data {
@@ -181,13 +190,12 @@ html {
 		justify-content: center;
 		align-items: center;
 	}
-	.info__container__data__data{
+	.info__container__data__data {
 		justify-content: center;
 	}
-	.info__container__stat__columns__name, .info__container__stat__columns__val, .stats, .dimensions, .ability{
+	.info__container__stat__columns__name, .info__container__stat__columns__val, .stats, .dimensions, .ability {
 		text-align: center;
 	}
-	
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 3.5) {

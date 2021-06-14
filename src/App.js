@@ -25,6 +25,7 @@ class App extends React.Component {
             stats: [],
             imageURL: "",
             pokeName: "",
+            pokeNumber : "",
             showInfo: false,
             isSearch: false,
             searchString: "",
@@ -114,7 +115,9 @@ class App extends React.Component {
 
     }
 
-    fetchPokemonData = async (pokemon, category, imageURL) => {
+    fetchPokemonData = async (number, pokemon, category, imageURL) => {
+
+        debugger
 
         this.setState({
             abilities: [],
@@ -139,6 +142,7 @@ class App extends React.Component {
             weight: response.data.weight,
             height: response.data.height,
             category: category,
+            pokeNumber : number,
             abilities: this.state.abilities,
             imageURL: imageURL,
             pokeName: pokemon,
@@ -324,6 +328,7 @@ class App extends React.Component {
                             stats={this.state.stats}
                             img={this.state.imageURL}
                             name={this.state.pokeName}
+                            number={this.state.pokeNumber}
                             description={this.state.description}
                             cancel={() => this.closeDialog()}>
                         </InfoDialog>}
@@ -389,7 +394,7 @@ class App extends React.Component {
                                     image={this.state.searchPokemons[item].sprites.other.dream_world.front_default ? this.state.searchPokemons[item].sprites.other.dream_world.front_default : this.state.searchPokemons[item].sprites.other['official-artwork'].front_default}
                                     name={this.state.searchPokemons[item].name}
                                     type={this.state.searchPokemons[item].types}
-                                    onElemClick={() => this.fetchPokemonData(this.state.searchPokemons[item].name, this.state.searchPokemons[item].types, this.state.searchPokemons[item].sprites.other.dream_world.front_default ? this.state.searchPokemons[item].sprites.other.dream_world.front_default : this.state.searchPokemons[item].sprites.other['official-artwork'].front_default)}
+                                    onElemClick={() => this.fetchPokemonData(this.state.searchPokemons[item].id, this.state.searchPokemons[item].name, this.state.searchPokemons[item].types, this.state.searchPokemons[item].sprites.other.dream_world.front_default ? this.state.searchPokemons[item].sprites.other.dream_world.front_default : this.state.searchPokemons[item].sprites.other['official-artwork'].front_default)}
                                 />) :
 
 
@@ -401,7 +406,7 @@ class App extends React.Component {
                                         image={this.state.allPokemons[item].sprites.other.dream_world.front_default ? this.state.allPokemons[item].sprites.other.dream_world.front_default : this.state.allPokemons[item].sprites.other['official-artwork'].front_default}
                                         name={this.state.allPokemons[item].name}
                                         type={this.state.allPokemons[item].types}
-                                        onElemClick={() => this.fetchPokemonData(this.state.allPokemons[item].name, this.state.allPokemons[item].types, this.state.allPokemons[item].sprites.other.dream_world.front_default ? this.state.allPokemons[item].sprites.other.dream_world.front_default : this.state.allPokemons[item].sprites.other['official-artwork'].front_default)}
+                                        onElemClick={() => this.fetchPokemonData(this.state.allPokemons[item].id, this.state.allPokemons[item].name, this.state.allPokemons[item].types, this.state.allPokemons[item].sprites.other.dream_world.front_default ? this.state.allPokemons[item].sprites.other.dream_world.front_default : this.state.allPokemons[item].sprites.other['official-artwork'].front_default)}
                                     />
                                 ) :
                                     Object.keys(this.state.filterPokemons).map((item, index) =>
@@ -411,7 +416,7 @@ class App extends React.Component {
                                             image={this.state.filterPokemons[item].sprites.other.dream_world.front_default ? this.state.filterPokemons[item].sprites.other.dream_world.front_default : this.state.filterPokemons[item].sprites.other['official-artwork'].front_default}
                                             name={this.state.filterPokemons[item].name}
                                             type={this.state.filterPokemons[item].types}
-                                            onElemClick={() => this.fetchPokemonData(this.state.filterPokemons[item].name, this.state.filterPokemons[item].types, this.state.filterPokemons[item].sprites.other.dream_world.front_default ? this.state.filterPokemons[item].sprites.other.dream_world.front_default : this.state.filterPokemons[item].sprites.other['official-artwork'].front_default)}
+                                            onElemClick={() => this.fetchPokemonData(this.state.filterPokemons[item].id, this.state.filterPokemons[item].name, this.state.filterPokemons[item].types, this.state.filterPokemons[item].sprites.other.dream_world.front_default ? this.state.filterPokemons[item].sprites.other.dream_world.front_default : this.state.filterPokemons[item].sprites.other['official-artwork'].front_default)}
                                         />
                                     ))
                             }
@@ -421,7 +426,7 @@ class App extends React.Component {
 
                     <div className="app__footer">
                         <div>
-                            Built using PokéAPI, React and Material-UI.
+                            Built using <a href="https://pokeapi.co/" target="_blank" rel="noopener noreferrer">PokéAPI</a>, <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">React</a> and <a href="https://material-ui.com/" target="_blank" rel="noopener noreferrer">Material-UI</a>.
                         </div>
                         <div onClick={this.openGithub} className="github__icon">
                             <GitHubIcon></GitHubIcon>

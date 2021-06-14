@@ -187,7 +187,6 @@ export default function InfoDialog(props) {
             // code block
         }
     } else if (props.category.length == 1) {
-        console.log("else if babyyyy");
         color2 = color1;
     }
 
@@ -206,6 +205,9 @@ export default function InfoDialog(props) {
                         <DialogContent style={{ background: `linear-gradient(${color1}, ${color2})` }} className="dialog__content">
                             <div className="info__container">
                                 <div className="info__container__img">
+                                    <div className="pokemon__id">
+                                        #{String(props.number).padStart(3, '0')}
+                                    </div>
                                     <div className="pokemon__name">
                                         {props.name}
                                     </div>
@@ -243,16 +245,16 @@ export default function InfoDialog(props) {
                                             </div>
                                         </div>
 
-                                        
+
                                         <div>
                                             <div className="info__container__headings stats">Stats</div>
                                             <div className="info__container__data__data">
-                                            {props.stats.map((stat) =>
-                                                <div className="info__container__stat__columns">
-                                                    <div className="info__container__stat__columns__name">{stat['stat__name']}</div>
-                                                    <div className="info__container__stat__columns__val">{stat['stat__val']}</div>
-                                                </div>
-                                            )}
+                                                {props.stats.map((stat) =>
+                                                    <div className="info__container__stat__columns">
+                                                        <div className="info__container__stat__columns__name">{stat['stat__name']}</div>
+                                                        <div className="info__container__stat__columns__val">{stat['stat__val']}</div>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
