@@ -3,7 +3,6 @@ import React from 'react';
 
 import Pokemon from "./components/Pokemon";
 import PokeLogo from "../src/assets/images/poke_logo.png";
-import GottaCatch from '../src/assets/images/gottacatch.png'
 import PokeBall from "../src/assets/images/Pokeball.png"
 import InfoDialog from "./components/InfoDialog";
 import Loading from '../src/assets/images/loading.gif'
@@ -242,6 +241,8 @@ class App extends React.Component {
         }
 
         // this.state.swapPokemons = this.state.allPokemons;
+        this.state.isSearch = false;
+        this.state.valuesearch = "";
         this.state.isFilter = true;
         this.state.filterPokemons = [];
 
@@ -266,7 +267,7 @@ class App extends React.Component {
 
         debugger
 
-        event.target.value.length > 0 ? this.setState({ isSearch: true, valuetype: "all types"}) : this.setState({ isSearch: false, isFilter: false });
+        event.target.value.length > 0 ? this.setState({ isSearch: true, valuetype: "all types", valuesearch : event.target.value}) : this.setState({ isSearch: false, isFilter: false, valuesearch : event.target.value });
 
         this.state.searchPokemons = [];
 
@@ -306,7 +307,6 @@ class App extends React.Component {
                     <div className="app__header">
                         <div className="poke__logos">
                             <img src={PokeLogo} alt="pokelogo" className="poke__logo" />
-                            <img src={GottaCatch} className="gotta__logo" alt="gottacatch" />
                         </div>
                         {/* <div>
                             <div>
