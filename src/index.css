@@ -1,12 +1,36 @@
+html {
+  --toggle: hsl(230deg 17% 85%);
+  --bggradient : url("../src/assets/images/bg.png");
+  --bgcolor : none;
+  --colorPrimary : #000;
+  --filterHeading : #000;
+}
+
+html[data-theme=dark] {
+  --toggle: linear-gradient(90deg, hsl(210, 78%, 56%), hsl(146, 68%, 55%));
+  --bggradient : none;
+  --bgcolor : #16171f;
+  --colorPrimary : #fff;
+  --filterHeading : #707384;
+}
+
+@font-face {
+  font-family: 'barcadebrawl';
+  src: url('../src/assets/fonts/BarcadeBrawl.ttf');
+  /* IE9 Compat Modes */
+}
+
 body {
   margin: 0;
-  background-image: url("../src/assets/images/bg.png");
+  background-image: var(--bggradient);
+  background-color: var(--bgcolor);
   background-repeat: repeat;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background 1s;
 }
 
 code {
@@ -46,7 +70,7 @@ code {
 
 .poke__logo{
   margin-top: 10px;
-  width: 65%;
+  width: 15vw;
 }
 
 .app__container {
@@ -127,4 +151,126 @@ code {
   display: flex;
   flex-direction: column;
   margin-left: 10px;
+}
+
+.app__footer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+}
+
+.app__footer > :nth-child(1){
+  margin-top: 20px;
+}
+
+.app__footer > :nth-child(2){
+  margin-bottom: 20px;
+}
+
+.filter__container{
+  display: flex;
+  flex-direction: row;
+  margin: 10vh 0 5vh 0;
+  gap: 0 2vw;
+}
+
+.filter__items{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'barcadebrawl';
+  font-size: 12px;
+}
+
+.filter__items > input{
+  width: 10vw;
+  margin-top: 5px;
+}
+
+select{
+  width: 10vw;
+  margin-top: 5px;
+}
+
+
+
+.switch {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+}
+.switch .label {
+  flex: 1;
+  line-height: 30px;
+}
+.switch .toggle {
+  position: relative;
+}
+.switch .toggle label {
+  position: absolute;
+  display: inline-block;
+  width: 65px;
+  height: 30px;
+  z-index: 1;
+  border-radius: inherit;
+  cursor: pointer;
+}
+.switch .toggle input {
+  display: none;
+}
+.switch .toggle-bg {
+  margin-left: auto;
+  width: 65px;
+  height: 30px;
+  border-radius: 30px;
+  background: var(--toggle);
+}
+.switch .toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 3px;
+}
+.switch .toggle-thumb i {
+  color: var(--textPri);
+  font-size: 1.1rem;
+  padding: 0.25rem;
+  border-radius: 50%;
+  background: var(--mainBg);
+  box-shadow: inset 0 0 7px var(--cardBg);
+}
+.switch .toggle-thumb .fa-sun {
+  opacity: 0;
+  z-index: 1;
+  transform: translateX(1px);
+  transition: all 0.35s;
+}
+.switch .toggle-thumb .fa-moon {
+  opacity: 1;
+  transform: translateX(-30px);
+  transition: all 0.35s;
+}
+.switch .toggle input[type=checkbox]:checked ~ .toggle-thumb .fa-sun {
+  opacity: 1;
+  z-index: -1;
+  transform: translateX(34px);
+}
+.switch .toggle input[type=checkbox]:checked ~ .toggle-thumb .fa-moon {
+  opacity: 0;
+  transform: translateX(4px);
+}
+
+.github__icon, .app__footer{
+  color: var(--colorPrimary);
+}
+
+.filter__items > div, label{
+  color: var(--filterHeading);
+}
+
+.switch, .github__icon {
+  width: 5vw;
 }

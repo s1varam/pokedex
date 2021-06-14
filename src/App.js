@@ -2,11 +2,12 @@ import React from 'react';
 // import CryptoJS from '../libs/aes';
 
 import Pokemon from "./components/Pokemon";
-import PokeLogo from "../src/assets/images/poke_logo.png";
+import Pokedex from "../src/assets/images/pokedex.png";
 import PokeBall from "../src/assets/images/Pokeball.png"
 import InfoDialog from "./components/InfoDialog";
 import Loading from '../src/assets/images/loading.gif'
 import axios from 'axios';
+import GitHubIcon from '@material-ui/icons/GitHub';
 
 class App extends React.Component {
 
@@ -64,12 +65,12 @@ class App extends React.Component {
                     offset: 649,
                 },
                 {
-                    name: "Gen 7",
+                    name: "Alola",
                     limit: 88,
                     offset: 721,
                 },
                 {
-                    name: "Gen 8",
+                    name: "Galar",
                     limit: 89,
                     offset: 809,
                 }
@@ -267,12 +268,12 @@ class App extends React.Component {
 
         debugger
 
-        event.target.value.length > 0 ? this.setState({ isSearch: true, valuetype: "all types", valuesearch : event.target.value}) : this.setState({ isSearch: false, isFilter: false, valuesearch : event.target.value });
+        event.target.value.length > 0 ? this.setState({ isSearch: true, valuetype: "all types", valuesearch: event.target.value }) : this.setState({ isSearch: false, isFilter: false, valuesearch: event.target.value });
 
         this.state.searchPokemons = [];
 
         for (var i = 0; i < this.state.allPokemons.length; i++) {
-            if (this.state.allPokemons[i].name.includes(event.target.value)) {
+            if (this.state.allPokemons[i].name.includes(event.target.value.toLowerCase())) {
                 this.state.searchPokemons.push(this.state.allPokemons[i]);
             }
         }
@@ -280,6 +281,32 @@ class App extends React.Component {
         console.log("search array");
         console.log(this.state.searchPokemons);
 
+    }
+
+    openGithub = () => {
+        window.open("https://github.com/s1varam/pokedex");
+    }
+
+    changeTheme = () => {
+
+        debugger
+        var currentTheme = document.documentElement.getAttribute('data-theme');
+        console.log(currentTheme);
+    
+        var targetTheme = "light";
+        var modeSwitchText = "Light"
+    
+        if (currentTheme === "light") {
+            targetTheme = "dark";
+           
+            console.log(targetTheme);
+        }
+    
+        // var modeSwitch = document.getElementById("mode__label");
+        // modeSwitch.innerText = modeSwitchText;
+    
+        document.documentElement.setAttribute('data-theme', targetTheme)
+    
     }
 
     render() {
@@ -305,37 +332,52 @@ class App extends React.Component {
                         regions={this.state.regions}
                     /> */}
                     <div className="app__header">
-                        <div className="poke__logos">
-                            <img src={PokeLogo} alt="pokelogo" className="poke__logo" />
+                        <div className="switch">
+                            
+                            <div className="toggle">
+                                <label for="themeSwitch"></label>
+                                <input type="checkbox" name="swich-theme" id="themeSwitch" onClick={this.changeTheme} />
+                                <div className="toggle-bg"></div>
+                                <div className="toggle-thumb">
+                                    <i className="far fa-sun"></i>
+                                    <i className="far fa-moon"></i>
+                                </div>
+                            </div>
                         </div>
-                        {/* <div>
+                        <div className="poke__logos">
+                            <img src={Pokedex} alt="pokelogo" className="poke__logo" />
+                        </div>
+                        <div className="pokeball__box github__icon" onClick={this.openGithub}>
+                            <GitHubIcon></GitHubIcon>
+                        </div>
+                    </div>
+                    <div className="filter__container">
+                        <div className="filter__items">
                             <div>
-                                <input type="text" onInput={e => setSearchString(e.target.value)}></input>
+                                Region
                             </div>
-                            <div>
-                                <button type="button" onClick={() => filterPokemons()}>Search</button>
-                                <button type="button" onClick={() => clearSearch()} onChange={evt => updateInputValue(evt)}>Clear</button>
-                            </div>
-                        </div> */}
-                        {/* <SimpleSelect regions={this.state.regions} cancel={this.setSelection}></SimpleSelect> */}
-                        <select value={this.state.valueregion} onChange={this.handleChangeRegions}>
-                            {this.state.regions.map((region) => (
-                                <option value={region.name}>{region.name}&nbsp;({region.offset + 1}-{region.limit + region.offset})</option>
-                            ))}
+                            <select value={this.state.valueregion} onChange={this.handleChangeRegions}>
+                                {this.state.regions.map((region) => (
+                                    <option value={region.name}>{region.name}&nbsp;({region.offset + 1}-{region.limit + region.offset})</option>
+                                ))}
 
-                        </select>
-                        <select value={this.state.valuetype} onChange={this.handleChangeTypes}>
-                            {this.state.types.map((type) => (
-                                <option value={type}>{type}</option>
-                            ))}
-                        </select>
-                        <label>
-                            Search:
+                            </select>
+                        </div>
+                        <div className="filter__items">
+                            <div>
+                                Type
+                            </div>
+                            <select value={this.state.valuetype} onChange={this.handleChangeTypes}>
+                                {this.state.types.map((type) => (
+                                    <option value={type}>{type}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="filter__items">
+                            <label>
+                                Search
+                            </label>
                             <input type="text" value={this.state.valuesearch} onChange={this.handleChangeSearch} />
-                        </label>
-
-                        <div className="pokeball__box">
-                            <img src={PokeBall} className="pokeball" alt="pokeball" />
                         </div>
                     </div>
                     <div className="pokemon__container">
@@ -376,6 +418,17 @@ class App extends React.Component {
                         </div>
                         {/* <button className="load__more" onClick={() => this.getAllPokemons()}>Load More</button> */}
                     </div>
+
+                    <div className="app__footer">
+                        <div>
+                            Built using PokéAPI, React and Material-UI.
+                        </div>
+                        <div onClick={this.openGithub} className="github__icon">
+                            <GitHubIcon></GitHubIcon>
+                        </div>
+                    </div>
+
+
                 </div>}
             </>
 

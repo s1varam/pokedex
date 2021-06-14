@@ -1,3 +1,21 @@
+html {
+	--pokename: #000;
+	--cardborder : #fff;
+	--pokenumber : hsl(228, 28%, 20%);
+	--info : #fff;
+	--bggradient : url("../assets/images/bg.png");
+	--bgcolor : none;
+  }
+  
+  html[data-theme=dark] {
+	--pokename: hsl(228, 28%, 20%);;
+	--cardborder: hsl(228, 28%, 20%);
+	--pokenumber : hsl(228, 28%, 20%);
+	--info : hsl(228, 28%, 20%);
+	--bggradient : none;
+	--bgcolor : #16171f;
+  }
+
 .info__container {
 	width: 100%;
 	display: flex;
@@ -84,8 +102,13 @@
 .MuiDialog-paperFullWidth {
 	width: 55%;
 	border-radius: 1rem;
-	border: 15px solid #fff;
+	border: 15px solid var(--cardborder);
 	box-shadow: 0 10px 30px 4px rgb(0 0 0 / 50%);
+}
+
+.MuiDialog-container {
+    background-color: var(--bgcolor);
+	background-image: var(--bggradient);
 }
 
 .MuiBackdrop-root {
