@@ -10,12 +10,8 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "react": "^17.0.2",
-    "react-circle-progress-bar": "^0.1.4",
     "react-dom": "^17.0.2",
-    "react-draggable": "^4.4.3",
-    "react-native-progress-circle": "^2.1.0",
     "react-scripts": "4.0.3",
-    "use-state-with-callback": "^2.0.3",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

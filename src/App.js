@@ -77,13 +77,13 @@ class App extends React.Component {
             types: [
                 "all types", "grass", "bug", "dark", "dragon", "electric", "fairy", "fighting", "fire", "flying", "ghost", "ground", "ice", "normal", "poison", "psychic", "rock", "steel", "water"
             ]
-
         }
-    }
-
-    componentWillMount() {
         this.getAllPokemons();
     }
+
+    // componentWillMount() {
+    //     this.getAllPokemons();
+    // }
 
     componentDidMount() {
         var currentTheme = document.documentElement.getAttribute('data-theme');
@@ -96,9 +96,7 @@ class App extends React.Component {
 
     getAllPokemons = async () => {
         debugger
-
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${this.state.limit}&offset=${this.state.offset}`).catch((err) => console.log("Error:", err));
-
         this.getPokemonData(response.data.results);
 
     }
@@ -111,28 +109,27 @@ class App extends React.Component {
             this.state.allPokemons.push(response.data)
         }
 
-        this.state.showLoading = false;
-
+        // this.state.showLoading = false;
         this.setState({
             allPokemons: this.state.allPokemons,
+            showLoading : false,
 
         })
 
-        console.log(this.state.allPokemons);
+        // console.log(this.state.allPokemons);
 
     }
 
     fetchPokemonData = async (number, pokemon, category, imageURL) => {
 
         debugger
-
         this.setState({
             abilities: [],
             stats: []
         })
 
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`).catch((err) => console.log("Error:", err));
-        console.log(response);
+        // console.log(response);
 
         for (var i = 0; i < response.data.abilities.length; i++) {
             this.state.abilities.push(response.data.abilities[i].ability.name);
@@ -156,8 +153,8 @@ class App extends React.Component {
             showInfo: true,
         })
 
-        console.log("stats");
-        console.log(this.state.stats);
+        // console.log("stats");
+        // console.log(this.state.stats);
 
         this.fetchPokemonDescription(pokemon);
 
@@ -165,7 +162,6 @@ class App extends React.Component {
 
     fetchPokemonDescription = async (pokemon_name) => {
         debugger
-        var desc;
 
         try {
             const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon_name}`).catch((err) => console.log("Error:", err));
@@ -186,8 +182,8 @@ class App extends React.Component {
             })
         }
 
-        console.log("description");
-        console.log(desc);
+        // console.log("description");
+        // console.log(desc);
     }
 
     closeDialog = () => {
@@ -199,8 +195,10 @@ class App extends React.Component {
     handleChangeRegions = (event) => {
 
         debugger
-
-        this.state.isFilter = false;
+        // this.state.isFilter = false;
+        this.setState({
+            isFilter: false
+        })
 
         for (var i = 0; i < this.state.regions.length; i++) {
             if (this.state.regions[i].name === event.target.value) {
@@ -219,23 +217,11 @@ class App extends React.Component {
             }
         }
 
-        // this.state.limit = region.limit;
-        // this.state.offset = region.offset;
-        // this.state.allPokemons = [];
-        // this.state.showLoading = true;
-
-        // this.setState({
-        //     allPokemons : [],
-        //     limit : region.limit,
-        //     offset: region.offset,
-        // })
-
         this.forceUpdate();
 
-        console.log("limit");
-        console.log(event.target.value);
-        // console.log("offset");
-        // console.log(this.state.offset)
+        // console.log("limit");
+        // console.log(event.target.value);
+
 
         this.getAllPokemons();
     }
@@ -243,7 +229,6 @@ class App extends React.Component {
     handleChangeTypes = (event) => {
 
         debugger
-
         if (event.target.value === "all types") {
             this.setState({
                 isFilter: false,
@@ -252,7 +237,6 @@ class App extends React.Component {
             return;
         }
 
-        // this.state.swapPokemons = this.state.allPokemons;
         this.state.isSearch = false;
         this.state.valuesearch = "";
         this.state.isFilter = true;
@@ -272,7 +256,6 @@ class App extends React.Component {
             valuetype: event.target.value,
         })
 
-        // this.state.allPokemons = this.state.filterPokemons;
         this.forceUpdate();
 
     }
@@ -293,8 +276,8 @@ class App extends React.Component {
 
         this.state.searchPokemons.length === 0 ? this.setState({ noDataFound: true }) : this.setState({ noDataFound: false })
 
-        console.log("search array");
-        console.log(this.state.searchPokemons);
+        // console.log("search array");
+        // console.log(this.state.searchPokemons);
 
     }
 
@@ -306,10 +289,9 @@ class App extends React.Component {
 
         debugger
         var currentTheme = document.documentElement.getAttribute('data-theme');
-        console.log(currentTheme);
+        // console.log(currentTheme);
 
         var targetTheme = "light";
-        var modeSwitchText = "Light"
 
         if (currentTheme === "light") {
             targetTheme = "dark";
@@ -318,15 +300,12 @@ class App extends React.Component {
                 isChecked: true,
             })
 
-            console.log(targetTheme);
+            // console.log(targetTheme);
         } else {
             this.setState({
                 isChecked: false,
             })
         }
-
-        // var modeSwitch = document.getElementById("mode__label");
-        // modeSwitch.innerText = modeSwitchText;
 
         document.documentElement.setAttribute('data-theme', targetTheme)
 
@@ -341,7 +320,7 @@ class App extends React.Component {
                             Loading
                         </div>
                         <div className="gif__container">
-                            <img src="https://i.gifer.com/VgI.gif" className="loading__gif noselect"></img>
+                            <img src="https://i.gifer.com/VgI.gif" className="loading__gif noselect" alt="loading-gif"></img>
                         </div>
                     </div>}
                 {!this.state.showLoading && <div className="app__container">
@@ -359,13 +338,8 @@ class App extends React.Component {
                             description={this.state.description}
                             cancel={() => this.closeDialog()}>
                         </InfoDialog>}
-                    {/* <Header
-                        className="container__header"
-                        regions={this.state.regions}
-                    /> */}
                     <div className="app__header">
                         <div className="switch">
-
                             <div className="toggle">
                                 <label for="themeSwitch"></label>
                                 <input type="checkbox" name="swich-theme" id="themeSwitch" onClick={this.changeTheme} checked={this.state.isChecked} />
@@ -392,7 +366,6 @@ class App extends React.Component {
                                 {this.state.regions.map((region) => (
                                     <option value={region.name}>{region.name}&nbsp;({region.offset + 1}-{region.limit + region.offset})</option>
                                 ))}
-
                             </select>
                         </div>
                         <div className="filter__items">
@@ -423,9 +396,6 @@ class App extends React.Component {
                                     type={this.state.searchPokemons[item].types}
                                     onElemClick={() => this.fetchPokemonData(this.state.searchPokemons[item].id, this.state.searchPokemons[item].name, this.state.searchPokemons[item].types, this.state.searchPokemons[item].sprites.other.dream_world.front_default ? this.state.searchPokemons[item].sprites.other.dream_world.front_default : this.state.searchPokemons[item].sprites.other['official-artwork'].front_default)}
                                 />) :
-
-
-
                                 (!this.state.isFilter ? Object.keys(this.state.allPokemons).map((item, index) =>
                                     <Pokemon
                                         key={index}
@@ -448,7 +418,6 @@ class App extends React.Component {
                                     ))
                             }
                         </div>
-                        {/* <button className="load__more" onClick={() => this.getAllPokemons()}>Load More</button> */}
                     </div>
 
                     {this.state.noDataFound && <div className="no__data noselect">
@@ -463,11 +432,8 @@ class App extends React.Component {
                             <GitHubIcon></GitHubIcon>
                         </div>
                     </div>
-
-
                 </div>}
             </>
-
         )
     }
 }
