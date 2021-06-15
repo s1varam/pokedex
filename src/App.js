@@ -87,9 +87,9 @@ class App extends React.Component {
 
     componentDidMount() {
         var currentTheme = document.documentElement.getAttribute('data-theme');
-        if(currentTheme === "dark"){
+        if (currentTheme === "dark") {
             this.setState({
-                isChecked : true,
+                isChecked: true,
             })
         }
     }
@@ -315,13 +315,13 @@ class App extends React.Component {
             targetTheme = "dark";
 
             this.setState({
-                isChecked : true,
+                isChecked: true,
             })
 
             console.log(targetTheme);
-        }else{
+        } else {
             this.setState({
-                isChecked : false,
+                isChecked: false,
             })
         }
 
@@ -335,7 +335,15 @@ class App extends React.Component {
     render() {
         return (
             <>
-                {this.state.showLoading && <div className="app__container"><img src="https://i.gifer.com/VgI.gif" className="loading__gif noselect"></img></div>}
+                {this.state.showLoading &&
+                    <div className="app__container">
+                        <div className="loading__text">
+                            Loading
+                        </div>
+                        <div className="gif__container">
+                            <img src="https://i.gifer.com/VgI.gif" className="loading__gif noselect"></img>
+                        </div>
+                    </div>}
                 {!this.state.showLoading && <div className="app__container">
                     {this.state.showInfo &&
                         <InfoDialog
@@ -443,7 +451,7 @@ class App extends React.Component {
                         {/* <button className="load__more" onClick={() => this.getAllPokemons()}>Load More</button> */}
                     </div>
 
-                    {this.state.noDataFound && <div className="no__data">
+                    {this.state.noDataFound && <div className="no__data noselect">
                         No such Pokémon in this region :/
                     </div>}
 

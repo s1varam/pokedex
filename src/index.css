@@ -4,6 +4,8 @@ html {
   --bgcolor: none;
   --colorPrimary: #000;
   --filterHeading: #000;
+  --selectBg : #fff;
+  --selectText : #000;
 }
 
 html[data-theme=dark] {
@@ -12,6 +14,8 @@ html[data-theme=dark] {
   --bgcolor: #16171f;
   --colorPrimary: #fff;
   --filterHeading: #707384;
+  --selectBg : #16171f;
+  --selectText : #707384;
 }
 
 @font-face {
@@ -69,6 +73,8 @@ code {
 .poke__logo {
   margin-top: 10px;
   width: 15vw;
+  -webkit-filter: drop-shadow(5px 0px 0px rgba(0,0,0,0.6));
+  filter: drop-shadow(5px 0px 0px rgba(0,0,0,0.6));
 }
 
 .app__container {
@@ -78,6 +84,15 @@ code {
   justify-content: center;
   min-height: 100vh;
   /* padding: 3rem 0.5rem; */
+}
+
+.app__container .loading__text{
+  font-family: 'Press Start 2P', cursive;
+  color: var(--colorPrimary);
+}
+
+.gif__container{
+  text-align: center;
 }
 
 .pokemon__container {
@@ -165,6 +180,7 @@ code {
   font-family: 'Press Start 2P', cursive;
   font-size: 10px;
   text-align: center;
+  color: var(--colorPrimary);
 }
 
 .app__footer> :nth-child(1) {
@@ -193,6 +209,9 @@ code {
 .filter__items>input {
   width: 10vw;
   margin-top: 5px;
+  background-color: var(--selectBg);
+  color: var(--selectText);
+  border: 1px solid var(--selectText);
 }
 
 select {
@@ -310,6 +329,11 @@ a {
   /* Internet Explorer/Edge */
   user-select: none;
   /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+select{
+  color: var(--selectText);
+  background-color: var(--selectBg);
 }
 
 @media screen and (max-width: 767px) {
