@@ -9,10 +9,10 @@ const Pokemon = ({ id, image, name, type, onElemClick }) => {
 
     switch (type[0].type.name) {
         case "grass":
-            color1 = "rgba(155, 204, 80,0.65)";
+            color1 = "rgb(155, 204, 80)";
             break;
         case "poison":
-            color1 = "rgba(185, 127, 201,0.6)";
+            color1 = "rgb(185, 127, 201)";
             break;
         case "normal":
             color1 = "#dcdcdc";
@@ -21,37 +21,37 @@ const Pokemon = ({ id, image, name, type, onElemClick }) => {
             color1 = "rgb(228 160 114)";
             break;
         case "water":
-            color1 = "rgba(69, 146, 196, 0.5)";
+            color1 = "#8cc4e2";
             break;
         case "electric":
-            color1 = "rgba(239, 214, 54, 0.75)";
+            color1 = "rgb(239, 214, 54)";
             break;
         case "ice":
             color1 = "#51c4e7";
             break;
         case "fighting":
-            color1 = "rgba(213, 103, 35, 0.65)";
+            color1 = "rgb(213, 103, 35)";
             break;
         case "ground":
-            color1 = "rgba(247, 222, 63,0.5)";
+            color1 = "rgb(247, 222, 63)";
             break;
         case "flying":
-            color1 = "rgba(61, 199, 239, 0.65)";
+            color1 = "rgb(61, 199, 239)";
             break;
         case "psychic":
-            color1 = "rgba(243, 102, 185, 0.65)";
+            color1 = "rgb(243, 102, 185)";
             break;
         case "bug":
-            color1 = "rgba(114, 159, 63, 0.6)";
+            color1 = "rgb(114, 159, 63)";
             break;
         case "rock":
-            color1 = "rgba(163, 140, 33, 0.6)";
+            color1 = "rgb(163, 140, 33)";
             break;
         case "ghost":
-            color1 = "rgba(123, 98, 163, 0.5)";
+            color1 = "rgb(123, 98, 163)";
             break;
         case "dark":
-            color1 = "rgba(112, 112, 112, 0.6)";
+            color1 = "rgb(112, 112, 112)";
             break;
         case "dragon":
             color1 = "#f26f58";
@@ -70,10 +70,10 @@ const Pokemon = ({ id, image, name, type, onElemClick }) => {
 
         switch (type[1].type.name) {
             case "grass":
-                color2 = "rgba(155, 204, 80,0.65)";
+                color2 = "rgb(155, 204, 80)";
                 break;
             case "poison":
-                color2 = "rgba(185, 127, 201,0.6)";
+                color2 = "rgb(185, 127, 201)";
                 break;
             case "normal":
                 color2 = "#dcdcdc";
@@ -82,37 +82,37 @@ const Pokemon = ({ id, image, name, type, onElemClick }) => {
                 color2 = "rgb(228 160 114)";
                 break;
             case "water":
-                color2 = "rgba(69, 146, 196, 0.5)";
+                color2 = "#8cc4e2";
                 break;
             case "electric":
-                color2 = "rgba(239, 214, 54, 0.75)";
+                color2 = "rgb(239, 214, 54)";
                 break;
             case "ice":
                 color2 = "#51c4e7";
                 break;
             case "fighting":
-                color2 = "rgba(213, 103, 35, 0.65)";
+                color2 = "rgb(213, 103, 35)";
                 break;
             case "ground":
-                color2 = "rgba(247, 222, 63,0.5)";
+                color2 = "rgb(247, 222, 63)";
                 break;
             case "flying":
-                color2 = "rgba(61, 199, 239, 0.65)";
+                color2 = "rgb(61, 199, 239)";
                 break;
             case "psychic":
-                color2 = "rgba(243, 102, 185, 0.65)";
+                color2 = "rgb(243, 102, 185)";
                 break;
             case "bug":
-                color2 = "rgba(114, 159, 63, 0.6)";
+                color2 = "rgb(114, 159, 63)";
                 break;
             case "rock":
-                color2 = "rgba(163, 140, 33, 0.6)";
+                color2 = "rgb(163, 140, 33)";
                 break;
             case "ghost":
-                color2 = "rgba(123, 98, 163, 0.5)";
+                color2 = "rgb(123, 98, 163)";
                 break;
             case "dark":
-                color2 = "rgba(112, 112, 112, 0.6)";
+                color2 = "rgb(112, 112, 112)";
                 break;
             case "dragon":
                 color2 = "#f26f58";
@@ -126,13 +126,12 @@ const Pokemon = ({ id, image, name, type, onElemClick }) => {
             default:
             // code block
         }
-    } else if (type.length == 1) {
-        // console.log("else if babyyyy");
+    } else if (type.length === 1) {
         color2 = color1;
     }
 
     return (
-        <div className={`thumbnail__container`} style={{ background: `linear-gradient(${color1}, ${color2})` }}>
+        <div className="thumbnail__container noselect" style={{ background: `linear-gradient(${color1}, ${color2})` }}>
             <div className="card__header">
                 <div className="poke__number">
                     #{String(id).padStart(3, '0')}

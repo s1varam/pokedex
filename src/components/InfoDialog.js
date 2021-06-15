@@ -1,17 +1,12 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
 import { StylesProvider } from "@material-ui/core/styles";
-import infoImg from "../assets/images/cardimg.svg"
 import './InfoDialog.css';
-import Progress from 'react-circle-progress-bar'
+
 
 const styles = (theme) => ({
     root: {
@@ -200,7 +195,8 @@ export default function InfoDialog(props) {
                     {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Open dialog
       </Button> */}
-                    <Dialog aria-labelledby="customized-dialog-title" open={props.open} onBackdropClick={props.cancel} fullWidth maxWidth="md" className="dialog__bg">
+      
+                    <Dialog aria-labelledby="customized-dialog-title" open={props.open} onBackdropClick={props.cancel} fullWidth maxWidth="md" className="dialog__bg noselect">
                         {/* <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' onClick={props.cancel} style={closeImg} /> */}
                         <DialogContent style={{ background: `linear-gradient(${color1}, ${color2})` }} className="dialog__content">
                             <div className="info__container">

@@ -31,6 +31,7 @@ class App extends React.Component {
             noDataFound: false,
             limit: 151,
             offset: 0,
+            isChecked: false,
             regions: [
                 {
                     name: "Kanto",
@@ -84,7 +85,14 @@ class App extends React.Component {
         this.getAllPokemons();
     }
 
-
+    componentDidMount() {
+        var currentTheme = document.documentElement.getAttribute('data-theme');
+        if(currentTheme === "dark"){
+            this.setState({
+                isChecked : true,
+            })
+        }
+    }
 
     getAllPokemons = async () => {
         debugger
@@ -258,6 +266,8 @@ class App extends React.Component {
             }
         }
 
+        this.state.filterPokemons.length === 0 ? this.setState({ noDataFound: true }) : this.setState({ noDataFound: false })
+
         this.setState({
             valuetype: event.target.value,
         })
@@ -304,7 +314,15 @@ class App extends React.Component {
         if (currentTheme === "light") {
             targetTheme = "dark";
 
+            this.setState({
+                isChecked : true,
+            })
+
             console.log(targetTheme);
+        }else{
+            this.setState({
+                isChecked : false,
+            })
         }
 
         // var modeSwitch = document.getElementById("mode__label");
@@ -317,7 +335,7 @@ class App extends React.Component {
     render() {
         return (
             <>
-                {this.state.showLoading && <div className="app__container"><img src="https://i.gifer.com/VgI.gif" className="loading__gif"></img></div>}
+                {this.state.showLoading && <div className="app__container"><img src="https://i.gifer.com/VgI.gif" className="loading__gif noselect"></img></div>}
                 {!this.state.showLoading && <div className="app__container">
                     {this.state.showInfo &&
                         <InfoDialog
@@ -342,7 +360,7 @@ class App extends React.Component {
 
                             <div className="toggle">
                                 <label for="themeSwitch"></label>
-                                <input type="checkbox" name="swich-theme" id="themeSwitch" onClick={this.changeTheme} />
+                                <input type="checkbox" name="swich-theme" id="themeSwitch" onClick={this.changeTheme} checked={this.state.isChecked} />
                                 <div className="toggle-bg"></div>
                                 <div className="toggle-thumb">
                                     <i className="fas fa-sun"></i>
@@ -350,14 +368,14 @@ class App extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="poke__logos">
+                        <div className="poke__logos noselect">
                             <img src={Pokedex} alt="pokelogo" className="poke__logo" />
                         </div>
                         <div className="pokeball__box github__icon" onClick={this.openGithub}>
                             <GitHubIcon></GitHubIcon>
                         </div>
                     </div>
-                    <div className="filter__container">
+                    <div className="filter__container noselect">
                         <div className="filter__items">
                             <div>
                                 Region
@@ -429,7 +447,7 @@ class App extends React.Component {
                         No such Pokémon in this region :/
                     </div>}
 
-                    <div className="app__footer">
+                    <div className="app__footer noselect">
                         <div>
                             Built using <a href="https://pokeapi.co/" target="_blank" rel="noopener noreferrer">PokéAPI</a>, <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">React</a> and <a href="https://material-ui.com/" target="_blank" rel="noopener noreferrer">Material-UI</a>.
                         </div>
