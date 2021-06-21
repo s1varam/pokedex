@@ -206,28 +206,15 @@ class App extends React.Component {
 
         debugger
 
-        // this.state.allPokemons = [];
-        // var emptyArray = [];
-
-        // this.setState({
-        //     allPokemons : emptyArray,
-        // })
-
-        // this.state.isFilter = false;
-
         for (var i = 0; i < this.state.regions.length; i++) {
             if (this.state.regions[i].name === event.target.value) {
-                // this.state.limit = this.state.regions[i].limit;
-                // this.state.offset = this.state.regions[i].offset;
-                // this.state.allPokemons = [];
-                // this.state.showLoading = true;
 
                 this.setState({
                     valueregion: event.target.value,
                     valuetype: "all types",
                     isSearch: false,
                     isFilter: false,
-                    showLoading: false,
+                    showLoading: true,
                 })
 
                 this.getAllPokemons(this.state.regions[i].offset, this.state.regions[i].limit);
@@ -236,36 +223,11 @@ class App extends React.Component {
             }
         }
 
-
-
-        // this.state.limit = region.limit;
-        // this.state.offset = region.offset;
-        // this.state.allPokemons = [];
-        // this.state.showLoading = true;
-
-        // this.setState({
-        //     allPokemons : [],
-        //     limit : region.limit,
-        //     offset: region.offset,
-        // })
-
-        // this.forceUpdate();
-
-        // this.setState({
-        //     allPokemons : [],
-        // }, () => {
-        //     // this.getAllPokemons();
-        // })
-
         console.log("limit");
         console.log(event.target.value);
-        // console.log("offset");
-        // console.log(this.state.offset)
-
-        // this.getAllPokemons();
     }
 
-    handleChangeTypes = async (event) => {
+    handleChangeTypes = (event) => {
 
         debugger
 
@@ -277,7 +239,6 @@ class App extends React.Component {
             return;
         }
 
-        // this.state.swapPokemons = this.state.allPokemons;
         this.state.isSearch = false;
         this.state.valuesearch = "";
         this.state.isFilter = true;
@@ -287,10 +248,10 @@ class App extends React.Component {
         for (var i = 0; i < this.state.allPokemons.length; i++) {
             for (var j = 0; j < this.state.allPokemons[i].types.length; j++) {
                 if (event.target.value === this.state.allPokemons[i].types[j].type.name) {
-                    // this.state.filterPokemons.push(this.state.allPokemons[i])
-                    this.setState({
-                        filterPokemons: this.state.filterPokemons.concat(this.state.allPokemons[i])
-                    })
+                    this.state.filterPokemons.push(this.state.allPokemons[i])
+                    // this.setState({
+                    //     filterPokemons: this.state.filterPokemons.concat(this.state.allPokemons[i])
+                    // })
                 }
             }
         }
@@ -302,7 +263,7 @@ class App extends React.Component {
         })
 
         // this.state.allPokemons = this.state.filterPokemons;
-        this.forceUpdate();
+        // this.forceUpdate();
 
     }
 
