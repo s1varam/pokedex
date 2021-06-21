@@ -1,40 +1,9 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
 import { StylesProvider } from "@material-ui/core/styles";
 import './InfoDialog.css';
-
-
-const styles = (theme) => ({
-    root: {
-        margin: 0,
-        padding: theme.spacing(2),
-    },
-    closeButton: {
-        display: 'none',
-        position: 'absolute',
-        right: theme.spacing(1),
-        top: theme.spacing(1),
-        color: theme.palette.grey[500],
-    },
-});
-
-// const DialogTitle = withStyles(styles)((props) => {
-//     const { children, open, classes, onClose, ...other } = props;
-//     return (
-//         <MuiDialogTitle disableTypography className={classes.root} {...other}>
-//             <Typography variant="h6">{children}</Typography>
-//             {onClose ? (
-//                 <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-//                     <CloseIcon />
-//                 </IconButton>
-//             ) : null}
-//         </MuiDialogTitle>
-//     );
-// });
 
 const DialogContent = withStyles((theme) => ({
     root: {
@@ -42,25 +11,9 @@ const DialogContent = withStyles((theme) => ({
     },
 }))(MuiDialogContent);
 
-const DialogActions = withStyles((theme) => ({
-    root: {
-        margin: 0,
-        padding: theme.spacing(1),
-    },
-}))(MuiDialogActions);
-
 export default function InfoDialog(props) {
-    const [open, setOpen] = React.useState(false);
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
 
     var color1, color2;
-
 
     switch (props.category[0].type.name) {
         case "grass":
@@ -121,7 +74,7 @@ export default function InfoDialog(props) {
         // code block
     }
 
-    if (props.category.length == 2) {
+    if (props.category.length === 2) {
 
         switch (props.category[1].type.name) {
             case "grass":
@@ -181,11 +134,9 @@ export default function InfoDialog(props) {
             default:
             // code block
         }
-    } else if (props.category.length == 1) {
+    } else if (props.category.length === 1) {
         color2 = color1;
     }
-
-    let closeImg = { cursor: 'pointer', float: 'right', marginTop: '5px', width: '20px' };
 
     return (
         <>
@@ -208,13 +159,13 @@ export default function InfoDialog(props) {
                                         {props.name}
                                     </div>
                                     <div>
-                                        <img src={props.img} />
+                                        <img src={props.img} alt="poke-img"/>
                                     </div>
                                     <div className="info__container__data__type">
                                         {/* <p className="info__container__headings">Type</p> */}
                                         {props.category.map((category) =>
                                             <div className={`poke__type__bg ${category.type.name}`}>
-                                                <img src={`${category.type.name}.png`} title={category.type.name}></img>
+                                                <img src={`${category.type.name}.png`} title={category.type.name} alt="poke-type"></img>
                                             </div>
                                         )}
                                     </div>
