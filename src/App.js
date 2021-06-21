@@ -4,6 +4,7 @@ import Pokedex from "../src/assets/images/pokedex.png";
 import InfoDialog from "./components/InfoDialog";
 import axios from 'axios';
 import GitHubIcon from '@material-ui/icons/GitHub';
+import Scroll from './components/Scroll'
 
 class App extends React.Component {
 
@@ -112,11 +113,11 @@ class App extends React.Component {
             })
         );
 
-        pokemonArr.sort((a,b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0))
+        pokemonArr.sort((a, b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0))
 
         this.setState({
             allPokemons: pokemonArr,
-            showLoading : false,
+            showLoading: false,
         })
 
         // console.log("allPokes");
@@ -131,14 +132,14 @@ class App extends React.Component {
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`).catch((err) => console.log("Error:", err));
         // console.log(response);
 
-        var statistics=[], abs=[];
+        var statistics = [], abs = [];
 
         for (var i = 0; i < response.data.abilities.length; i++) {
             abs.push(response.data.abilities[i].ability.name);
         }
 
-        for (var j = 0; j < response.data.stats.length; j++) {      
-            var Obj = {};      
+        for (var j = 0; j < response.data.stats.length; j++) {
+            var Obj = {};
             Obj['stat__name'] = response.data.stats[j].stat.name;
             Obj['stat__val'] = response.data.stats[j].base_stat;
             statistics.push(Obj);
@@ -152,8 +153,8 @@ class App extends React.Component {
             imageURL: imageURL,
             pokeName: pokemon,
             showInfo: true,
-            stats : statistics,
-            abilities : abs,
+            stats: statistics,
+            abilities: abs,
         })
 
         // console.log("stats");
@@ -242,10 +243,10 @@ class App extends React.Component {
         }
 
         this.setState({
-            isSearch : false,
-            valuesearch : "",
-            isFilter : true,
-            filterPokemons : filterArr,
+            isSearch: false,
+            valuesearch: "",
+            isFilter: true,
+            filterPokemons: filterArr,
             valuetype: event.target.value,
         })
 
@@ -267,7 +268,7 @@ class App extends React.Component {
             }
         }
 
-        searchArr.length === 0 ? this.setState({ noDataFound: true, searchPokemons : [], }) : this.setState({ noDataFound: false, searchPokemons : searchArr })
+        searchArr.length === 0 ? this.setState({ noDataFound: true, searchPokemons: [], }) : this.setState({ noDataFound: false, searchPokemons: searchArr })
 
     }
 
@@ -299,9 +300,14 @@ class App extends React.Component {
         document.documentElement.setAttribute('data-theme', targetTheme)
     }
 
+    handleClick = () => {
+        window[`scrollTo`]({ top: document.body.scrollHeight, behavior: `smooth` })
+    }
+
     render() {
         return (
             <>
+                <Scroll showBelow={250} />
                 {this.state.showLoading &&
                     <div className="app__container">
                         <div className="loading__text">

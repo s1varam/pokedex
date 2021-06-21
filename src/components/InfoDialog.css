@@ -213,6 +213,12 @@ html[data-theme=dark] {
 	}
 	.info__container__data__abilities{
 		margin-top: 20px;
+		align-items: center;
+		gap: 0px;
+	}
+
+	.right__box .desc{
+		text-align: center;
 	}
 }
 

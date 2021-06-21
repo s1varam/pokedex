@@ -150,8 +150,7 @@ const Pokemon = ({ id, image, name, type, onElemClick }) => {
                     visibleByDefault={false}
                     delayMethod={'debounce'}
                     effect="blur"
-                />
-                
+                />                
             </div>
             <div className="poke__name" >
                 <h3>{name}</h3>
