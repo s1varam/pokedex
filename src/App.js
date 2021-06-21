@@ -15,6 +15,7 @@ class App extends React.Component {
             searchPokemons: [],
             swapPokemons: [],
             filterPokemons: [],
+            evoChain : [],
             abilities: "",
             height: "",
             weight: "",
@@ -127,8 +128,6 @@ class App extends React.Component {
 
     fetchPokemonData = async (number, pokemon, category, imageURL) => {
 
-        debugger
-
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`).catch((err) => console.log("Error:", err));
         // console.log(response);
 
@@ -161,7 +160,70 @@ class App extends React.Component {
         // console.log(statistics);
         // console.log(this.state.stats);
 
+        this.fetchEvoChainURL(pokemon);
         this.fetchPokemonDescription(pokemon);
+
+    }
+
+    fetchEvoChainURL = async (pokemon_name) => {
+        debugger
+
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon_name}`).catch((err) => console.log("Error:", err));
+        this.fetchEvoDetails(response.data.evolution_chain.url);
+        console.log(response);
+
+    }
+
+    fetchEvoDetails = async (url) => {
+        debugger
+        const response = await axios.get(url).catch((err) => console.log("Error:", err));
+        console.log(response);
+
+
+        var evoChain = [];
+        var evoData = response.data.chain;
+
+        do {
+            var evoDetails = evoData['evolution_details'][0];
+
+            evoChain.push({
+                "species_name": evoData.species.name,
+                "min_level": !evoDetails ? 1 : evoDetails.min_level,
+                "trigger_name": !evoDetails ? null : evoDetails.trigger.name,
+                "item": !evoDetails ? null : evoDetails.item
+            });
+
+            evoData = evoData['evolves_to'][0];
+        } while (!!evoData && evoData.hasOwnProperty('evolves_to'));
+
+        // console.log("evochain");
+        // console.log(evoChain);
+
+        // this.setState({
+        //     evoChain : evoChain,
+        // })
+
+        this.fetchEvoImages(evoChain);
+
+        // return evoChain;
+
+    }
+
+    fetchEvoImages = async(evoChainArr) => {
+
+        debugger
+        for(var i=0;i<evoChainArr.length;i++){
+            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${evoChainArr[i].species_name}`).catch((err) => console.log("Error:", err));
+            response.data.sprites.other.dream_world.front_default ? evoChainArr[i]['image_url'] = response.data.sprites.other.dream_world.front_default : evoChainArr[i]['image_url'] = response.data.sprites.other['official-artwork'].front_default; 
+        }
+
+        this.setState({
+            evoChain : evoChainArr,
+        })
+
+        console.log("evoChain")
+        console.log(evoChainArr);
+        console.log(this.state.evoChain);
 
     }
 
@@ -250,7 +312,7 @@ class App extends React.Component {
             valuetype: event.target.value,
         })
 
-        this.state.filterPokemons.length === 0 ? this.setState({ noDataFound: true }) : this.setState({ noDataFound: false })
+        filterArr.length === 0 ? this.setState({ noDataFound: true }) : this.setState({ noDataFound: false })
 
     }
 
@@ -307,7 +369,7 @@ class App extends React.Component {
     render() {
         return (
             <>
-                <Scroll showBelow={250} />
+                <Scroll showBelow={250} className="scroll__top" />
                 {this.state.showLoading &&
                     <div className="app__container">
                         <div className="loading__text">
@@ -330,6 +392,7 @@ class App extends React.Component {
                             name={this.state.pokeName}
                             number={this.state.pokeNumber}
                             description={this.state.description}
+                            evoChain={this.state.evoChain}
                             cancel={() => this.closeDialog()}>
                         </InfoDialog>}
                     <div className="app__header">
