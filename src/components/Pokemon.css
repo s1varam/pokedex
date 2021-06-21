@@ -213,3 +213,7 @@ html[data-theme=dark] {
   height: 150px;
   width: 150px;
 }
+
+.poke__name h3{
+  margin-top: 0px;
+}

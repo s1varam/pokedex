@@ -1,5 +1,7 @@
 import React from 'react'
 import './Pokemon.css'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const Pokemon = ({ id, image, name, type, onElemClick }) => {
     // const style = `thumbnail__container ${type}`;
@@ -141,7 +143,15 @@ const Pokemon = ({ id, image, name, type, onElemClick }) => {
                 </div>
             </div>
             <div className="image__container">
-                <img src={image} alt={name}></img>
+                <LazyLoadImage
+                    alt="image-pokemon"
+                    height={150}
+                    src={image}
+                    visibleByDefault={false}
+                    delayMethod={'debounce'}
+                    effect="blur"
+                />
+                
             </div>
             <div className="poke__name" >
                 <h3>{name}</h3>
