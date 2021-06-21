@@ -5,6 +5,8 @@ import InfoDialog from "./components/InfoDialog";
 import axios from 'axios';
 import GitHubIcon from '@material-ui/icons/GitHub';
 
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
 class App extends React.Component {
 
     constructor(props) {
@@ -81,43 +83,47 @@ class App extends React.Component {
         }
     }
 
-    componentWillMount() {
-        this.getAllPokemons();
-    }
-
     componentDidMount() {
+        this.getAllPokemons(this.state.offset, this.state.limit);
         var currentTheme = document.documentElement.getAttribute('data-theme');
         if (currentTheme === "dark") {
             this.setState({
                 isChecked: true,
             })
         }
+        console.log("component mounted");
     }
 
-    getAllPokemons = async () => {
-        debugger
+    getAllPokemons = async (offset, limit) => {
+        // debugger
 
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${this.state.limit}&offset=${this.state.offset}`).catch((err) => console.log("Error:", err));
-
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`).catch((err) => console.log("Error:", err));
         this.getPokemonData(response.data.results);
 
     }
 
     getPokemonData = async (result) => {
 
-        var response;
-        for (var i = 0; i < result.length; i++) {
-            response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${result[i].name}`).catch((err) => console.log("Error:", err));
-            this.state.allPokemons.push(response.data)
-        }
+        var pokemonArr = [];
 
-        this.state.showLoading = false;
+        await Promise.all(
+            result.map((pokemonItem) => {
+                return axios
+                    .get(`https://pokeapi.co/api/v2/pokemon/${pokemonItem.name}`)
+                    .then((result) => {
+                        pokemonArr.push(result.data);
+                    });
+            })
+        );
+
+        pokemonArr.sort((a,b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0))
 
         this.setState({
-            allPokemons: this.state.allPokemons,
-
+            allPokemons: pokemonArr,
+            showLoading : false,
         })
 
+        console.log("allPokes");
         console.log(this.state.allPokemons);
 
     }
@@ -200,24 +206,37 @@ class App extends React.Component {
 
         debugger
 
-        this.state.isFilter = false;
+        // this.state.allPokemons = [];
+        // var emptyArray = [];
+
+        // this.setState({
+        //     allPokemons : emptyArray,
+        // })
+
+        // this.state.isFilter = false;
 
         for (var i = 0; i < this.state.regions.length; i++) {
             if (this.state.regions[i].name === event.target.value) {
-                this.state.limit = this.state.regions[i].limit;
-                this.state.offset = this.state.regions[i].offset;
-                this.state.allPokemons = [];
-                this.state.showLoading = true;
+                // this.state.limit = this.state.regions[i].limit;
+                // this.state.offset = this.state.regions[i].offset;
+                // this.state.allPokemons = [];
+                // this.state.showLoading = true;
 
                 this.setState({
                     valueregion: event.target.value,
                     valuetype: "all types",
-                    isSearch: false
+                    isSearch: false,
+                    isFilter: false,
+                    showLoading: false,
                 })
+
+                this.getAllPokemons(this.state.regions[i].offset, this.state.regions[i].limit);
 
                 break;
             }
         }
+
+
 
         // this.state.limit = region.limit;
         // this.state.offset = region.offset;
@@ -230,17 +249,23 @@ class App extends React.Component {
         //     offset: region.offset,
         // })
 
-        this.forceUpdate();
+        // this.forceUpdate();
+
+        // this.setState({
+        //     allPokemons : [],
+        // }, () => {
+        //     // this.getAllPokemons();
+        // })
 
         console.log("limit");
         console.log(event.target.value);
         // console.log("offset");
         // console.log(this.state.offset)
 
-        this.getAllPokemons();
+        // this.getAllPokemons();
     }
 
-    handleChangeTypes = (event) => {
+    handleChangeTypes = async (event) => {
 
         debugger
 
@@ -258,10 +283,14 @@ class App extends React.Component {
         this.state.isFilter = true;
         this.state.filterPokemons = [];
 
+
         for (var i = 0; i < this.state.allPokemons.length; i++) {
             for (var j = 0; j < this.state.allPokemons[i].types.length; j++) {
                 if (event.target.value === this.state.allPokemons[i].types[j].type.name) {
-                    this.state.filterPokemons.push(this.state.allPokemons[i])
+                    // this.state.filterPokemons.push(this.state.allPokemons[i])
+                    this.setState({
+                        filterPokemons: this.state.filterPokemons.concat(this.state.allPokemons[i])
+                    })
                 }
             }
         }
@@ -428,7 +457,7 @@ class App extends React.Component {
 
                                 (!this.state.isFilter ? Object.keys(this.state.allPokemons).map((item, index) =>
                                     <Pokemon
-                                        key={index}
+                                        key={this.state.allPokemons[item].id}
                                         id={this.state.allPokemons[item].id}
                                         image={this.state.allPokemons[item].sprites.other.dream_world.front_default ? this.state.allPokemons[item].sprites.other.dream_world.front_default : this.state.allPokemons[item].sprites.other['official-artwork'].front_default}
                                         name={this.state.allPokemons[item].name}
