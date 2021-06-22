@@ -7,6 +7,7 @@ import './InfoDialog.css';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import Delayed from './Delayed';
 
 const DialogContent = withStyles((theme) => ({
     root: {
@@ -200,7 +201,7 @@ export default function InfoDialog(props) {
 
 
                                         <div>
-                                            <div className="info__container__headings stats">Stats</div>
+                                            <div className="info__container__headings stats">Base Stats</div>
                                             <div className="info__container__data__data">
                                                 {props.stats.map((stat) =>
                                                     <div className="info__container__stat__columns">
@@ -215,24 +216,27 @@ export default function InfoDialog(props) {
                                             <div className="info__container__headings">Evolution</div>
                                             <div className="evolution__box">
                                                 {props.evoChain.map((value, index, elements) =>
-                                                    <div className="evolution__sub__box">
-                                                        <div>
-                                                            <div className="evolution__poke__name">{elements[index].species_name}</div>
-                                                            <div className="evolution__img__div" style={{ background: `linear-gradient(${color1}, ${color2})` }}>
-                                                                {/* <LazyLoadImage
-                                                                    alt="image-pokemon"
-                                                                    height={80}
-                                                                    src={elements[index].image_url}
-                                                                    visibleByDefault={false}
-                                                                    delayMethod={'debounce'}
-                                                                    effect="blur"
-                                                                    className="evo_img"
-                                                                /> */}
-                                                                <img src={elements[index].image_url} className="evo_img" />
+                                                    <Delayed waitBeforeShow={(index+0)*1200}>
+                                                        <div className="evolution__sub__box">
+                                                            <div>
+                                                                <div className="evolution__poke__name">{elements[index].species_name}</div>
+                                                                <div className="evolution__img__div" style={{ background: `linear-gradient(${color1}, ${color2})` }}>
+                                                                    <LazyLoadImage
+                                                                        alt="image-pokemon"
+                                                                        height={80}
+                                                                        width={80}
+                                                                        src={elements[index].image_url}
+                                                                        visibleByDefault={false}
+                                                                        delayMethod={'debounce'}
+                                                                        effect="blur"
+                                                                        className="evo_img"
+                                                                    />
+                                                                    {/* <img src={elements[index].image_url} className="evo_img" /> */}
+                                                                </div>
                                                             </div>
+                                                            {elements[index + 1] && <ArrowRightAltIcon className="arrow__right"></ArrowRightAltIcon>}
                                                         </div>
-                                                        {elements[index + 1] && <ArrowRightAltIcon className="arrow__right"></ArrowRightAltIcon>}
-                                                    </div>
+                                                    </Delayed>
                                                 )}
                                             </div>
                                         </div>

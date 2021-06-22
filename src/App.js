@@ -160,6 +160,10 @@ class App extends React.Component {
         // console.log(statistics);
         // console.log(this.state.stats);
 
+        this.setState({
+            evoChain : [],
+        })
+
         this.fetchEvoChainURL(pokemon);
         this.fetchPokemonDescription(pokemon);
 

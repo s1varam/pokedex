@@ -198,6 +198,12 @@ html[data-theme=dark] {
 	width: 80px;
 	height: 80px;
 	margin: auto;
+	display: flex;
+	
+}
+
+.evolution__img__div:hover{
+	transform: scale(1.05);
 }
 
 .evolution__img__div {
@@ -205,9 +211,10 @@ html[data-theme=dark] {
 	width: 113px;
 	display: flex;
     border-radius: 50%;
-	border: var(--cardborder) solid 7px;
 	box-shadow: 0 5px 15px 4px rgb(0 0 0 / 30%);
-	
+	align-items: center;
+    justify-content: center;
+	transition: all 0.35s;
 }
 
 .evolution__poke__name{
