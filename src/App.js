@@ -34,6 +34,10 @@ class App extends React.Component {
             limit: 151,
             offset: 0,
             isChecked: false,
+            evolID: "",
+            evolName: "",
+            evolTypes : [],
+            evolImgURL : "",
             regions: [
                 {
                     name: "Kanto",
@@ -127,6 +131,8 @@ class App extends React.Component {
     }
 
     fetchPokemonData = async (number, pokemon, category, imageURL) => {
+
+        debugger
 
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`).catch((err) => console.log("Error:", err));
         // console.log(response);
@@ -397,7 +403,9 @@ class App extends React.Component {
                             number={this.state.pokeNumber}
                             description={this.state.description}
                             evoChain={this.state.evoChain}
-                            cancel={() => this.closeDialog()}>
+                            cancel={() => this.closeDialog()}
+                            evolutionPokemon={this.fetchPokemonData}>
+                            
                         </InfoDialog>}
                     <div className="app__header">
                         <div className="switch">

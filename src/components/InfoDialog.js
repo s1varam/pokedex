@@ -9,6 +9,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import Delayed from './Delayed';
 
+
 const DialogContent = withStyles((theme) => ({
     root: {
         padding: theme.spacing(2),
@@ -198,8 +199,6 @@ export default function InfoDialog(props) {
                                                 </div>
                                             </div>
                                         </div>
-
-
                                         <div>
                                             <div className="info__container__headings stats">Base Stats</div>
                                             <div className="info__container__data__data">
@@ -211,7 +210,6 @@ export default function InfoDialog(props) {
                                                 )}
                                             </div>
                                         </div>
-
                                         <div>
                                             <div className="info__container__headings">Evolution</div>
                                             <div className="evolution__box">
@@ -230,6 +228,7 @@ export default function InfoDialog(props) {
                                                                         delayMethod={'debounce'}
                                                                         effect="blur"
                                                                         className="evo_img"
+                                                                        onClick={() => props.evolutionPokemon(props.number,elements[index].species_name,props.category,elements[index].image_url)}
                                                                     />
                                                                     {/* <img src={elements[index].image_url} className="evo_img" /> */}
                                                                 </div>

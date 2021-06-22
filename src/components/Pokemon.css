@@ -41,10 +41,10 @@ html[data-theme=dark] {
     justify-content: space-between;
     padding: 1.5rem 0 ;
     margin: 2rem;
-    border: 15px solid var(--cardborder);
+    /* border: 15px solid var(--cardborder); */
     border-radius: 1rem;
     min-width: 220px;
-    height: 280px;
+    height: 285px;
     text-align: center;
     box-shadow: 0 5px 25px 1px rgb(0 0 0 / 50%);
     transition: all 0.2s ease-in-out;

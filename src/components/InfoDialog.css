@@ -111,7 +111,7 @@ html[data-theme=dark] {
 .MuiDialog-paperFullWidth {
 	width: 60%;
 	border-radius: 1rem;
-	border: 15px solid var(--cardborder);
+	/* border: 15px solid var(--cardborder); */
 	box-shadow: 0 10px 30px 4px rgb(0 0 0 / 50%);
 }
 
@@ -226,6 +226,11 @@ html[data-theme=dark] {
 	font-size: 1.75rem;
 	margin: 0 10px;
 	margin-top: 4vh;
+}
+
+.MuiDialogContent-root:first-child {
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 
