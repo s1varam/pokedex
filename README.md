@@ -19,8 +19,6 @@
 
 -Demo gif
 ![demo-gif](./public/screenshots/pokedex-demo.gif)
--Mobile view
-![mobile-design](./public/screenshots/mobile-design.jpg)
 
 ## Built With
 
