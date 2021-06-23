@@ -13,7 +13,6 @@ class App extends React.Component {
         this.state = {
             allPokemons: [],
             searchPokemons: [],
-            swapPokemons: [],
             filterPokemons: [],
             evoChain: [],
             abilities: "",
@@ -132,7 +131,7 @@ class App extends React.Component {
 
     fetchPokemonData = async (number, pokemon, category, imageURL) => {
 
-        debugger
+        // debugger
 
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`).catch((err) => console.log("Error:", err));
         // console.log(response);
@@ -177,7 +176,7 @@ class App extends React.Component {
     }
 
     fetchEvoChainURL = async (pokemon_name) => {
-        debugger
+        // debugger
 
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon_name}`).catch((err) => console.log("Error:", err));
         this.fetchEvoDetails(response.data.evolution_chain.url);
@@ -186,7 +185,7 @@ class App extends React.Component {
     }
 
     fetchEvoDetails = async (url) => {
-        debugger
+        // debugger
         const response = await axios.get(url).catch((err) => console.log("Error:", err));
         console.log(response);
 
@@ -210,19 +209,13 @@ class App extends React.Component {
         // console.log("evochain");
         // console.log(evoChain);
 
-        // this.setState({
-        //     evoChain : evoChain,
-        // })
-
         this.fetchEvoImages(evoChain);
-
-        // return evoChain;
 
     }
 
     fetchEvoImages = async (evoChainArr) => {
 
-        debugger
+        // debugger
         for (var i = 0; i < evoChainArr.length; i++) {
             const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${evoChainArr[i].species_name}`).catch((err) => console.log("Error:", err));
             response.data.sprites.other.dream_world.front_default ? evoChainArr[i]['image_url'] = response.data.sprites.other.dream_world.front_default : evoChainArr[i]['image_url'] = response.data.sprites.other['official-artwork'].front_default;
@@ -232,14 +225,10 @@ class App extends React.Component {
             evoChain: evoChainArr,
         })
 
-        // console.log("evoChain")
-        // console.log(evoChainArr);
-        // console.log(this.state.evoChain);
-
     }
 
     fetchPokemonDescription = async (pokemon_name) => {
-        debugger
+        // debugger
 
         try {
             const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon_name}`).catch((err) => console.log("Error:", err));
@@ -270,7 +259,7 @@ class App extends React.Component {
 
     handleChangeRegions = (event) => {
 
-        debugger
+        // debugger
 
         for (var i = 0; i < this.state.regions.length; i++) {
             if (this.state.regions[i].name === event.target.value) {
@@ -329,7 +318,7 @@ class App extends React.Component {
 
     handleChangeSearch = (event) => {
 
-        debugger
+        // debugger
 
         event.target.value.length > 0 ? this.setState({ isSearch: true, valuetype: "all types", valuesearch: event.target.value }) : this.setState({ isSearch: false, isFilter: false, valuesearch: event.target.value });
 
@@ -351,7 +340,7 @@ class App extends React.Component {
 
     changeTheme = () => {
 
-        debugger
+        // debugger
         var currentTheme = document.documentElement.getAttribute('data-theme');
         // console.log(currentTheme);
 
@@ -406,7 +395,6 @@ class App extends React.Component {
                             evoChain={this.state.evoChain}
                             cancel={() => this.closeDialog()}
                             evolutionPokemon={this.fetchPokemonData}>
-
                         </InfoDialog>}
                     <div className="app__header">
                         <div className="switch">
@@ -440,7 +428,6 @@ class App extends React.Component {
                                         value={region.name}>{region.name}&nbsp;({region.offset + 1}-{region.limit + region.offset})
                                     </option>
                                 ))}
-
                             </select>
                         </div>
                         <div className="filter__items">
@@ -465,7 +452,7 @@ class App extends React.Component {
                     </div>
                     <div className="pokemon__container">
                         <div className="all__pokemons">
-                            {this.state.isSearch ? Object.keys(this.state.searchPokemons).map((item, index) =>
+                            {this.state.isSearch ? Object.keys(this.state.searchPokemons).map((item) =>
                                 <Pokemon
                                     key={this.state.allPokemons[item].id}
                                     id={this.state.searchPokemons[item].id}
@@ -474,10 +461,7 @@ class App extends React.Component {
                                     type={this.state.searchPokemons[item].types}
                                     onElemClick={() => this.fetchPokemonData(this.state.searchPokemons[item].id, this.state.searchPokemons[item].name, this.state.searchPokemons[item].types, this.state.searchPokemons[item].sprites.other.dream_world.front_default ? this.state.searchPokemons[item].sprites.other.dream_world.front_default : this.state.searchPokemons[item].sprites.other['official-artwork'].front_default)}
                                 />) :
-
-
-
-                                (!this.state.isFilter ? Object.keys(this.state.allPokemons).map((item, index) =>
+                                (!this.state.isFilter ? Object.keys(this.state.allPokemons).map((item) =>
                                     <Pokemon
                                         key={this.state.allPokemons[item].id}
                                         id={this.state.allPokemons[item].id}
@@ -487,7 +471,7 @@ class App extends React.Component {
                                         onElemClick={() => this.fetchPokemonData(this.state.allPokemons[item].id, this.state.allPokemons[item].name, this.state.allPokemons[item].types, this.state.allPokemons[item].sprites.other.dream_world.front_default ? this.state.allPokemons[item].sprites.other.dream_world.front_default : this.state.allPokemons[item].sprites.other['official-artwork'].front_default)}
                                     />
                                 ) :
-                                    Object.keys(this.state.filterPokemons).map((item, index) =>
+                                    Object.keys(this.state.filterPokemons).map((item) =>
                                         <Pokemon
                                             key={this.state.allPokemons[item].id}
                                             id={this.state.filterPokemons[item].id}
@@ -499,13 +483,10 @@ class App extends React.Component {
                                     ))
                             }
                         </div>
-                        {/* <button className="load__more" onClick={() => this.getAllPokemons()}>Load More</button> */}
                     </div>
-
                     {this.state.noDataFound && <div className="no__data noselect">
                         No such Pokémon in this region :/
                     </div>}
-
                     <div className="app__footer noselect">
                         <div>
                             Built using <a href="https://pokeapi.co/" target="_blank" rel="noopener noreferrer">PokéAPI</a>, <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">React</a> and <a href="https://material-ui.com/" target="_blank" rel="noopener noreferrer">Material-UI</a>.
@@ -514,11 +495,8 @@ class App extends React.Component {
                             <GitHubIcon></GitHubIcon>
                         </div>
                     </div>
-
-
                 </div>}
             </>
-
         )
     }
 }

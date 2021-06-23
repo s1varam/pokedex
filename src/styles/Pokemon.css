@@ -47,7 +47,7 @@ html[data-theme=dark] {
   height: 285px;
   text-align: center;
   /* box-shadow: 0 5px 25px 1px rgb(0 0 0 / 50%); */
-  /* box-shadow:
+  box-shadow:
   0 1.6px 1.6px rgba(0, 0, 0, 0.023),
   0 3.8px 3.8px rgba(0, 0, 0, 0.034),
   0 6.9px 6.9px rgba(0, 0, 0, 0.041),
@@ -55,7 +55,7 @@ html[data-theme=dark] {
   0 18.8px 18.8px rgba(0, 0, 0, 0.056),
   0 32.8px 32.8px rgba(0, 0, 0, 0.067),
   0 71px 71px rgba(0, 0, 0, 0.09)
-; */
+;
   transition: all 0.2s ease-in-out;
 }
 

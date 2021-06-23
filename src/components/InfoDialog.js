@@ -31,7 +31,6 @@ export default function InfoDialog(props) {
             <StylesProvider injectFirst>
                 <div>
                     <Dialog aria-labelledby="customized-dialog-title" open={props.open} onBackdropClick={props.cancel} fullWidth maxWidth="md" className="dialog__bg noselect">
-                        {/* <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' onClick={props.cancel} style={closeImg} /> */}
                         <DialogContent style={{ background: `linear-gradient(${finalColor[0]}, ${finalColor[1]})` }} className="dialog__content">
                             <div className="info__container">
                                 <div className="info__container__img">
@@ -45,7 +44,6 @@ export default function InfoDialog(props) {
                                         <img src={props.img} alt="poke-img" />
                                     </div>
                                     <div className="info__container__data__type">
-                                        {/* <p className="info__container__headings">Type</p> */}
                                         {props.category.map((category) =>
                                             <div key={category.type.name} className={`poke__type__bg ${category.type.name}`}>
                                                 <img src={`${category.type.name}.png`} title={category.type.name} alt="poke-type"></img>
@@ -59,7 +57,6 @@ export default function InfoDialog(props) {
                                 </div>
 
                                 <div className="info__container__data">
-                                    {/* <div><img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' className="close__btn" onClick={props.cancel} style={closeImg} /></div> */}
                                     <div className="right__box">
                                         <div>
                                             <div className="info__container__headings">About</div>
