@@ -15,7 +15,7 @@ class App extends React.Component {
             searchPokemons: [],
             swapPokemons: [],
             filterPokemons: [],
-            evoChain : [],
+            evoChain: [],
             abilities: "",
             height: "",
             weight: "",
@@ -36,8 +36,8 @@ class App extends React.Component {
             isChecked: false,
             evolID: "",
             evolName: "",
-            evolTypes : [],
-            evolImgURL : "",
+            evolTypes: [],
+            evolImgURL: "",
             regions: [
                 {
                     name: "Kanto",
@@ -138,6 +138,7 @@ class App extends React.Component {
         // console.log(response);
 
         var statistics = [], abs = [];
+        var id = response.data.id;
 
         for (var i = 0; i < response.data.abilities.length; i++) {
             abs.push(response.data.abilities[i].ability.name);
@@ -154,7 +155,7 @@ class App extends React.Component {
             weight: response.data.weight,
             height: response.data.height,
             category: category,
-            pokeNumber: number,
+            pokeNumber: id,
             imageURL: imageURL,
             pokeName: pokemon,
             showInfo: true,
@@ -167,7 +168,7 @@ class App extends React.Component {
         // console.log(this.state.stats);
 
         this.setState({
-            evoChain : [],
+            evoChain: [],
         })
 
         this.fetchEvoChainURL(pokemon);
@@ -219,21 +220,21 @@ class App extends React.Component {
 
     }
 
-    fetchEvoImages = async(evoChainArr) => {
+    fetchEvoImages = async (evoChainArr) => {
 
         debugger
-        for(var i=0;i<evoChainArr.length;i++){
+        for (var i = 0; i < evoChainArr.length; i++) {
             const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${evoChainArr[i].species_name}`).catch((err) => console.log("Error:", err));
-            response.data.sprites.other.dream_world.front_default ? evoChainArr[i]['image_url'] = response.data.sprites.other.dream_world.front_default : evoChainArr[i]['image_url'] = response.data.sprites.other['official-artwork'].front_default; 
+            response.data.sprites.other.dream_world.front_default ? evoChainArr[i]['image_url'] = response.data.sprites.other.dream_world.front_default : evoChainArr[i]['image_url'] = response.data.sprites.other['official-artwork'].front_default;
         }
 
         this.setState({
-            evoChain : evoChainArr,
+            evoChain: evoChainArr,
         })
 
-        console.log("evoChain")
-        console.log(evoChainArr);
-        console.log(this.state.evoChain);
+        // console.log("evoChain")
+        // console.log(evoChainArr);
+        // console.log(this.state.evoChain);
 
     }
 
@@ -405,14 +406,14 @@ class App extends React.Component {
                             evoChain={this.state.evoChain}
                             cancel={() => this.closeDialog()}
                             evolutionPokemon={this.fetchPokemonData}>
-                            
+
                         </InfoDialog>}
                     <div className="app__header">
                         <div className="switch">
 
                             <div className="toggle">
-                                <label for="themeSwitch"></label>
-                                <input type="checkbox" name="swich-theme" id="themeSwitch" onClick={this.changeTheme} checked={this.state.isChecked} />
+                                <label htmlFor="themeSwitch"></label>
+                                <input type="checkbox" name="swich-theme" id="themeSwitch" onClick={this.changeTheme} defaultChecked />
                                 <div className="toggle-bg"></div>
                                 <div className="toggle-thumb">
                                     <i className="fas fa-sun"></i>
@@ -434,7 +435,10 @@ class App extends React.Component {
                             </div>
                             <select value={this.state.valueregion} onChange={this.handleChangeRegions}>
                                 {this.state.regions.map((region) => (
-                                    <option value={region.name}>{region.name}&nbsp;({region.offset + 1}-{region.limit + region.offset})</option>
+                                    <option
+                                        key={region.name}
+                                        value={region.name}>{region.name}&nbsp;({region.offset + 1}-{region.limit + region.offset})
+                                    </option>
                                 ))}
 
                             </select>
@@ -445,7 +449,10 @@ class App extends React.Component {
                             </div>
                             <select value={this.state.valuetype} onChange={this.handleChangeTypes}>
                                 {this.state.types.map((type) => (
-                                    <option value={type}>{type}</option>
+                                    <option
+                                        key={type}
+                                        value={type}>{type}
+                                    </option>
                                 ))}
                             </select>
                         </div>
@@ -460,7 +467,7 @@ class App extends React.Component {
                         <div className="all__pokemons">
                             {this.state.isSearch ? Object.keys(this.state.searchPokemons).map((item, index) =>
                                 <Pokemon
-                                    key={index}
+                                    key={this.state.allPokemons[item].id}
                                     id={this.state.searchPokemons[item].id}
                                     image={this.state.searchPokemons[item].sprites.other.dream_world.front_default ? this.state.searchPokemons[item].sprites.other.dream_world.front_default : this.state.searchPokemons[item].sprites.other['official-artwork'].front_default}
                                     name={this.state.searchPokemons[item].name}
@@ -482,7 +489,7 @@ class App extends React.Component {
                                 ) :
                                     Object.keys(this.state.filterPokemons).map((item, index) =>
                                         <Pokemon
-                                            key={index}
+                                            key={this.state.allPokemons[item].id}
                                             id={this.state.filterPokemons[item].id}
                                             image={this.state.filterPokemons[item].sprites.other.dream_world.front_default ? this.state.filterPokemons[item].sprites.other.dream_world.front_default : this.state.filterPokemons[item].sprites.other['official-artwork'].front_default}
                                             name={this.state.filterPokemons[item].name}

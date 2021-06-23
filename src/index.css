@@ -32,7 +32,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background 1s;
+  transition: background 1s ease;
 }
 
 code {
@@ -274,13 +274,13 @@ select {
   opacity: 0;
   z-index: 1;
   transform: translateX(1px);
-  transition: all 0.35s;
+  transition: all 0.5s;
 }
 
 .switch .toggle-thumb .fa-moon {
   opacity: 1;
   transform: translateX(-30px);
-  transition: all 0.35s;
+  transition: all 0.55s;
 }
 
 .switch .toggle input[type=checkbox]:checked~.toggle-thumb .fa-sun {
