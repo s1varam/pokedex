@@ -17,7 +17,8 @@
 
 ## Snapshots
 
--Demo gif
+Demo gif
+
 ![demo-gif](./public/screenshots/pokedex-demo.gif)
 
 ## Built With
