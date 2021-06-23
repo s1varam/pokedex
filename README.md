@@ -1,10 +1,10 @@
 # PokéDex
 
- A simple Pokémon catalogue, built with [React](https://reactjs.org/), [Material-UI](https://material-ui.com/) and [PokéAPI](https://pokeapi.co/)
+ A simple Pokémon catalogue, built with [React](https://reactjs.org/), [Material-UI](https://material-ui.com/) and [PokéAPI](https://pokeapi.co/).
 
 ## Links
 
- Watch it in action [here]()
+ Watch it in action [here](https://pokedex-react-mui.netlify.app/)
 
 ## Features
 - View the id, name, type, basic dimensions, description, abilities, stats and evolution of each Pokémon
@@ -17,8 +17,10 @@
 
 ## Snapshots
 
+-Demo gif
 ![demo-gif](./public/screenshots/pokedex-demo.gif)
-![image]()
+-Mobile view
+![mobile-design](./public/screenshots/mobile-design.jpg)
 
 ## Built With
 
