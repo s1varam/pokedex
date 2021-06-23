@@ -229,6 +229,10 @@ h3 {
   margin-top: 0px;
 }
 
+.MuiTooltip-tooltip{
+	font-size: 15px;
+}
+
 @media screen and (max-width: 767px) {
   .thumbnail__container .img__thumbnail {
     width: 90px;

@@ -239,6 +239,10 @@ html[data-theme=dark] {
     gap: 0 30px;
 }
 
+.MuiTooltip-tooltip{
+	font-size: 15px !important;
+}
+
 
 /* phone */
 
