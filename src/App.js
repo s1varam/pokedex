@@ -8,6 +8,7 @@ import Scroll from './components/Scroll';
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Loading from './components/Loading'
+import Filters from './components/Filters'
 
 class App extends React.Component {
 
@@ -373,7 +374,7 @@ class App extends React.Component {
         return (
             <>
                 <Scroll showBelow={250} className="scroll__top" />
-                {this.state.showLoading && <Loading/>
+                {this.state.showLoading && <Loading />
                     // <div className="app__container">
                     //     <div className="loading__text">
                     //         Loading
@@ -420,8 +421,8 @@ class App extends React.Component {
                             <GitHubIcon></GitHubIcon>
                         </div>
                     </div> */}
-                    <Header/>
-                    <div className="filter__container noselect">
+                    <Header />
+                    {/* <div className="filter__container noselect">
                         <div className="filter__items">
                             <div>
                                 Region
@@ -454,7 +455,17 @@ class App extends React.Component {
                             </label>
                             <input type="text" value={this.state.valuesearch} onChange={this.handleChangeSearch} />
                         </div>
-                    </div>
+                    </div> */}
+                    <Filters
+                        valueregion={this.state.valueregion}
+                        regions={this.state.regions}
+                        valuetype={this.state.valuetype}
+                        valuesearch={this.state.valuesearch}
+                        types={this.state.types}
+                        regionsSelect = {this.handleChangeRegions}
+                        typesSelect = {this.handleChangeTypes}
+                        searchChange = {this.handleChangeSearch}
+                    />
                     <div className="pokemon__container">
                         <div className="all__pokemons">
                             {this.state.isSearch ? Object.keys(this.state.searchPokemons).map((item) =>
@@ -500,7 +511,7 @@ class App extends React.Component {
                             <GitHubIcon></GitHubIcon>
                         </div>
                     </div> */}
-                    <Footer/>
+                    <Footer />
                 </div>}
             </>
         )
