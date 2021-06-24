@@ -2,7 +2,7 @@ import React from 'react';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import Pokedex from "../assets/images/pokedex.png";
 
-class Footer extends React.Component {
+class Header extends React.Component {
 
     openGithub = () => {
         window.open("https://github.com/s1varam/pokedex");
@@ -60,4 +60,4 @@ class Footer extends React.Component {
     }
 }
 
-export default Footer;
+export default Header;

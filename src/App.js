@@ -7,6 +7,7 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import Scroll from './components/Scroll';
 import Header from './components/Header'
 import Footer from './components/Footer'
+import Loading from './components/Loading'
 
 class App extends React.Component {
 
@@ -372,15 +373,16 @@ class App extends React.Component {
         return (
             <>
                 <Scroll showBelow={250} className="scroll__top" />
-                {this.state.showLoading &&
-                    <div className="app__container">
-                        <div className="loading__text">
-                            Loading
-                        </div>
-                        <div className="gif__container">
-                            <img src="https://i.gifer.com/VgI.gif" className="loading__gif noselect" alt="loading-gif"></img>
-                        </div>
-                    </div>}
+                {this.state.showLoading && <Loading/>
+                    // <div className="app__container">
+                    //     <div className="loading__text">
+                    //         Loading
+                    //     </div>
+                    //     <div className="gif__container">
+                    //         <img src="https://i.gifer.com/VgI.gif" className="loading__gif noselect" alt="loading-gif"></img>
+                    //     </div>
+                    // </div>
+                }
                 {!this.state.showLoading && <div className="app__container">
                     {this.state.showInfo &&
                         <InfoDialog
