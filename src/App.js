@@ -5,6 +5,7 @@ import InfoDialog from "./components/InfoDialog";
 import axios from 'axios';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import Scroll from './components/Scroll';
+import Header from './components/Header'
 import Footer from './components/Footer'
 
 class App extends React.Component {
@@ -339,29 +340,29 @@ class App extends React.Component {
         window.open("https://github.com/s1varam/pokedex");
     }
 
-    changeTheme = () => {
+    // changeTheme = () => {
 
-        // debugger
-        var currentTheme = document.documentElement.getAttribute('data-theme');
-        // console.log(currentTheme);
+    //     // debugger
+    //     var currentTheme = document.documentElement.getAttribute('data-theme');
+    //     // console.log(currentTheme);
 
-        var targetTheme = "light";
+    //     var targetTheme = "light";
 
-        if (currentTheme === "light") {
-            targetTheme = "dark";
+    //     if (currentTheme === "light") {
+    //         targetTheme = "dark";
 
-            this.setState({
-                isChecked: true,
-            })
+    //         this.setState({
+    //             isChecked: true,
+    //         })
 
-            // console.log(targetTheme);
-        } else {
-            this.setState({
-                isChecked: false,
-            })
-        }
-        document.documentElement.setAttribute('data-theme', targetTheme)
-    }
+    //         // console.log(targetTheme);
+    //     } else {
+    //         this.setState({
+    //             isChecked: false,
+    //         })
+    //     }
+    //     document.documentElement.setAttribute('data-theme', targetTheme)
+    // }
 
     handleClick = () => {
         window[`scrollTo`]({ top: document.body.scrollHeight, behavior: `smooth` })
@@ -397,7 +398,7 @@ class App extends React.Component {
                             cancel={() => this.closeDialog()}
                             evolutionPokemon={this.fetchPokemonData}>
                         </InfoDialog>}
-                    <div className="app__header">
+                    {/* <div className="app__header">
                         <div className="switch">
 
                             <div className="toggle">
@@ -416,7 +417,8 @@ class App extends React.Component {
                         <div className="pokeball__box github__icon" onClick={this.openGithub}>
                             <GitHubIcon></GitHubIcon>
                         </div>
-                    </div>
+                    </div> */}
+                    <Header/>
                     <div className="filter__container noselect">
                         <div className="filter__items">
                             <div>
