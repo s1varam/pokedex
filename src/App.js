@@ -322,14 +322,14 @@ class App extends React.Component {
 
     handleChangeSearch = (event) => {
 
-        // debugger
+        debugger
 
         event.target.value.length > 0 ? this.setState({ isSearch: true, valuetype: "all types", valuesearch: event.target.value }) : this.setState({ isSearch: false, isFilter: false, valuesearch: event.target.value });
 
         let searchArr = [];
 
         for (var i = 0; i < this.state.allPokemons.length; i++) {
-            if (this.state.allPokemons[i].name.includes(event.target.value.toLowerCase())) {
+            if (this.state.allPokemons[i].name.includes(event.target.value.toLowerCase()) || this.state.allPokemons[i].id == event.target.value) {
                 searchArr.push(this.state.allPokemons[i]);
             }
         }
@@ -338,9 +338,9 @@ class App extends React.Component {
 
     }
 
-    openGithub = () => {
-        window.open("https://github.com/s1varam/pokedex");
-    }
+    // openGithub = () => {
+    //     window.open("https://github.com/s1varam/pokedex");
+    // }
 
     // changeTheme = () => {
 
@@ -470,7 +470,7 @@ class App extends React.Component {
                         <div className="all__pokemons">
                             {this.state.isSearch ? Object.keys(this.state.searchPokemons).map((item) =>
                                 <Pokemon
-                                    key={this.state.allPokemons[item].id}
+                                    key={this.state.searchPokemons[item].id}
                                     id={this.state.searchPokemons[item].id}
                                     image={this.state.searchPokemons[item].sprites.other.dream_world.front_default ? this.state.searchPokemons[item].sprites.other.dream_world.front_default : this.state.searchPokemons[item].sprites.other['official-artwork'].front_default}
                                     name={this.state.searchPokemons[item].name}
@@ -489,7 +489,7 @@ class App extends React.Component {
                                 ) :
                                     Object.keys(this.state.filterPokemons).map((item) =>
                                         <Pokemon
-                                            key={this.state.allPokemons[item].id}
+                                            key={this.state.filterPokemons[item].id}
                                             id={this.state.filterPokemons[item].id}
                                             image={this.state.filterPokemons[item].sprites.other.dream_world.front_default ? this.state.filterPokemons[item].sprites.other.dream_world.front_default : this.state.filterPokemons[item].sprites.other['official-artwork'].front_default}
                                             name={this.state.filterPokemons[item].name}
