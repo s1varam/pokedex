@@ -48,6 +48,19 @@ class Filters extends React.Component {
                         </select>
                     </div>
                     <div className="filter__items">
+                        <div>
+                            Sort by
+                        </div>
+                        <select value={this.props.sorttype} onChange={this.props.sortSelect}>
+                            {this.props.sortby.map((sort) => (
+                                <option
+                                    key={sort}
+                                    value={sort}>{sort}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="filter__items">
                         <label>
                             Search
                         </label>

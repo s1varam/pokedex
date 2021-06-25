@@ -85,7 +85,10 @@ class App extends React.Component {
             ],
             types: [
                 "all types", "grass", "bug", "dark", "dragon", "electric", "fairy", "fighting", "fire", "flying", "ghost", "ground", "ice", "normal", "poison", "psychic", "rock", "steel", "water"
-            ]
+            ],
+            sortby : [
+                "ID","Name"
+            ],
 
         }
     }
@@ -271,6 +274,7 @@ class App extends React.Component {
                 this.setState({
                     valueregion: event.target.value,
                     valuetype: "all types",
+                    sorttype: "ID",
                     isSearch: false,
                     isFilter: false,
                     showLoading: true,
@@ -291,10 +295,22 @@ class App extends React.Component {
         debugger
 
         if (event.target.value === "all types") {
-            this.setState({
-                isFilter: false,
-                valuetype: event.target.value,
-            })
+            var allPoks = this.state.allPokemons;
+            if(this.state.sorttype === "Name"){
+                allPoks.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+                this.setState({
+                    isFilter: false,
+                    valuetype: event.target.value,
+                    allPokemons : allPoks,
+                })
+            }else{
+                allPoks.sort((a, b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0))
+                this.setState({
+                    isFilter: false,
+                    valuetype: event.target.value,
+                    allPokemons : allPoks,
+                })
+            }            
             return;
         }
 
@@ -307,6 +323,9 @@ class App extends React.Component {
                 }
             }
         }
+
+        this.state.sorttype === "Name" ? filterArr.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)) :
+        filterArr.sort((a, b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0))
 
         this.setState({
             isSearch: false,
@@ -322,7 +341,7 @@ class App extends React.Component {
 
     handleChangeSearch = (event) => {
 
-        debugger
+        // debugger
 
         event.target.value.length > 0 ? this.setState({ isSearch: true, valuetype: "all types", valuesearch: event.target.value }) : this.setState({ isSearch: false, isFilter: false, valuesearch: event.target.value });
 
@@ -336,6 +355,31 @@ class App extends React.Component {
 
         searchArr.length === 0 ? this.setState({ noDataFound: true, searchPokemons: [], }) : this.setState({ noDataFound: false, searchPokemons: searchArr })
 
+    }
+
+    handleChangeSort = (event) => {
+
+        var sortArr;
+
+        this.state.isFilter ? sortArr = this.state.filterPokemons : sortArr = this.state.allPokemons
+
+        if(event.target.value === "ID"){
+            sortArr.sort((a, b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0))
+        }else{
+            sortArr.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+        }
+
+
+        this.state.isFilter ? 
+        this.setState({
+            filterPokemons : sortArr,
+            sorttype: event.target.value,
+        }) : 
+        this.setState({
+            allPokemons : sortArr,
+            sorttype: event.target.value,
+        })
+        
     }
 
     // openGithub = () => {
@@ -460,10 +504,13 @@ class App extends React.Component {
                         valueregion={this.state.valueregion}
                         regions={this.state.regions}
                         valuetype={this.state.valuetype}
+                        sorttype={this.state.sorttype}
                         valuesearch={this.state.valuesearch}
                         types={this.state.types}
+                        sortby={this.state.sortby}
                         regionsSelect = {this.handleChangeRegions}
                         typesSelect = {this.handleChangeTypes}
+                        sortSelect = {this.handleChangeSort}
                         searchChange = {this.handleChangeSearch}
                     />
                     <div className="pokemon__container">
