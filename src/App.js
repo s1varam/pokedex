@@ -173,10 +173,6 @@ class App extends React.Component {
             abilities: abs,
         })
 
-        // console.log("stats");
-        // console.log(statistics);
-        // console.log(this.state.stats);
-
         this.setState({
             evoChain: [],
             genderRate: "",
@@ -404,34 +400,6 @@ class App extends React.Component {
         
     }
 
-    // openGithub = () => {
-    //     window.open("https://github.com/s1varam/pokedex");
-    // }
-
-    // changeTheme = () => {
-
-    //     // debugger
-    //     var currentTheme = document.documentElement.getAttribute('data-theme');
-    //     // console.log(currentTheme);
-
-    //     var targetTheme = "light";
-
-    //     if (currentTheme === "light") {
-    //         targetTheme = "dark";
-
-    //         this.setState({
-    //             isChecked: true,
-    //         })
-
-    //         // console.log(targetTheme);
-    //     } else {
-    //         this.setState({
-    //             isChecked: false,
-    //         })
-    //     }
-    //     document.documentElement.setAttribute('data-theme', targetTheme)
-    // }
-
     handleClick = () => {
         window[`scrollTo`]({ top: document.body.scrollHeight, behavior: `smooth` })
     }
@@ -440,16 +408,7 @@ class App extends React.Component {
         return (
             <>
                 <Scroll showBelow={250} className="scroll__top" />
-                {this.state.showLoading && <Loading />
-                    // <div className="app__container">
-                    //     <div className="loading__text">
-                    //         Loading
-                    //     </div>
-                    //     <div className="gif__container">
-                    //         <img src="https://i.gifer.com/VgI.gif" className="loading__gif noselect" alt="loading-gif"></img>
-                    //     </div>
-                    // </div>
-                }
+                {this.state.showLoading && <Loading />}
                 {!this.state.showLoading && <div className="app__container">
                     {this.state.showInfo &&
                         <InfoDialog
@@ -469,61 +428,7 @@ class App extends React.Component {
                             cancel={() => this.closeDialog()}
                             evolutionPokemon={this.fetchPokemonData}>
                         </InfoDialog>}
-                    {/* <div className="app__header">
-                        <div className="switch">
-
-                            <div className="toggle">
-                                <label htmlFor="themeSwitch"></label>
-                                <input type="checkbox" name="swich-theme" id="themeSwitch" onClick={this.changeTheme} defaultChecked />
-                                <div className="toggle-bg"></div>
-                                <div className="toggle-thumb">
-                                    <i className="fas fa-sun"></i>
-                                    <i className="fas fa-moon"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="poke__logos noselect">
-                            <img src={Pokedex} alt="pokelogo" className="poke__logo" />
-                        </div>
-                        <div className="pokeball__box github__icon" onClick={this.openGithub}>
-                            <GitHubIcon></GitHubIcon>
-                        </div>
-                    </div> */}
                     <Header />
-                    {/* <div className="filter__container noselect">
-                        <div className="filter__items">
-                            <div>
-                                Region
-                            </div>
-                            <select value={this.state.valueregion} onChange={this.handleChangeRegions}>
-                                {this.state.regions.map((region) => (
-                                    <option
-                                        key={region.name}
-                                        value={region.name}>{region.name}&nbsp;({region.offset + 1}-{region.limit + region.offset})
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="filter__items">
-                            <div>
-                                Type
-                            </div>
-                            <select value={this.state.valuetype} onChange={this.handleChangeTypes}>
-                                {this.state.types.map((type) => (
-                                    <option
-                                        key={type}
-                                        value={type}>{type}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="filter__items">
-                            <label>
-                                Search
-                            </label>
-                            <input type="text" value={this.state.valuesearch} onChange={this.handleChangeSearch} />
-                        </div>
-                    </div> */}
                     <Filters
                         valueregion={this.state.valueregion}
                         regions={this.state.regions}
@@ -574,14 +479,6 @@ class App extends React.Component {
                     {this.state.noDataFound && <div className="no__data noselect">
                         No such Pokémon in this region :/
                     </div>}
-                    {/* <div className="app__footer noselect">
-                        <div>
-                            Built using <a href="https://pokeapi.co/" target="_blank" rel="noopener noreferrer">PokéAPI</a>, <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">React</a> and <a href="https://material-ui.com/" target="_blank" rel="noopener noreferrer">Material-UI</a>.
-                        </div>
-                        <div onClick={this.openGithub} className="github__icon">
-                            <GitHubIcon></GitHubIcon>
-                        </div>
-                    </div> */}
                     <Footer />
                 </div>}
             </>
