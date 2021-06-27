@@ -27,6 +27,8 @@ class App extends React.Component {
             pokeNumber: "",
             genderRate: "",
             genera: "",
+            isTypeSelected: false,
+            selectedType: "",
             showInfo: false,
             isSearch: false,
             searchString: "",
@@ -86,8 +88,8 @@ class App extends React.Component {
             types: [
                 "all types", "grass", "bug", "dark", "dragon", "electric", "fairy", "fighting", "fire", "flying", "ghost", "ground", "ice", "normal", "poison", "psychic", "rock", "steel", "water"
             ],
-            sortby : [
-                "ID","Name"
+            sortby: [
+                "ID", "Name"
             ],
 
         }
@@ -103,7 +105,7 @@ class App extends React.Component {
         }
     }
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         // console.log("updatedd");
     }
 
@@ -116,7 +118,9 @@ class App extends React.Component {
 
     getPokemonData = async (result) => {
 
-        var pokemonArr = [];
+        debugger
+
+        var pokemonArr = [], filterArr = [];
 
         await Promise.all(
             result.map((pokemonItem) => {
@@ -130,10 +134,27 @@ class App extends React.Component {
 
         pokemonArr.sort((a, b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0))
 
-        this.setState({
-            allPokemons: pokemonArr,
-            showLoading: false,
-        })
+        if (this.state.isTypeSelected) {
+            for (var i = 0; i < pokemonArr.length; i++) {
+                for (var j = 0; j < pokemonArr[i].types.length; j++) {
+                    if (this.state.selectedType === pokemonArr[i].types[j].type.name) {
+                        filterArr.push(pokemonArr[i])
+                    }
+                }
+            }
+            this.setState({
+                isFilter: true,
+                filterPokemons: filterArr,
+                allPokemons: pokemonArr,
+                showLoading: false
+            })
+        } else {
+            this.setState({
+                isFilter : false,
+                allPokemons: pokemonArr,
+                showLoading: false,
+            })
+        }
 
         // console.log("allPokes");
         // console.log(this.state.allPokemons);
@@ -176,7 +197,7 @@ class App extends React.Component {
         this.setState({
             evoChain: [],
             genderRate: "",
-            genera : "",
+            genera: "",
         })
 
         // this.fetchEvoChainURL(pokemon);
@@ -202,8 +223,8 @@ class App extends React.Component {
                 }
             }
 
-            for( var j=0;j<response.data.genera.length;j++){
-                if(response.data.genera[j].language.name === "en"){
+            for (var j = 0; j < response.data.genera.length; j++) {
+                if (response.data.genera[j].language.name === "en") {
                     genera = response.data.genera[j].genus;
                     break;
                 }
@@ -211,8 +232,8 @@ class App extends React.Component {
 
             this.setState({
                 description: this.state.description,
-                genderRate : response.data.gender_rate,
-                genera : genera,
+                genderRate: response.data.gender_rate,
+                genera: genera,
             })
         } catch (e) {
             this.setState({
@@ -290,7 +311,7 @@ class App extends React.Component {
 
                 this.setState({
                     valueregion: event.target.value,
-                    valuetype: "all types",
+                    // valuetype: "all types",
                     sorttype: "ID",
                     isSearch: false,
                     isFilter: false,
@@ -313,22 +334,29 @@ class App extends React.Component {
 
         if (event.target.value === "all types") {
             var allPoks = this.state.allPokemons;
-            if(this.state.sorttype === "Name"){
+            if (this.state.sorttype === "Name") {
                 allPoks.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
                 this.setState({
                     isFilter: false,
                     valuetype: event.target.value,
-                    allPokemons : allPoks,
+                    allPokemons: allPoks,
+                    isTypeSelected: false,
                 })
-            }else{
+            } else {
                 allPoks.sort((a, b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0))
                 this.setState({
                     isFilter: false,
                     valuetype: event.target.value,
-                    allPokemons : allPoks,
+                    allPokemons: allPoks,
+                    isTypeSelected: false,
                 })
-            }            
+            }
             return;
+        } else {
+            this.setState({
+                isTypeSelected: true,
+                selectedType: event.target.value,
+            })
         }
 
         let filterArr = [];
@@ -342,7 +370,7 @@ class App extends React.Component {
         }
 
         this.state.sorttype === "Name" ? filterArr.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)) :
-        filterArr.sort((a, b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0))
+            filterArr.sort((a, b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0))
 
         this.setState({
             isSearch: false,
@@ -381,23 +409,23 @@ class App extends React.Component {
 
         this.state.isFilter ? sortArr = this.state.filterPokemons : sortArr = this.state.allPokemons
 
-        if(event.target.value === "ID"){
+        if (event.target.value === "ID") {
             sortArr.sort((a, b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0))
-        }else{
+        } else {
             sortArr.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
         }
 
 
-        this.state.isFilter ? 
-        this.setState({
-            filterPokemons : sortArr,
-            sorttype: event.target.value,
-        }) : 
-        this.setState({
-            allPokemons : sortArr,
-            sorttype: event.target.value,
-        })
-        
+        this.state.isFilter ?
+            this.setState({
+                filterPokemons: sortArr,
+                sorttype: event.target.value,
+            }) :
+            this.setState({
+                allPokemons: sortArr,
+                sorttype: event.target.value,
+            })
+
     }
 
     handleClick = () => {
@@ -437,10 +465,10 @@ class App extends React.Component {
                         valuesearch={this.state.valuesearch}
                         types={this.state.types}
                         sortby={this.state.sortby}
-                        regionsSelect = {this.handleChangeRegions}
-                        typesSelect = {this.handleChangeTypes}
-                        sortSelect = {this.handleChangeSort}
-                        searchChange = {this.handleChangeSearch}
+                        regionsSelect={this.handleChangeRegions}
+                        typesSelect={this.handleChangeTypes}
+                        sortSelect={this.handleChangeSort}
+                        searchChange={this.handleChangeSearch}
                     />
                     <div className="pokemon__container">
                         <div className="all__pokemons">
