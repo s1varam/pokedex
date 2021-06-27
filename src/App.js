@@ -358,7 +358,7 @@ class App extends React.Component {
 
     handleChangeSearch = (event) => {
 
-        debugger
+        // debugger
 
         event.target.value.length > 0 ? this.setState({ isSearch: true, valuetype: "all types", valuesearch: event.target.value }) : this.setState({ isSearch: false, isFilter: false, valuesearch: event.target.value });
 
