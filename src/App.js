@@ -358,7 +358,7 @@ class App extends React.Component {
 
     handleChangeSearch = (event) => {
 
-        // debugger
+        debugger
 
         event.target.value.length > 0 ? this.setState({ isSearch: true, valuetype: "all types", valuesearch: event.target.value }) : this.setState({ isSearch: false, isFilter: false, valuesearch: event.target.value });
 
@@ -366,7 +366,7 @@ class App extends React.Component {
 
         for (var i = 0; i < this.state.allPokemons.length; i++) {
             // eslint-disable-next-line eqeqeq
-            if (this.state.allPokemons[i].name.includes(event.target.value.toLowerCase()) || this.state.allPokemons[i].id == event.target.value) {
+            if (this.state.allPokemons[i].name.includes(event.target.value.toLowerCase()) || this.state.allPokemons[i].id.toString().includes(event.target.value)) {
                 searchArr.push(this.state.allPokemons[i]);
             }
         }
