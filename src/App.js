@@ -104,7 +104,7 @@ class App extends React.Component {
     }
 
     componentDidUpdate(){
-        console.log("updatedd");
+        // console.log("updatedd");
     }
 
     getAllPokemons = async (offset, limit) => {
@@ -183,24 +183,63 @@ class App extends React.Component {
             genera : "",
         })
 
-        this.fetchEvoChainURL(pokemon);
+        // this.fetchEvoChainURL(pokemon);
         this.fetchPokemonDescription(pokemon);
 
     }
 
-    fetchEvoChainURL = async (pokemon_name) => {
-        // debugger
+    fetchPokemonDescription = async (pokemon_name) => {
+        debugger
+
+        let genera = "";
 
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon_name}`).catch((err) => console.log("Error:", err));
         this.fetchEvoDetails(response.data.evolution_chain.url);
-        console.log(response);
 
+        try {
+            // const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon_name}`).catch((err) => console.log("Error:", err));
+
+            for (var i = 0; i < response.data.flavor_text_entries.length - 1; i++) {
+                if (response.data.flavor_text_entries[i].language.name === "en") {
+                    this.state.description = response.data.flavor_text_entries[i].flavor_text;
+                    break;
+                }
+            }
+
+            for( var j=0;j<response.data.genera.length;j++){
+                if(response.data.genera[j].language.name === "en"){
+                    genera = response.data.genera[j].genus;
+                    break;
+                }
+            }
+
+            this.setState({
+                description: this.state.description,
+                genderRate : response.data.gender_rate,
+                genera : genera,
+            })
+        } catch (e) {
+            this.setState({
+                description: "Description not found",
+            })
+        }
+
+        // console.log("description");
     }
+
+    // fetchEvoChainURL = async (pokemon_name) => {
+    //     // debugger
+
+    //     const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon_name}`).catch((err) => console.log("Error:", err));
+    //     this.fetchEvoDetails(response.data.evolution_chain.url);
+    //     console.log(response);
+
+    // }
 
     fetchEvoDetails = async (url) => {
         // debugger
         const response = await axios.get(url).catch((err) => console.log("Error:", err));
-        console.log(response);
+        // console.log(response);
 
 
         var evoChain = [];
@@ -238,42 +277,6 @@ class App extends React.Component {
             evoChain: evoChainArr,
         })
 
-    }
-
-    fetchPokemonDescription = async (pokemon_name) => {
-        debugger
-
-        let genera = "";
-
-        try {
-            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon_name}`).catch((err) => console.log("Error:", err));
-
-            for (var i = 0; i < response.data.flavor_text_entries.length - 1; i++) {
-                if (response.data.flavor_text_entries[i].language.name === "en") {
-                    this.state.description = response.data.flavor_text_entries[i].flavor_text;
-                    break;
-                }
-            }
-
-            for( var j=0;j<response.data.genera.length;j++){
-                if(response.data.genera[j].language.name === "en"){
-                    genera = response.data.genera[j].genus;
-                    break;
-                }
-            }
-
-            this.setState({
-                description: this.state.description,
-                genderRate : response.data.gender_rate,
-                genera : genera,
-            })
-        } catch (e) {
-            this.setState({
-                description: "Description not found",
-            })
-        }
-
-        // console.log("description");
     }
 
     closeDialog = () => {
