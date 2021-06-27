@@ -9,7 +9,6 @@ html {
 
 html[data-theme=dark] {
 	--pokename: hsl(228, 28%, 20%);
-	;
 	--cardborder: hsl(228, 28%, 20%);
 	--pokenumber: hsl(228, 28%, 20%);
 	--info: hsl(228, 28%, 20%);
@@ -35,7 +34,9 @@ html[data-theme=dark] {
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
-	margin-left: 10px;
+	border-radius: 1rem;
+	background: #ffffff78;
+	padding: 20px 20px;
 }
 
 .info__container__img img {
@@ -43,15 +44,12 @@ html[data-theme=dark] {
 	height: 147px;
 	padding: 1rem 1rem;
 	margin: 0.3rem;
-	/* border: 10px solid hsl(228, 12%, 20%); */
 	border-radius: 1.2rem;
 }
 
 .pokemon__name {
-	/* font-family: 'Press Start 2P', cursive; */
 	font-size: 22px;
 	text-transform: capitalize;
-	margin-top: 2vh;
 }
 
 .pokemon__id {
@@ -90,17 +88,21 @@ html[data-theme=dark] {
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: flex-start;
-	/* gap: 15px; */
 }
 
 .info__container__data__data {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
+	grid-gap: 0px 15px;
 	gap: 0px 15px;
 	align-items: center;
 	margin: 0px 0;
 	justify-content: space-between;
+	background-color: #ffffff40;
+	padding: 10px;
+	border-radius: 1rem;
+	margin-top: 0.5rem;
 }
 
 .info__container__stat__columns {
@@ -111,8 +113,7 @@ html[data-theme=dark] {
 .MuiDialog-paperFullWidth {
 	width: 60%;
 	border-radius: 1rem;
-	/* border: 15px solid var(--cardborder); */
-	box-shadow: 0 10px 30px 4px rgb(0 0 0 / 50%);
+	box-shadow: 0 10px 20px rgba(175, 136, 136, 0.29), 0 6px 6px rgba(0, 0, 0, 0.43);
 }
 
 .MuiDialog-container {
@@ -152,10 +153,6 @@ html[data-theme=dark] {
 	width: 30px !important;
 }
 
-.stats {
-	/* margin-top: 20px; */
-}
-
 .ability {
 	text-transform: capitalize;
 }
@@ -165,22 +162,16 @@ html[data-theme=dark] {
 	flex-direction: column;
 	height: -webkit-fill-available;
 	justify-content: space-evenly;
-	gap: 20px 0px;
+	gap: 3px 0px;
 }
 
 .noselect {
 	-webkit-touch-callout: none;
-	/* iOS Safari */
 	-webkit-user-select: none;
-	/* Safari */
 	-khtml-user-select: none;
-	/* Konqueror HTML */
 	-moz-user-select: none;
-	/* Old versions of Firefox */
 	-ms-user-select: none;
-	/* Internet Explorer/Edge */
 	user-select: none;
-	/* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
 }
 
 .evolution__box {
@@ -199,10 +190,10 @@ html[data-theme=dark] {
 	height: 80px;
 	margin: auto;
 	display: flex;
-	cursor: pointer;	
+	cursor: pointer;
 }
 
-.evolution__img__div:hover{
+.evolution__img__div:hover {
 	transform: scale(1.05);
 }
 
@@ -210,15 +201,15 @@ html[data-theme=dark] {
 	height: 113px;
 	width: 113px;
 	display: flex;
-    border-radius: 50%;
+	border-radius: 50%;
 	box-shadow: 0 5px 15px 4px rgb(0 0 0 / 30%);
 	align-items: center;
-    justify-content: center;
+	justify-content: center;
 	transition: all 0.35s;
 	margin-top: 3vh;
 }
 
-.evolution__poke__name{
+.evolution__poke__name {
 	text-transform: capitalize;
 	margin: 10px 0;
 }
@@ -226,30 +217,81 @@ html[data-theme=dark] {
 .arrow__right {
 	font-size: 1.75rem;
 	margin: 0 10px;
-	margin-top: 4vh;
 }
 
 .MuiDialogContent-root:first-child {
-	padding-top: 20px;
-    padding-bottom: 10px;
+	padding: 10px;
 }
 
-.ability__list{
+.ability__list {
 	display: flex;
-    gap: 0 30px;
+	gap: 0 30px;
+	padding-inline-start: 1em;
 }
 
-.MuiTooltip-tooltip{
+.ability__list__bg {
+	background-color: #ffffff40;
+	padding: 5px;
+	border-radius: 1rem;
+	margin-top: 0.5rem;
+}
+
+.MuiTooltip-tooltip {
 	font-size: 15px !important;
 }
 
+.separator {
+	border: 0;
+	border-radius: 20px;
+	height: 80;
+	background-image: linear-gradient(to bottom, rgb(77, 77, 77), rgb(77, 77, 77));
+	width: 1%;
+	margin-left: 2vw;
+	margin-right: auto;
+}
+
+.transparency__div {
+	background: #ffffff40;
+	height: 113px;
+	width: 113px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.desc {
+	background-color: #ffffff40;
+	padding: 10px;
+	border-radius: 1rem;
+	margin-top: 0.5rem;
+}
+
+.fa-mars {
+	color: #7070ff;
+}
+
+.fa-venus {
+	color: rgb(224, 61, 88)
+}
+
+.dimensions {
+	text-align: center;
+}
+
+.pokemon__genera {
+	padding: 3px 10px;
+	border-radius: 10px;
+	margin-top: 1.5vh;
+	text-align: center;
+}
 
 /* phone */
 
 @media screen and (max-width: 767px) {
 	.MuiDialog-paperFullWidth {
 		width: 75%;
-		height: 60%;
+		height: 100%;
 	}
 	.info__container {
 		display: flex;
@@ -259,7 +301,6 @@ html[data-theme=dark] {
 		margin-left: 0px;
 	}
 	.info__container__data {
-		/* width: 90%; */
 		margin-left: 0px;
 	}
 	.right__box {
@@ -281,32 +322,20 @@ html[data-theme=dark] {
 	.right__box .desc {
 		text-align: center;
 	}
-	.info__container__headings{
+	.info__container__headings {
 		text-align: center;
+		margin-top: 10px;
 	}
-	.evolution__box{
+	.evolution__box {
 		flex-direction: column;
 	}
-	.evolution__sub__box{
+	.evolution__sub__box {
 		flex-direction: column;
 	}
 	.arrow__right {
 		transform: rotate(90deg);
-		margin: 18px;
 	}
-	.evolution__poke__name{
+	.evolution__poke__name {
 		margin: 12px;
-	}
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 3.5) {
-	/* CSS */
-	.MuiDialog-paperFullWidth {
-		width: 75%;
-		height: 60%;
-	}
-	.info__container {
-		display: flex;
-		flex-direction: column;
 	}
 }

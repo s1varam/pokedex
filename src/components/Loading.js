@@ -1,5 +1,4 @@
 import React from 'react';
-import GitHubIcon from '@material-ui/icons/GitHub';
 
 class Loading extends React.Component {
 

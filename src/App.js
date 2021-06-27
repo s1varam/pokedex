@@ -1,9 +1,7 @@
 import React from 'react';
 import Pokemon from "./components/Pokemon";
-import Pokedex from "../src/assets/images/pokedex.png";
 import InfoDialog from "./components/InfoDialog";
 import axios from 'axios';
-import GitHubIcon from '@material-ui/icons/GitHub';
 import Scroll from './components/Scroll';
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -27,6 +25,8 @@ class App extends React.Component {
             imageURL: "",
             pokeName: "",
             pokeNumber: "",
+            genderRate: "",
+            genera: "",
             showInfo: false,
             isSearch: false,
             searchString: "",
@@ -103,6 +103,10 @@ class App extends React.Component {
         }
     }
 
+    componentDidUpdate(){
+        console.log("updatedd");
+    }
+
     getAllPokemons = async (offset, limit) => {
 
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`).catch((err) => console.log("Error:", err));
@@ -175,6 +179,8 @@ class App extends React.Component {
 
         this.setState({
             evoChain: [],
+            genderRate: "",
+            genera : "",
         })
 
         this.fetchEvoChainURL(pokemon);
@@ -235,7 +241,9 @@ class App extends React.Component {
     }
 
     fetchPokemonDescription = async (pokemon_name) => {
-        // debugger
+        debugger
+
+        let genera = "";
 
         try {
             const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon_name}`).catch((err) => console.log("Error:", err));
@@ -246,8 +254,18 @@ class App extends React.Component {
                     break;
                 }
             }
+
+            for( var j=0;j<response.data.genera.length;j++){
+                if(response.data.genera[j].language.name === "en"){
+                    genera = response.data.genera[j].genus;
+                    break;
+                }
+            }
+
             this.setState({
                 description: this.state.description,
+                genderRate : response.data.gender_rate,
+                genera : genera,
             })
         } catch (e) {
             this.setState({
@@ -266,7 +284,7 @@ class App extends React.Component {
 
     handleChangeRegions = (event) => {
 
-        // debugger
+        debugger
 
         for (var i = 0; i < this.state.regions.length; i++) {
             if (this.state.regions[i].name === event.target.value) {
@@ -348,6 +366,7 @@ class App extends React.Component {
         let searchArr = [];
 
         for (var i = 0; i < this.state.allPokemons.length; i++) {
+            // eslint-disable-next-line eqeqeq
             if (this.state.allPokemons[i].name.includes(event.target.value.toLowerCase()) || this.state.allPokemons[i].id == event.target.value) {
                 searchArr.push(this.state.allPokemons[i]);
             }
@@ -436,6 +455,8 @@ class App extends React.Component {
                             height={this.state.height}
                             weight={this.state.weight}
                             category={this.state.category}
+                            genera={this.state.genera}
+                            genderRate={this.state.genderRate}
                             stats={this.state.stats}
                             img={this.state.imageURL}
                             name={this.state.pokeName}

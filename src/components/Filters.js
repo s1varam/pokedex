@@ -1,5 +1,4 @@
 import React from 'react';
-import GitHubIcon from '@material-ui/icons/GitHub';
 
 class Filters extends React.Component {
 
