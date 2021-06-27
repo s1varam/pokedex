@@ -7,9 +7,10 @@
  Watch it in action [here](https://pokedex-react-mui.netlify.app/)
 
 ## Features
-- View the id, name, type, basic dimensions, description, abilities, stats and evolution of each Pokémon
+- View basic details of each Pokémon
 - Filter Pokémon based on Region and Type
-- Search Pokémon by its name
+- Sort Pokémon by ID/Name
+- Search Pokémon by its Name/ID
 - Dark mode toggle
 - Scroll to top
 - Lazy loading of images
@@ -34,8 +35,11 @@ Demo gif
 - The application opens in `http://localhost:3000/` or any other available port
 
 ## To-do
-- Include some more Pokémon data - strengths, weaknesses, moves, gender
+- Include some more Pokémon data - strengths, weaknesses, moves
 - Complex evolution chains (Eevee and the likes)
+- Add favorites
+- Offline mode
+- Router for Pokemon details
 
 ## Credits
 
