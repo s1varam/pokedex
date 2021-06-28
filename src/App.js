@@ -97,7 +97,7 @@ class App extends React.Component {
 
     componentDidMount() {
         this.getAllPokemons(this.state.offset, this.state.limit);
-        var currentTheme = document.documentElement.getAttribute('data-theme');
+        const currentTheme = document.documentElement.getAttribute('data-theme');
         if (currentTheme === "dark") {
             this.setState({
                 isChecked: true,
@@ -120,7 +120,7 @@ class App extends React.Component {
 
         debugger
 
-        var pokemonArr = [], filterArr = [];
+        const pokemonArr = [], filterArr = [];
 
         await Promise.all(
             result.map((pokemonItem) => {
@@ -135,8 +135,8 @@ class App extends React.Component {
         pokemonArr.sort((a, b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0))
 
         if (this.state.isTypeSelected) {
-            for (var i = 0; i < pokemonArr.length; i++) {
-                for (var j = 0; j < pokemonArr[i].types.length; j++) {
+            for (let i = 0; i < pokemonArr.length; i++) {
+                for (let j = 0; j < pokemonArr[i].types.length; j++) {
                     if (this.state.selectedType === pokemonArr[i].types[j].type.name) {
                         filterArr.push(pokemonArr[i])
                     }
@@ -161,6 +161,64 @@ class App extends React.Component {
 
     }
 
+    closeDialog = () => {
+        this.setState({
+            showInfo: false,
+        })
+    }
+
+    // fetchEvoChainURL = async (pokemon_name) => {
+    //     // debugger
+
+    //     const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon_name}`).catch((err) => console.log("Error:", err));
+    //     this.fetchEvoDetails(response.data.evolution_chain.url);
+    //     console.log(response);
+
+    // }
+
+    fetchEvoDetails = async (url) => {
+        // debugger
+        const response = await axios.get(url).catch((err) => console.log("Error:", err));
+        // console.log(response);
+
+
+        const evoChain = [];
+        let evoData = response.data.chain;
+
+        do {
+            const evoDetails = evoData['evolution_details'][0];
+
+            evoChain.push({
+                "species_name": evoData.species.name,
+                "min_level": !evoDetails ? 1 : evoDetails.min_level,
+                "trigger_name": !evoDetails ? null : evoDetails.trigger.name,
+                "item": !evoDetails ? null : evoDetails.item
+            });
+
+            evoData = evoData['evolves_to'][0];
+        } while (!!evoData && evoData.hasOwnProperty('evolves_to'));
+
+        // console.log("evochain");
+        // console.log(evoChain);
+
+        this.fetchEvoImages(evoChain);
+
+    }
+
+    fetchEvoImages = async (evoChainArr) => {
+
+        // debugger
+        for (let i = 0; i < evoChainArr.length; i++) {
+            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${evoChainArr[i].species_name}`).catch((err) => console.log("Error:", err));
+            response.data.sprites.other.dream_world.front_default ? evoChainArr[i]['image_url'] = response.data.sprites.other.dream_world.front_default : evoChainArr[i]['image_url'] = response.data.sprites.other['official-artwork'].front_default;
+        }
+
+        this.setState({
+            evoChain: evoChainArr,
+        })
+
+    }
+
     fetchPokemonData = async (number, pokemon, category, imageURL) => {
 
         // debugger
@@ -168,15 +226,15 @@ class App extends React.Component {
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`).catch((err) => console.log("Error:", err));
         // console.log(response);
 
-        var statistics = [], abs = [];
-        var id = response.data.id;
+        const statistics = [], abs = [];
+        const id = response.data.id;
 
-        for (var i = 0; i < response.data.abilities.length; i++) {
+        for (let i = 0; i < response.data.abilities.length; i++) {
             abs.push(response.data.abilities[i].ability.name);
         }
 
-        for (var j = 0; j < response.data.stats.length; j++) {
-            var Obj = {};
+        for (let j = 0; j < response.data.stats.length; j++) {
+            const Obj = {};
             Obj['stat__name'] = response.data.stats[j].stat.name;
             Obj['stat__val'] = response.data.stats[j].base_stat;
             statistics.push(Obj);
@@ -185,9 +243,9 @@ class App extends React.Component {
         this.setState({
             weight: response.data.weight,
             height: response.data.height,
-            category: category,
+            category,
             pokeNumber: id,
-            imageURL: imageURL,
+            imageURL,
             pokeName: pokemon,
             showInfo: true,
             stats: statistics,
@@ -216,14 +274,14 @@ class App extends React.Component {
         try {
             // const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon_name}`).catch((err) => console.log("Error:", err));
 
-            for (var i = 0; i < response.data.flavor_text_entries.length - 1; i++) {
+            for (let i = 0; i < response.data.flavor_text_entries.length - 1; i++) {
                 if (response.data.flavor_text_entries[i].language.name === "en") {
                     this.state.description = response.data.flavor_text_entries[i].flavor_text;
                     break;
                 }
             }
 
-            for (var j = 0; j < response.data.genera.length; j++) {
+            for (let j = 0; j < response.data.genera.length; j++) {
                 if (response.data.genera[j].language.name === "en") {
                     genera = response.data.genera[j].genus;
                     break;
@@ -233,7 +291,7 @@ class App extends React.Component {
             this.setState({
                 description: this.state.description,
                 genderRate: response.data.gender_rate,
-                genera: genera,
+                genera,
             })
         } catch (e) {
             this.setState({
@@ -244,69 +302,11 @@ class App extends React.Component {
         // console.log("description");
     }
 
-    // fetchEvoChainURL = async (pokemon_name) => {
-    //     // debugger
-
-    //     const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon_name}`).catch((err) => console.log("Error:", err));
-    //     this.fetchEvoDetails(response.data.evolution_chain.url);
-    //     console.log(response);
-
-    // }
-
-    fetchEvoDetails = async (url) => {
-        // debugger
-        const response = await axios.get(url).catch((err) => console.log("Error:", err));
-        // console.log(response);
-
-
-        var evoChain = [];
-        var evoData = response.data.chain;
-
-        do {
-            var evoDetails = evoData['evolution_details'][0];
-
-            evoChain.push({
-                "species_name": evoData.species.name,
-                "min_level": !evoDetails ? 1 : evoDetails.min_level,
-                "trigger_name": !evoDetails ? null : evoDetails.trigger.name,
-                "item": !evoDetails ? null : evoDetails.item
-            });
-
-            evoData = evoData['evolves_to'][0];
-        } while (!!evoData && evoData.hasOwnProperty('evolves_to'));
-
-        // console.log("evochain");
-        // console.log(evoChain);
-
-        this.fetchEvoImages(evoChain);
-
-    }
-
-    fetchEvoImages = async (evoChainArr) => {
-
-        // debugger
-        for (var i = 0; i < evoChainArr.length; i++) {
-            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${evoChainArr[i].species_name}`).catch((err) => console.log("Error:", err));
-            response.data.sprites.other.dream_world.front_default ? evoChainArr[i]['image_url'] = response.data.sprites.other.dream_world.front_default : evoChainArr[i]['image_url'] = response.data.sprites.other['official-artwork'].front_default;
-        }
-
-        this.setState({
-            evoChain: evoChainArr,
-        })
-
-    }
-
-    closeDialog = () => {
-        this.setState({
-            showInfo: false,
-        })
-    }
-
     handleChangeRegions = (event) => {
 
         debugger
 
-        for (var i = 0; i < this.state.regions.length; i++) {
+        for (let i = 0; i < this.state.regions.length; i++) {
             if (this.state.regions[i].name === event.target.value) {
 
                 this.setState({
@@ -328,12 +328,56 @@ class App extends React.Component {
         // console.log(event.target.value);
     }
 
+    handleChangeSearch = (event) => {
+
+        // debugger
+
+        event.target.value.length > 0 ? this.setState({ isSearch: true, valuetype: "all types", valuesearch: event.target.value }) : this.setState({ isSearch: false, isFilter: false, valuesearch: event.target.value });
+
+        let searchArr = [];
+
+        for (let i = 0; i < this.state.allPokemons.length; i++) {
+            // eslint-disable-next-line eqeqeq
+            if (this.state.allPokemons[i].name.includes(event.target.value.toLowerCase()) || this.state.allPokemons[i].id.toString().includes(event.target.value)) {
+                searchArr.push(this.state.allPokemons[i]);
+            }
+        }
+
+        searchArr.length === 0 ? this.setState({ noDataFound: true, searchPokemons: [], }) : this.setState({ noDataFound: false, searchPokemons: searchArr })
+
+    }
+
+    handleChangeSort = (event) => {
+
+        let sortArr;
+
+        this.state.isFilter ? sortArr = this.state.filterPokemons : sortArr = this.state.allPokemons
+
+        if (event.target.value === "ID") {
+            sortArr.sort((a, b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0))
+        } else {
+            sortArr.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+        }
+
+
+        this.state.isFilter ?
+            this.setState({
+                filterPokemons: sortArr,
+                sorttype: event.target.value,
+            }) :
+            this.setState({
+                allPokemons: sortArr,
+                sorttype: event.target.value,
+            })
+
+    }
+
     handleChangeTypes = (event) => {
 
         debugger
 
         if (event.target.value === "all types") {
-            var allPoks = this.state.allPokemons;
+            const allPoks = this.state.allPokemons;
             if (this.state.sorttype === "Name") {
                 allPoks.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
                 this.setState({
@@ -361,8 +405,8 @@ class App extends React.Component {
 
         let filterArr = [];
 
-        for (var i = 0; i < this.state.allPokemons.length; i++) {
-            for (var j = 0; j < this.state.allPokemons[i].types.length; j++) {
+        for (let i = 0; i < this.state.allPokemons.length; i++) {
+            for (let j = 0; j < this.state.allPokemons[i].types.length; j++) {
                 if (event.target.value === this.state.allPokemons[i].types[j].type.name) {
                     filterArr.push(this.state.allPokemons[i])
                 }
@@ -381,50 +425,6 @@ class App extends React.Component {
         })
 
         filterArr.length === 0 ? this.setState({ noDataFound: true }) : this.setState({ noDataFound: false })
-
-    }
-
-    handleChangeSearch = (event) => {
-
-        // debugger
-
-        event.target.value.length > 0 ? this.setState({ isSearch: true, valuetype: "all types", valuesearch: event.target.value }) : this.setState({ isSearch: false, isFilter: false, valuesearch: event.target.value });
-
-        let searchArr = [];
-
-        for (var i = 0; i < this.state.allPokemons.length; i++) {
-            // eslint-disable-next-line eqeqeq
-            if (this.state.allPokemons[i].name.includes(event.target.value.toLowerCase()) || this.state.allPokemons[i].id.toString().includes(event.target.value)) {
-                searchArr.push(this.state.allPokemons[i]);
-            }
-        }
-
-        searchArr.length === 0 ? this.setState({ noDataFound: true, searchPokemons: [], }) : this.setState({ noDataFound: false, searchPokemons: searchArr })
-
-    }
-
-    handleChangeSort = (event) => {
-
-        var sortArr;
-
-        this.state.isFilter ? sortArr = this.state.filterPokemons : sortArr = this.state.allPokemons
-
-        if (event.target.value === "ID") {
-            sortArr.sort((a, b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0))
-        } else {
-            sortArr.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
-        }
-
-
-        this.state.isFilter ?
-            this.setState({
-                filterPokemons: sortArr,
-                sorttype: event.target.value,
-            }) :
-            this.setState({
-                allPokemons: sortArr,
-                sorttype: event.target.value,
-            })
 
     }
 

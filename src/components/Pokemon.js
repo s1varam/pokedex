@@ -8,7 +8,7 @@ import Zoom from '@material-ui/core/Zoom';
 
 const Pokemon = ({ id, image, name, type, onElemClick }) => {
 
-    var finalColor;
+    let finalColor;
 
     if (type.length === 2) {
         finalColor = colorTypeGradients(type[0].type.name, type[1].type.name, type.length);

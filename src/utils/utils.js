@@ -1,7 +1,7 @@
 export const colorTypeGradients = (type1, type2, length) => {
 
     // debugger
-    var color1, color2;
+    let color1, color2;
 
     switch (type1) {
         case "grass":
@@ -128,7 +128,7 @@ export const colorTypeGradients = (type1, type2, length) => {
         color2 = color1;
     }
 
-    var finalColor = [color1,color2];
+    const finalColor = [color1,color2];
 
     return finalColor;
 
