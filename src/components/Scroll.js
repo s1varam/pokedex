@@ -10,7 +10,7 @@ const Scroll = ({
 
     let useStyles;
 
-    var currentTheme = document.documentElement.getAttribute('data-theme');
+    const currentTheme = document.documentElement.getAttribute('data-theme');
         if (currentTheme === "dark") {
             useStyles = makeStyles((theme) => ({
                 toTop: {

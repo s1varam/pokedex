@@ -4,17 +4,13 @@ import Pokedex from "../assets/images/pokedex.png";
 
 class Header extends React.Component {
 
-    openGithub = () => {
-        window.open("https://github.com/s1varam/pokedex");
-    }
-
     changeTheme = () => {
 
         // debugger
-        var currentTheme = document.documentElement.getAttribute('data-theme');
+        const currentTheme = document.documentElement.getAttribute('data-theme');
         // console.log(currentTheme);
 
-        var targetTheme = "light";
+        let targetTheme = "light";
 
         if (currentTheme === "light") {
             targetTheme = "dark";
@@ -30,6 +26,10 @@ class Header extends React.Component {
             })
         }
         document.documentElement.setAttribute('data-theme', targetTheme)
+    }
+
+    openGithub = () => {
+        window.open("https://github.com/s1varam/pokedex");
     }
 
     render() {
