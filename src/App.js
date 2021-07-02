@@ -7,6 +7,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Loading from './components/Loading'
 import Filters from './components/Filters'
+import { motion } from "framer-motion";
 
 class App extends React.Component {
 
@@ -482,6 +483,8 @@ class App extends React.Component {
                                     onElemClick={() => this.fetchPokemonData(this.state.searchPokemons[item].id, this.state.searchPokemons[item].name, this.state.searchPokemons[item].types, this.state.searchPokemons[item].sprites.other.dream_world.front_default ? this.state.searchPokemons[item].sprites.other.dream_world.front_default : this.state.searchPokemons[item].sprites.other['official-artwork'].front_default)}
                                 />) :
                                 (!this.state.isFilter ? Object.keys(this.state.allPokemons).map((item) =>
+                                <motion.div  initial={{opacity: 0, y: -100}} animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5 }}>
                                     <Pokemon
                                         key={this.state.allPokemons[item].id}
                                         id={this.state.allPokemons[item].id}
@@ -490,6 +493,7 @@ class App extends React.Component {
                                         type={this.state.allPokemons[item].types}
                                         onElemClick={() => this.fetchPokemonData(this.state.allPokemons[item].id, this.state.allPokemons[item].name, this.state.allPokemons[item].types, this.state.allPokemons[item].sprites.other.dream_world.front_default ? this.state.allPokemons[item].sprites.other.dream_world.front_default : this.state.allPokemons[item].sprites.other['official-artwork'].front_default)}
                                     />
+                                </motion.div>
                                 ) :
                                     Object.keys(this.state.filterPokemons).map((item) =>
                                         <Pokemon
