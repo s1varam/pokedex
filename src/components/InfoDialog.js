@@ -11,6 +11,7 @@ import Delayed from './Delayed';
 import { colorTypeGradients } from '../utils/utils';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
+import { motion } from "framer-motion"
 
 const DialogContent = withStyles((theme) => ({
     root: {
@@ -67,7 +68,7 @@ export default function InfoDialog(props) {
                                 <div className="pokemon__name">
                                     {props.name}
                                 </div>
-                                <div className="pokemon__genera" style={{background:finalColor[0]}}>
+                                <div className="pokemon__genera" style={{ background: finalColor[0] }}>
                                     {props.genera}
                                 </div>
                                 <div>
@@ -83,7 +84,7 @@ export default function InfoDialog(props) {
                                     )}
                                 </div>
                                 <div className="dimensions">
-                                    <p ><span className="info__container__headings" style={{ fontSize: "20px" }}>Height</span> {`${props.height / 10} m/${`${Math.floor(props.height/10 * 3.28)}'${Math.round(((props.height/10 * 3.28) % 1) * 12)}"`} `} </p>
+                                    <p ><span className="info__container__headings" style={{ fontSize: "20px" }}>Height</span> {`${props.height / 10} m/${`${Math.floor(props.height / 10 * 3.28)}'${Math.round(((props.height / 10 * 3.28) % 1) * 12)}"`} `} </p>
                                     <p ><span className="info__container__headings" style={{ fontSize: "20px" }}>Weight</span>{` ${(props.weight / 10).toFixed(1)} kg/${(props.weight * 0.2205).toFixed(1)} lbs`}</p>
                                 </div>
                                 <div className="gender__container">
@@ -130,8 +131,13 @@ export default function InfoDialog(props) {
                                             {props.evoChain.map((value, index, elements) =>
                                                 <Delayed waitBeforeShow={(index + 0) * 800} key={elements[index].species_name}>
                                                     <div className="evolution__sub__box">
+                                                        
                                                         <div>
-
+                                                        <motion.div
+                                                            animate={{ rotate: 360 }}
+                                                            transition={{ duration: 2, ease: "easeOut", type:'spring', bounce: 0.65,  damping: 25 }}
+                                                            whileHover={{ scale: 1.05 }}
+                                                        >
                                                             <div className="evolution__img__div" style={{ background: `linear-gradient(${finalColor[0]}, ${finalColor[1]})` }}>
                                                                 <div className="transparency__div">
                                                                     <LazyLoadImage
@@ -148,8 +154,10 @@ export default function InfoDialog(props) {
                                                                     {/* <img src={elements[index].image_url} className="evo_img" /> */}
                                                                 </div>
                                                             </div>
+                                                            </motion.div>
                                                             <div className="evolution__poke__name">{elements[index].species_name}</div>
                                                         </div>
+                                                        
                                                         {elements[index + 1] && <ArrowRightAltIcon className="arrow__right"></ArrowRightAltIcon>}
                                                     </div>
                                                 </Delayed>

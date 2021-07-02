@@ -193,9 +193,9 @@ html[data-theme=dark] {
 	cursor: pointer;
 }
 
-.evolution__img__div:hover {
+/* .evolution__img__div:hover {
 	transform: scale(1.05);
-}
+} */
 
 .evolution__img__div {
 	height: 113px;
