@@ -26,7 +26,7 @@ const list = {
     },
 }
 
-const itemm = {
+const items = {
     visible: { opacity: 1, x: 0 },
     hidden: { opacity: 0, x: -150 },
 }
@@ -520,7 +520,7 @@ class App extends React.Component {
                                         animate="visible"
                                         variants={list}>
                                         {Object.keys(this.state.allPokemons).map((item) =>
-                                            <motion.li variants={itemm}>
+                                            <motion.li variants={items}>
                                                 <Pokemon
                                                     key={this.state.allPokemons[item].id}
                                                     id={this.state.allPokemons[item].id}
