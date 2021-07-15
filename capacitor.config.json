@@ -1,0 +1,6 @@
+{
+  "appId": "app.netlify.pokedexreactmui",
+  "appName": "pokedexreactmui",
+  "webDir": "build",
+  "bundledWebRuntime": false
+}
