@@ -22,7 +22,11 @@
 Demo gif
 
 ![demo-gif](./public/screenshots/pokedex-demo.gif)
+
+Example using full pokemon description
 ![arcanine-example](./public/screenshots/arcanine-example.gif)
+
+Example finding unknown pokemon
 ![goldeen-example](./public/screenshots/goldeen-example.gif)
 
 
