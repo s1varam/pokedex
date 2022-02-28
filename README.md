@@ -22,8 +22,8 @@
 Demo gif
 
 ![demo-gif](./public/screenshots/pokedex-demo.gif)
-![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/26935099/156073107-2feff227-cb7a-405d-b105-fd34f5b20100.gif)
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/26935099/156074257-fe64778c-c470-4ad1-bc24-891dfa52b271.gif)
+![arcanine-example](./public/screenshots/arcanine-example.gif)
+![goldeen-example](./public/screenshots/goldeen-example.gif)
 
 
 ## Built With
@@ -31,6 +31,7 @@ Demo gif
 - React
 - Material-UI
 - PokéAPI
+- Watson Assistant
 
 ## Run locally
 
