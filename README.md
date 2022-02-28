@@ -1,6 +1,6 @@
 # PokéDex
 
- A simple Pokémon catalogue, built with [React](https://reactjs.org/), [Material-UI](https://material-ui.com/) and [PokéAPI](https://pokeapi.co/).
+ A simple Pokémon catalogue, built with [React](https://reactjs.org/), [Material-UI](https://material-ui.com/), [PokéAPI](https://pokeapi.co/), and [Watson Assistant](https://www.ibm.com/products/watson-assistant).
 
 ## Links
 
@@ -15,6 +15,7 @@
 - Scroll to top
 - Lazy loading of images
 - Responsive design
+- AI powered NLP search
 
 ## Snapshots
 
@@ -22,11 +23,19 @@ Demo gif
 
 ![demo-gif](./public/screenshots/pokedex-demo.gif)
 
+Example using full pokemon description
+![arcanine-example](./public/screenshots/arcanine-example.gif)
+
+Example finding unknown pokemon
+![goldeen-example](./public/screenshots/goldeen-example.gif)
+
+
 ## Built With
 
 - React
 - Material-UI
 - PokéAPI
+- Watson Assistant
 
 ## Run locally
 

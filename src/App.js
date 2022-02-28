@@ -8,6 +8,7 @@ import Footer from './components/Footer'
 import Loading from './components/Loading'
 import Filters from './components/Filters'
 import { motion } from "framer-motion"
+import MyFirstAssistant from './components/WatsonAssistant'
 
 const list = {
     visible: {
@@ -114,7 +115,22 @@ class App extends React.Component {
             sortby: [
                 "ID", "Name"
             ],
+        }
+    }
 
+    handleAssistantUpdate(obj){
+        // Ideally context variables would be used to get the Pokemon's name
+        const assistantTextResponse = obj.data.output.generic[0].text
+        if(assistantTextResponse){
+            const arr = assistantTextResponse.split(' ') // Grab pokemon name from Assistant response
+            if(arr.length === 3){ // Very lazy implementation. If Assistant response is exactly three words, assume Pokemon has been determined
+                for(let i = 0; i < this.state.allPokemons.length; i++) { // Loop through Pokemon array until name is found
+                    if(this.state.allPokemons[i].species.name + '?' === arr[2].toLowerCase()){
+                        this.fetchPokemonData(this.state.allPokemons[i].id, this.state.allPokemons[i].name, this.state.allPokemons[i].types, this.state.allPokemons[i].sprites.other.dream_world.front_default ? this.state.allPokemons[i].sprites.other.dream_world.front_default : this.state.allPokemons[i].sprites.other['official-artwork'].front_default)
+                        break
+                    }   
+                }
+            }
         }
     }
 
@@ -545,6 +561,7 @@ class App extends React.Component {
                             }
                         </div>
                     </div>
+                    <MyFirstAssistant eventHandler={this.handleAssistantUpdate.bind(this)}/>
                     {this.state.noDataFound && <div className="no__data noselect">
                         No such Pokémon in this region :/
                     </div>}
